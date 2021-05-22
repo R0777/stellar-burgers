@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'Iceland', 'Helvetica', sans-serif;
+  font-display: swap;
+  src: url('./Iceland/Iceland.woff') format("woff"),
+  url('./Iceland/Iceland.ttf') format("ttf")
+}
+
+@font-face {
+  font-family: 'Jetbrains-bold', 'Arial', sans-serif;
+  font-display: swap;
+  src: url('./JetBrains/JetBrainsMono-Bold.woff') format("woff"),
+  url('./JetBrains/JetBrainsMono-Bold.ttf') format("ttf")
+}
+
+@font-face {
+  font-family: 'Jetbrains', 'Arial', sans-serif;
+  font-display: swap;
+  src: url('./JetBrains/JetBrainsMono-Regular.woff') format("woff"),
+  url('./JetBrains/JetBrainsMono-Regular.ttf') format("ttf")
+}
