@@ -8,13 +8,16 @@ import styles from './app-header.module.css';
 const AppHeader = () => {
   return (
       <header style={{backgroundColor: '#1C1C21'}} className={styles.header}>
-        <nav className={styles.nav}>
-          <ul className={styles.list}>
-          <BurgerIcon type="secondary" /><li className={styles.list_item}>Конструктор</li>
-          <ListIcon type="secondary" /><li className={styles.list_item}>Лента заказов</li>
-          </ul>
+        <nav className={styles.header__nav}>
+          <ul className={styles.nav__list}>
+          <div className={styles.nav__list_block}>
+            <li className={styles.nav__list_item}><BurgerIcon type="secondary" />Конструктор</li>
+            <li className={styles.nav__list_item}><ListIcon type="secondary" />Лента заказов</li>
+          </div>
           <Logo />
-          <button className={styles.loginBtn}><ProfileIcon type="secondary" />Личный кабинет</button>
+            <li className={styles.nav__list_item}><ProfileIcon type="secondary" />Личный кабинет</li>
+          </ul>
+          
         </nav>
       </header>
   );
