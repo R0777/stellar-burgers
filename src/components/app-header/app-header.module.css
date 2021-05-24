@@ -152,7 +152,7 @@
 
   .header__btn_burger:checked~.header__btn_menu>span::before {
     top: 0;
-    transform: rotate(90deg);
+    transform: rotate(-90deg);
     transition: all .2s linear;
   }
 
