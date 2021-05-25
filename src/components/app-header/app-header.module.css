@@ -23,6 +23,16 @@
   align-items: center;
 }
 
+.nav__list_title {
+  display: none;
+  color: #f2f2f3;
+  font-size: 28px;
+  line-height: 32px;
+  align-self: flex-start;
+  justify-content: left;
+  font-family: 'Jetbrains-bold', 'Arial', sans-serif;
+}
+
 .nav__list_item:last-of-type {
   margin-left: auto;
   }
@@ -55,7 +65,7 @@
   left: calc(50% - 145px);
 }
 
-.header__btn_burger {
+.header__btn_burger, .header__btn_login {
   display: none;
 }
 
@@ -92,6 +102,10 @@
     text-align: center;
     background-color: #1A1B22;
     box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
+  }
+
+  .nav__login_list {
+    display: none;
   }
 
   .nav__list_item:nth-of-type(2) {
@@ -177,21 +191,87 @@
 
 @media screen and (max-width: 550px) {
 
+  .header__btn_login {
+    display: flex;
+  }
+
+  .nav__login_list {
+    
+    flex-wrap: wrap;
+    color: #f2f2f3;
+    flex-direction: column;
+    order: 1;
+    list-style: none;
+    align-items: flex-start;
+    width: 100%;
+    margin: 0;
+    padding: 20px 15px 10px;
+    background-color: #1A1B22;
+
+  }
+
+  .nav__list_item:last-of-type::after {
+    content: '';
+    position: absolute;
+    background: url(../../images/arrow.svg)no-repeat;
+    width: 12px;
+    height: 6px;
+    display: block;
+    right: 10px;
+  }
+
+  .nav__list_title {
+    display: block;
+  }
+
   .header__nav {
     height: 64px;
   }
 
   .nav__list {
     flex-direction: column;
+    position: absolute;
   }
 
   .nav__list {
-    padding: 250px 0 24px 10px;
+    padding: 16px 0 24px 10px;
   }
 
   .nav__list_item {
     width: 100%;
     padding: 13px 0;
+  }
+
+  .logo > svg {
+    display: none;
+  }
+
+  .logo {
+    position: initial;
+    background: url('../../images/logo-mobile.svg')no-repeat;
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
+  }
+
+  .header__btn_menu {
+    top: 27px
+  }
+
+
+
+
+  .header__btn_login:checked~.nav__list_item:last-of-type::after {
+    top: 0;
+    transform: rotate(180deg);
+    transition: all .2s linear;
+  }
+
+  .header__btn_login:checked~.header__label_login {
+    opacity: 1;
+    display: flex;
+    justify-content: space-between;
+    transition: opacity .3s ease-in-out;
   }
 }
 
