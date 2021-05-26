@@ -9,7 +9,7 @@ const App = () => {
   return (
     <>
       <AppHeader />
-      <main>
+      <main className={styles.main}>
         <BurgerIngredients />
         <BurgerConstaructor />
       </main>
