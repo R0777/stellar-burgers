@@ -1,0 +1,48 @@
+.bulka__section {
+  width: 600px;
+  position: relative
+}
+
+.bulka__title {
+font-size: 24px;
+font-family: 'Jetbrains-bold','Arial', sans-serif;
+}
+
+.bulka__grid {
+  display: grid;
+  justify-content: center;
+    grid-gap: 24px 56px;
+    grid-template-columns: repeat(auto-fit,272px);
+    grid-template-rows: repeat(auto-fit,minmax(208px,1fr))
+}
+
+.currency__info {
+  display: flex;
+  margin: 0 auto;
+  font-family: 'Iceland', 'Helvetica', sans-serif;
+  font-size: 28px;
+  line-height: 24px;
+  width: 61px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bulka__card {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.bulka__info {
+  text-align: center;
+}
+
+.currency__icon {
+  margin-left: 9px;
+}
+
+.bulka__counter {
+  position: absolute;
+  right: 8px;
+  top: 0;
+}

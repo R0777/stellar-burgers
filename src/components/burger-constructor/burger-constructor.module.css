@@ -37,7 +37,7 @@
 }
 
 .constructor__section {
-  width: 600px;
+  max-width: 600px;
 }
 
 .constructor__list_item {
