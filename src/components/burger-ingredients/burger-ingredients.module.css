@@ -1,6 +1,3 @@
-.ingredients__section {
-
-}
 
 .ingredients__list::-webkit-scrollbar-button {
   background-image: url('');
@@ -33,7 +30,12 @@
 
 .ingredients__list {
   height: 656px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.tab__menu > div  {
+  width: 33.3333%
 }
 
 .ingredients__title {
@@ -41,4 +43,47 @@
   line-height: 40px;
   font-family: 'Jetbrains-bold', 'Arial', sans-serif;
   padding: 40px 0 20px;
+}
+
+.bulka__section {
+  width: 600px;
+  padding-top: 40px;
+  position: relative
+}
+
+.bulka__title {
+font-size: 24px;
+font-family: 'Jetbrains-bold','Arial', sans-serif;
+}
+
+.bulka__grid {
+  display: grid;
+  justify-content: center;
+    grid-gap: 24px 56px;
+    grid-template-columns: repeat(auto-fit,272px);
+    grid-template-rows: repeat(auto-fit,minmax(208px,1fr))
+}
+
+.sous__section {
+  composes: bulka__section
+}
+
+.sous__title {
+  composes: bulka__title
+}
+
+.sous__grid {
+  composes: bulka__grid
+}
+
+.kotleta__section {
+  composes: bulka__section
+}
+
+.kotleta__title {
+  composes: bulka__title
+}
+
+.kotleta__grid {
+  composes: bulka__grid
 }

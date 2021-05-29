@@ -1,18 +1,13 @@
 import React from 'react';
 import AppHeader from '../app-header/app-header';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import BurgerConstaructor from '../burger-constructor/burger-constructor';
+import Main from '../main/main';
 import Footer from '../footer/footer';
-import styles from './app.module.css';
 
 const App = () => {
   return (
     <>
       <AppHeader />
-      <main className={styles.main}>
-        <BurgerIngredients />
-        <BurgerConstaructor />
-      </main>
+      <Main />
       <Footer />
     </>
   );

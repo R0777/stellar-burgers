@@ -1,9 +1,9 @@
-@import url(./vendor/normalize.css);
-@import url(./vendor/fonts/fonts.css);
-@import url(./components/app/app.module.css);
-@import url(./components/app-header/app-header.module.css);
-@import url(./components/burger-constructor/burger-constructor.module.css);
-@import url(./components/burger-ingredients/burger-ingredients.module.css);
+@import url('./vendor/normalize.css');
+@import url('./vendor/fonts/fonts.css');
+@import url('./components/main/main.module.css');
+@import url('./components/app-header/app-header.module.css');
+@import url('./components/burger-constructor/burger-constructor.module.css');
+@import url('./components/burger-ingredients/burger-ingredients.module.css');
 
 * {
   margin: 0;
