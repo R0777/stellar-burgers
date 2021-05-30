@@ -4,8 +4,6 @@ import styles from './app-header.module.css';
 
 const AppHeader = () => {
 
-
-
   return (
       <header className={styles.header}>
         <nav className={styles.header__nav}>
