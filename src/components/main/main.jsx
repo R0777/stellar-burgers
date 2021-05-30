@@ -8,10 +8,8 @@ import { data } from '../../utils/data';
 
 // interface Food {
 // food: {
-  
 // }
 // }
-
 const Main = () => {
 
   const [acceptPopupOpen, setAcceptPopupOpen] = useState(false)
