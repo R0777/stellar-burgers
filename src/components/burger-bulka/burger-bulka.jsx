@@ -2,17 +2,17 @@ import React from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-bulka.module.css';
 
-interface Props {
-  key: string,
-  image: string,
-  price: number,
-  name: string
-}
+// interface Props {
+//   key: string,
+//   image: string,
+//   price: number,
+//   name: string
+// }
 
-const BurgerBulka: React.FC<Props> = (props) => {
+const BurgerBulka = (props) => {
 
   return (
-        <li key={props.key} className={styles.bulka_item}>
+        <li key={props.key} className={styles.bulka_item} onClick={props.openIngredientPopup}>
         <figure className={styles.bulka__card}>
         <div className={styles.bulka__counter}><Counter count={1} size="default" /></div>
           <img src={props.image} alt={props.name} />

@@ -2,19 +2,20 @@ import React from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-kotleta.module.css';
 
-interface Props {
-  key: string,
-  type: string,
-  _id: string,
-  image: string,
-  price: number,
-  name: string
-}
+// interface Props {
+//   key: string,
+//   type: string,
+//   _id: string,
+//   image: string,
+//   price: number,
+//   name: string,
+//   handleOpenPopup: Function
+// }
 
-const BurgerKotleta: React.FC<Props> = (props) => {
+const BurgerKotleta = (props) => {
 
   return (
-    <li key={props.key} className={styles.kotleta_item}>
+    <li key={props.key} className={styles.kotleta_item} onClick={props.openIngredientPopup}>
     <figure className={styles.kotleta__card}>
     <div className={styles.kotleta__counter}><Counter count={1} size="default" /></div>
       <img src={props.image} alt={props.name} />

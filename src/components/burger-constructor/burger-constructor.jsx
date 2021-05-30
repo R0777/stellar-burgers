@@ -31,7 +31,7 @@ const getPosition = (arr, item) => {
         <div className={styles.constructror__currency_box}>
           <p className={styles.constructor__currency}>6275</p>
           <div className={styles.constructror__currency_icon}><CurrencyIcon type="primary" /></div>
-          <div className={styles.constructror__currency_btn}><Button type="primary" size="large">Оформить заказ</Button></div>
+          <div className={styles.constructror__currency_btn} onClick={props.openAcceptPopup}><Button type="primary" size="large">Оформить заказ</Button></div>
         </div>
 
       </section>

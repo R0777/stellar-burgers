@@ -5,15 +5,17 @@ import BurgerBulka from '../burger-bulka/burger-bulka';
 import BurgerSous from '../burger-sous/burger-sous';
 import BurgerKotleta from '../burger-kotleta/burger-kotleta';
 
-interface Props {
-  food: []
-}
+// interface Props {
+//   food: [],
+//   handleOpenPopup: Function
+// }
 
-const BurgerIngredients: React.FC<Props> = (props) => {
+const BurgerIngredients = (props) => {
 
 const [bulka, setBulka] = useState([])
 const [kotleta, setKotleta] = useState([])
 const [sous, setSous] = useState([])
+
 
 
   useEffect(() => {
@@ -27,21 +29,20 @@ const [sous, setSous] = useState([])
 
   const [current, setCurrent] = React.useState('Булки')
 
-const bulkaParcer = (items: {food: []}) => {
-  console.log(items)
-  const bred = items.food.filter((el: {type: string}) => { return el.type === 'bun' })
+const bulkaParcer = (items => {
+  const bred = items.food.filter(el => { return el.type === 'bun' })
   setBulka(bred)
-  }
+  })
 
-  const kotletaParcer = (items: {food: []}) => {
-    const kotleta = items.food.filter((el: {type: string}) => { return el.type === 'main' })
+  const kotletaParcer = (items => {
+    const kotleta = items.food.filter(el => { return el.type === 'main' })
     setKotleta(kotleta)
-  }
+  })
 
-  const sousParcer = (items: {food: []}) => {
-    const sous = items.food.filter((el: {type: string}) => { return el.type === 'sauce' })
+  const sousParcer = (items => {
+    const sous = items.food.filter(el => { return el.type === 'sauce' })
     setSous(sous)
-  }
+  })
 
   return (
   <section className={styles.ingredients__section}>
@@ -61,14 +62,14 @@ const bulkaParcer = (items: {food: []}) => {
     <div className={styles.bulka__section}>
       <h3 className={styles.bulka__title}>Булки</h3>
       <ul className={styles.bulka__grid}>
-      {bulka.map((item: {_id: string, price: number, image: string, name: string}) => <BurgerBulka key={item._id} {...item} />)}
+      {bulka.map(item => <BurgerBulka key={item._id} {...item} openIngredientPopup={props.openIngredientPopup} />)}
       </ul>
     </div>
 
     <div className={styles.sous__section}>
       <h3 className={styles.sous__title}>Соусы</h3>
       <ul className={styles.sous__grid}>
-      {sous.map((item: {_id: string, price: number, image: string, name: string, type: string}) => <BurgerSous key={item._id} {...item} />)}
+      {sous.map(item => <BurgerSous key={item._id} {...item} openIngredientPopup={props.openIngredientPopup} />)}
       
       </ul>
     </div>
@@ -76,7 +77,7 @@ const bulkaParcer = (items: {food: []}) => {
     <div className={styles.kotleta__section}>
       <h3 className={styles.kotleta__title}>Начинки</h3>
       <ul className={styles.kotleta__grid}>
-      {kotleta.map((item: {_id: string, price: number, image: string, name: string, type: string}) => <BurgerKotleta key={item._id} {...item} />)}
+      {kotleta.map(item => <BurgerKotleta key={item._id} {...item} openIngredientPopup={props.openIngredientPopup} />)}
       </ul>
     </div>
   </div>
