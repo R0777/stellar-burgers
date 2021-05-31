@@ -1,0 +1,67 @@
+.constructor__list::-webkit-scrollbar-button {
+  background-image: url('');
+  background-repeat: no-repeat;
+  width: 8px;
+}
+
+.constructor__list::-webkit-scrollbar-track {
+  background-color: #2F2F37;
+  
+}
+
+.constructor__list::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  height: 292px;
+  background-color: #8585AD
+}
+
+.constructor__list::-webkit-resizer {
+  background-image: url('');
+  background-repeat: no-repeat;
+  width: 4px;
+  height: 0
+}
+
+.constructor__list::-webkit-scrollbar {
+  width: 8px;
+  height: 464px
+}
+
+
+.constructor__list {
+  list-style: none;
+  height: 656px;
+  display: flex;
+  overflow: auto;
+  margin: 100px 40px 40px;
+}
+
+.constructor__section {
+  max-width: 600px;
+}
+
+.constructor__currency {
+  font-family: 'Iceland', 'Helvetica', sans-serif;
+  font-size: 48px;
+  line-height: 36px;
+  justify-self: flex-end;
+}
+
+.constructror__currency_icon>svg {
+  width: 33px;
+  height: 33px;
+  margin-left: 10px;
+}
+
+.constructror__currency_box {
+  display: grid;
+  justify-self: flex-end;
+  align-items: center;
+  padding-right: 40px;
+  grid-template-columns: auto 43px 255px;
+}
+
+.constructror__currency_btn {
+  margin-left: auto;
+}

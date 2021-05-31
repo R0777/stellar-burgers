@@ -1,13 +1,23 @@
-body {
+@import url('./vendor/normalize.css');
+@import url('./vendor/fonts/fonts.css');
+@import url('./components/main/main.module.css');
+@import url('./components/app-header/app-header.module.css');
+@import url('./components/burger-constructor/burger-constructor.module.css');
+@import url('./components/burger-ingredients/burger-ingredients.module.css');
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.page {
+  width: 100%;
+  height: 100vh;
+  background: #131316;
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  font-family: 'Jetbrains', 'Arial', sans-serif;
+  text-rendering: optimizeLegibility;
 }

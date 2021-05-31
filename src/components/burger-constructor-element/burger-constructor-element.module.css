@@ -1,0 +1,17 @@
+.constructor__list_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.constructor__list_item > span[class="constructor-element__text"] {
+  max-height: 48px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+}
+
+.constructor-element__text {
+  height: 80px;
+}
