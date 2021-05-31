@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstaructorElement from '../burger-constructor-element/burger-constructor-element'
 import styles from './burger-constructor.module.css';
@@ -7,9 +8,9 @@ import styles from './burger-constructor.module.css';
 //   food: [],
 // }
 
-const BurgerConstaructor = (props) => {
+const BurgerConstaructor = (props: any) => {
 
-const getPosition = (arr, item) => {
+const getPosition = (arr:any, item:any) => {
   if (arr.indexOf(item) === 0) {
     return 'top'
   }
@@ -25,7 +26,7 @@ const getPosition = (arr, item) => {
 
         <ul style={{ display: 'flex', flexDirection: 'column', rowGap: '16px' }} className={styles.constructor__list}>
 
-        {props.food.map(item => <BurgerConstaructorElement count={getPosition(props.food, item)} key={item._id} {...item} />)}
+        {props.data.map((item:any) => <BurgerConstaructorElement count={getPosition(props.data, item)} key={item._id} {...item} />)}
 
         </ul>
         <div className={styles.constructror__currency_box}>
@@ -36,6 +37,25 @@ const getPosition = (arr, item) => {
 
       </section>
   );
+}
+
+BurgerConstaructor.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    proteins: PropTypes.number.isRequired,
+    fat: PropTypes.number.isRequired,
+    carbohydrates: PropTypes.number.isRequired,
+    calories: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    image_mobile: PropTypes.string.isRequired,
+    image_large: PropTypes.string.isRequired,
+    __v: PropTypes.number,
+    openAcceptPopup: PropTypes.func
+  })),
+  
 }
 
 export default BurgerConstaructor;

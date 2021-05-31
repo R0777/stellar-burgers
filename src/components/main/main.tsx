@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types'
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstaructor from '../burger-constructor/burger-constructor';
 import AcceptPopup from '../accept-popup/accept-popup';
@@ -20,12 +21,9 @@ const Main = () => {
     setAcceptPopupOpen(true)
   }
 
-  const openIngredientPopup = async (ingredients) => {
+  const openIngredientPopup = (ingredients: any) => {
     setIngredients(ingredients)
-      const food = await ingredients
-      console.log(food)  
-    await setIngredientPopupOpen(true)
-    
+    setIngredientPopupOpen(true)
   }
 
   const closeAllPopups = () => {
@@ -37,11 +35,11 @@ const Main = () => {
     <main className={styles.main}>
 
     <BurgerIngredients 
-      food={data} 
+      data={data} 
       openIngredientPopup={openIngredientPopup} />
 
     <BurgerConstaructor 
-      food={data} 
+      data = {data} 
       openAcceptPopup={openAcceptPopup} />
 
     <AcceptPopup 
@@ -55,6 +53,25 @@ const Main = () => {
 
   </main>
   );
+}
+
+Main.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    proteins: PropTypes.number.isRequired,
+    fat: PropTypes.number.isRequired,
+    carbohydrates: PropTypes.number.isRequired,
+    calories: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    image_mobile: PropTypes.string.isRequired,
+    image_large: PropTypes.string.isRequired,
+    __v: PropTypes.number,
+    openAcceptPopup: PropTypes.func
+  })),
+  
 }
 
 export default Main;
