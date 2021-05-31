@@ -12,10 +12,23 @@ import styles from './burger-kotleta.module.css';
 //   handleOpenPopup: Function
 // }
 
-const BurgerKotleta = (props) => {
+const BurgerKotleta = ({openIngredientPopup, ...props}) => {
+
+  const ingredient = {
+    img: props.image_large,
+    name: props.name,
+    cal: props.calories,
+    prot: props.proteins,
+    fat: props.fat,
+    carb: props.carbohydrates
+    }
+    
+    const getIngredients = () => {
+      openIngredientPopup(ingredient)
+    }
 
   return (
-    <li key={props.key} className={styles.kotleta_item} onClick={props.openIngredientPopup}>
+    <li className={styles.kotleta_item} onClick={getIngredients}>
     <figure className={styles.kotleta__card}>
     <div className={styles.kotleta__counter}><Counter count={1} size="default" /></div>
       <img src={props.image} alt={props.name} />

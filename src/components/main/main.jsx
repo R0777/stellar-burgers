@@ -14,13 +14,18 @@ const Main = () => {
 
   const [acceptPopupOpen, setAcceptPopupOpen] = useState(false)
   const [ingredientPopupOpen, setIngredientPopupOpen] = useState(false)
+  const [ingredients, setIngredients] = useState()
 
   const openAcceptPopup = () => {
     setAcceptPopupOpen(true)
   }
 
-  const openIngredientPopup = () => {
-    setIngredientPopupOpen(true)
+  const openIngredientPopup = async (ingredients) => {
+    setIngredients(ingredients)
+      const food = await ingredients
+      console.log(food)  
+    await setIngredientPopupOpen(true)
+    
   }
 
   const closeAllPopups = () => {
@@ -44,6 +49,7 @@ const Main = () => {
       isClose={closeAllPopups} />
 
     <IngredientPopup 
+      foodDetails = {ingredients}
       isOpen={ingredientPopupOpen} 
       isClose={closeAllPopups} />
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-bulka.module.css';
 
@@ -9,10 +9,25 @@ import styles from './burger-bulka.module.css';
 //   name: string
 // }
 
-const BurgerBulka = (props) => {
+
+
+const BurgerBulka = ({openIngredientPopup, ...props}) => {
+
+const ingredient = {
+img: props.image_large,
+name: props.name,
+cal: props.calories,
+prot: props.proteins,
+fat: props.fat,
+carb: props.carbohydrates
+}
+
+const getIngredients = () => {
+  openIngredientPopup(ingredient)
+}
 
   return (
-        <li key={props.key} className={styles.bulka_item} onClick={props.openIngredientPopup}>
+        <li className={styles.bulka_item} onClick={getIngredients}>
         <figure className={styles.bulka__card}>
         <div className={styles.bulka__counter}><Counter count={1} size="default" /></div>
           <img src={props.image} alt={props.name} />

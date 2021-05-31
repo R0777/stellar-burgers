@@ -11,6 +11,7 @@
 
 .sous_item {
   list-style: none;
+  cursor: pointer;
 }
 
 .sous__card {

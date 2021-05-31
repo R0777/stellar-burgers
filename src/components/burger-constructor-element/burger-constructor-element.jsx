@@ -12,9 +12,9 @@ import styles from './burger-constructor-element.module.css';
 
 const BurgerConstaructorElement = (props) => {
   return (
-    <li className={styles.constructor__list_item} key={props.key}><div><DragIcon type="primary" /></div><ConstructorElement
+    <li className={styles.constructor__list_item}><div><DragIcon type="primary" /></div><ConstructorElement
     type={props.count}
-    isLocked={true}
+    isLocked={((props.count === 'top') || (props.count ==='bottom')) ? true: undefined}
     text={props.name}
     price={props.price}
     thumbnail={props.image}
