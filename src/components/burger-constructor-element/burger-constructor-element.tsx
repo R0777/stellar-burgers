@@ -11,7 +11,7 @@ import styles from './burger-constructor-element.module.css';
 //   count: string
 // }
 
-const BurgerConstaructorElement = (props:any) => {
+const BurgerConstructorElement = (props:any) => {
   return (
     <li className={styles.constructor__list_item}><div><DragIcon type="primary" /></div><ConstructorElement
     type={props.count}
@@ -23,7 +23,7 @@ const BurgerConstaructorElement = (props:any) => {
   );
 }
 
-BurgerConstaructorElement.propTypes = {
+BurgerConstructorElement.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -41,4 +41,4 @@ BurgerConstaructorElement.propTypes = {
   
 }
 
-export default BurgerConstaructorElement;
+export default BurgerConstructorElement;
