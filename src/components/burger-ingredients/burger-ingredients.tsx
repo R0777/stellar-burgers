@@ -20,11 +20,10 @@ const [sous, setSous] = useState([])
 
 
   useEffect(() => {
-  
     bulkaParcer(props);
     kotletaParcer(props);
     sousParcer(props);
-    }, []); 
+    }, [bulka, kotleta, sous]); 
 
 
 

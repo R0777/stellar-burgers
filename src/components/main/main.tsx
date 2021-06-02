@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types'
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstaructor from '../burger-constructor/burger-constructor';
 import AcceptPopup from '../accept-popup/accept-popup';
 import IngredientPopup from '../ingredient-popup/ingredient-popup';
 import styles from './main.module.css';
-import { data } from '../../utils/data';
+//import { data } from '../../utils/data';
 
 // interface Food {
 // food: {
@@ -16,6 +16,18 @@ const Main = () => {
   const [acceptPopupOpen, setAcceptPopupOpen] = useState(false)
   const [ingredientPopupOpen, setIngredientPopupOpen] = useState(false)
   const [ingredients, setIngredients] = useState()
+  const [data, setData] = useState([])
+
+
+useEffect(() => {
+  const getApiIngredients = async() => {
+  const res = await fetch(`https://norma.nomoreparties.space/api/ingredients`);
+  const ingredients = await res.json();
+  setData(ingredients.data)
+  }
+  getApiIngredients()
+}, []);
+
 
   const openAcceptPopup = () => {
     setAcceptPopupOpen(true)
