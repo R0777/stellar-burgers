@@ -19,18 +19,22 @@ const Main = () => {
   const [data, setData] = useState([])
 
 
-useEffect(() => {
-  const getApiIngredients = async() => {
-    try {
-      const res = await fetch(`https://norma.nomoreparties.space/api/ingredients`);
-      const ingredients = await res.json();
-      setData(ingredients.data)
-    } catch (error) {
-      console.log(error)
+  useEffect(() => {
+    const getApiIngredients = async() => {
+      try {
+        const urlApi = 'https://norma.nomoreparties.space/api/ingredients'
+        const res = await fetch(urlApi);
+        if (!res.ok) {
+          throw new Error('Что-то сломалось');
+        }
+        const ingredients = await res.json();
+        setData(ingredients.data)
+      } catch (error) {
+        console.log(error)
+      }
     }
-  }
-  getApiIngredients()
-}, []);
+    getApiIngredients()
+  }, []);
 
 
   const openAcceptPopup = () => {
