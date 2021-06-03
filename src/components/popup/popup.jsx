@@ -4,8 +4,20 @@ import styles from './popup.module.css'
 
 const Popup = (props) => {
 
+const handleClick = (ev) => {
+    if (ev.nativeEvent.target !== ev.nativeEvent.currentTarget) {
+        return
+    }
+    props.isClose()
+}
+
+
+
+
+
+
     return (
-        <section className={props.isOpen ? styles.popup_active : styles.popup}>
+        <section className={props.isOpen ? styles.popup_active : styles.popup} onClick={handleClick}>
             <div className={styles.popup__block}>
                 <button className={styles.popup__close} type="button" onClick={props.isClose}><CloseIcon type="primary" /></button>
                 

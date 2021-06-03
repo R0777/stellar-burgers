@@ -16,18 +16,18 @@ const BurgerIngredients = (props: any) => {
 const [bulka, setBulka] = useState([])
 const [kotleta, setKotleta] = useState([])
 const [sous, setSous] = useState([])
-
+const [current, setCurrent] = useState('Булки')
 
 
   useEffect(() => {
     bulkaParcer(props);
     kotletaParcer(props);
     sousParcer(props);
-    }, [bulka, kotleta, sous]); 
+    }, [props]); 
 
 
 
-  const [current, setCurrent] = React.useState('Булки')
+
 
 const bulkaParcer = ((items:any) => {
   const bred = items.data.filter((el:any) => { return el.type === 'bun' })

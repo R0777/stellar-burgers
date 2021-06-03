@@ -21,9 +21,13 @@ const Main = () => {
 
 useEffect(() => {
   const getApiIngredients = async() => {
-  const res = await fetch(`https://norma.nomoreparties.space/api/ingredients`);
-  const ingredients = await res.json();
-  setData(ingredients.data)
+    try {
+      const res = await fetch(`https://norma.nomoreparties.space/api/ingredients`);
+      const ingredients = await res.json();
+      setData(ingredients.data)
+    } catch (error) {
+      console.log(error)
+    }
   }
   getApiIngredients()
 }, []);
