@@ -1,15 +1,32 @@
-import React from 'react';
+import React, {useEffect, useCallback} from 'react';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './popup.module.css'
 
 const Popup = (props) => {
 
 const handleClick = (ev) => {
-    if (ev.nativeEvent.target !== ev.nativeEvent.currentTarget) {
+    if (ev.target !== ev.currentTarget) {
         return
     }
     props.isClose()
 }
+
+
+const handleEscape = useCallback((event) => {
+  if(event.keyCode === 27) {
+      props.isClose()
+  }
+}, []);
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleEscape, false);
+    document.addEventListener("keydown", handleClick, false);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape, false);
+      document.removeEventListener("keydown", handleClick, false);
+    };
+  }, []);
 
 
 
