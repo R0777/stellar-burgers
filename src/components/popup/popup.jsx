@@ -28,11 +28,6 @@ const handleEscape = useCallback((event) => {
     };
   }, []);
 
-
-
-
-
-
     return (
         <section className={props.isOpen ? styles.popup_active : styles.popup} onClick={handleClick}>
             <div className={styles.popup__block}>
