@@ -15,7 +15,6 @@ const BurgerConstructorElement = (props:any) => {
   return (
     <li className={styles.constructor__list_item}><div><DragIcon type="primary" /></div><ConstructorElement
     type={props.count}
-    isLocked={((props.count === 'top') || (props.count ==='bottom')) ? true : undefined}
     text={props.name}
     price={props.price}
     thumbnail={props.image}

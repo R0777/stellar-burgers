@@ -1,81 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types'
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstaructor from '../burger-constructor/burger-constructor';
-import AcceptPopup from '../accept-popup/accept-popup';
-import IngredientPopup from '../ingredient-popup/ingredient-popup';
 import styles from './main.module.css';
-//import { data } from '../../utils/data';
-
-// interface Food {
-// food: {
-// }
-// }
-const Main = () => {
-
-  const [acceptPopupOpen, setAcceptPopupOpen] = useState(false)
-  const [ingredientPopupOpen, setIngredientPopupOpen] = useState(false)
-  const [ingredients, setIngredients] = useState()
-  const [data, setData] = useState([])
 
 
-  useEffect(() => {
-    const getApiIngredients = async() => {
-      try {
-        const urlApi = 'https://norma.nomoreparties.space/api/ingredients'
-        const res = await fetch(urlApi);
-        if (!res.ok) {
-          throw new Error('Что-то сломалось');
-        }
-        const ingredients = await res.json();
-        setData(ingredients.data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getApiIngredients()
-  }, []);
-
-
-  const openAcceptPopup = () => {
-    setAcceptPopupOpen(true)
-  }
-
-  const openIngredientPopup = (ingredients: any) => {
-    setIngredients(ingredients)
-    setIngredientPopupOpen(true)
-  }
-
-  const closeAllPopups = () => {
-    setAcceptPopupOpen(false)
-    setIngredientPopupOpen(false)
-}
+const Main = (props: any) => {
 
   return (
     <main className={styles.main}>
 
     <BurgerIngredients 
-      data={data} 
-      openIngredientPopup={openIngredientPopup} />
+      data={props.data} 
+      openIngredientPopup={props.openIngredientPopup} />
 
     <BurgerConstaructor 
-      data = {data} 
-      openAcceptPopup={openAcceptPopup} />
-
-    <AcceptPopup 
-      isOpen={acceptPopupOpen} 
-      isClose={closeAllPopups} />
-
-    <IngredientPopup 
-      foodDetails = {ingredients}
-      isOpen={ingredientPopupOpen} 
-      isClose={closeAllPopups} />
-
+      data = {props.data} 
+      openAcceptPopup={props.openAcceptPopup} />
   </main>
   );
 }
 
 Main.propTypes = {
+  openAcceptPopup: PropTypes.func,
+  openIngredientPopup: PropTypes.func,
   data: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -89,7 +37,6 @@ Main.propTypes = {
     image_mobile: PropTypes.string.isRequired,
     image_large: PropTypes.string.isRequired,
     __v: PropTypes.number,
-    openAcceptPopup: PropTypes.func
   })),
   
 }

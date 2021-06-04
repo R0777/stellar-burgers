@@ -1,33 +1,53 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, CurrencyIcon, DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorElement from '../burger-constructor-element/burger-constructor-element'
 import styles from './burger-constructor.module.css';
+import { data } from '../../utils/data';
+//import {data} from '../../utils/data'
 
-// interface Props {
-//   food: [],
-// }
+
 
 const BurgerConstructor = (props: any) => {
 
-const getPosition = (arr:any, item:any) => {
-  if (arr.indexOf(item) === 0) {
-    return 'top'
-  }
-  else if (arr.indexOf(item) === arr.length - 1) {
-    return 'bottom'
-  }
-  else return undefined
-}
+// const [hleb, setHleb] = useState<any[]>([])
+
+
+//   useEffect(() => {
+//     console.log(props)
+//     setHleb(props)
+//     }, [props]); 
+
+
+
+  // const hlebParcer = ((items:any) => {
+  //   const bred = items.data.filter((el:any) => { return el.type === 'bun' })
+  //   setHleb(bred)
+  //   })
+
 
 
   return (
       <section className={styles.constructor__section}>
 
         <ul style={{ display: 'flex', flexDirection: 'column', rowGap: '16px' }} className={styles.constructor__list}>
-
-        {props.data.map((item:any) => <BurgerConstructorElement count={getPosition(props.data, item)} key={item._id} {...item} />)}
-
+        <li className={styles.constructor__list_top}><div><DragIcon type="primary" /></div><ConstructorElement
+    text={props.data[0]&&props.data[0].name}
+    price={props.data[0]&&props.data[0].price}
+    thumbnail={props.data[0]&&props.data[0].image}
+    isLocked = {true}
+    type="top"
+  /></li>
+        <div className={styles.constructor__list_middle}>
+        {props.data.map((item:any) => <BurgerConstructorElement key={item._id} {...item} />)}
+        </div>
+        <li className={styles.constructor__list_bottom}><div><DragIcon type="primary" /></div><ConstructorElement
+    type="bottom"
+    isLocked = {true}
+    text={props.data[data.length - 1]&&props.data[data.length - 1].name}
+    price={props.data[data.length - 1]&&props.data[data.length - 1].price}
+    thumbnail={props.data[data.length - 1]&&props.data[data.length - 1].image}
+  /></li>
         </ul>
         <div className={styles.constructror__currency_box}>
           <p className={styles.constructor__currency}>6275</p>

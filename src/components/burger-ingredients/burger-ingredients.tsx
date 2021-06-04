@@ -88,6 +88,7 @@ const bulkaParcer = ((items:any) => {
 
 BurgerIngredients.propTypes = {
   openIngredientPopup: PropTypes.func,
+  getBulka: PropTypes.func,
   data: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
