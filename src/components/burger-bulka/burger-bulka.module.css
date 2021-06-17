@@ -12,6 +12,7 @@
 
 .bulka_item {
   list-style: none;
+  cursor: pointer;
 }
 
 .bulka__card {

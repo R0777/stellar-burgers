@@ -3,7 +3,14 @@
   justify-content: space-between;
   align-items: center;
   margin-right: 8px;
+  margin-bottom: 16px;
 }
+
+.constructor__list_item:last-of-type {
+  margin-bottom: 0;
+}
+
+
 
 .constructor__list_item > span[class="constructor-element__text"] {
   max-height: 48px;

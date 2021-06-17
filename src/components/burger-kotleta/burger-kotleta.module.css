@@ -11,6 +11,7 @@
 
 .kotleta_item {
   list-style: none;
+  cursor: pointer;
 }
 
 .kotleta__card {

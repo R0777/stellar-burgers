@@ -1,29 +1,29 @@
-.constructor__list::-webkit-scrollbar-button {
+.constructor__list_middle::-webkit-scrollbar-button {
   background-image: url('');
   background-repeat: no-repeat;
   width: 8px;
 }
 
-.constructor__list::-webkit-scrollbar-track {
+.constructor__list_middle::-webkit-scrollbar-track {
   background-color: #2F2F37;
   
 }
 
-.constructor__list::-webkit-scrollbar-thumb {
+.constructor__list_middle::-webkit-scrollbar-thumb {
   -webkit-border-radius: 0px;
   border-radius: 0px;
   height: 292px;
   background-color: #8585AD
 }
 
-.constructor__list::-webkit-resizer {
+.constructor__list_middle::-webkit-resizer {
   background-image: url('');
   background-repeat: no-repeat;
   width: 4px;
   height: 0
 }
 
-.constructor__list::-webkit-scrollbar {
+.constructor__list_middle::-webkit-scrollbar {
   width: 8px;
   height: 464px
 }
@@ -33,9 +33,12 @@
   list-style: none;
   height: 656px;
   display: flex;
-  overflow: auto;
   margin: 100px 40px 40px;
 }
+
+.constructor__list_middle {
+  overflow: auto;
+} 
 
 .constructor__section {
   max-width: 600px;
@@ -64,4 +67,15 @@
 
 .constructror__currency_btn {
   margin-left: auto;
+}
+
+.constructor__list_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.constructor__list_bottom {
+  composes: constructor__list_top
 }

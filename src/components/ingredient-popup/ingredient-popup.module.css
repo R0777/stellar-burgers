@@ -1,0 +1,32 @@
+.popup__title {
+  color: #F2F2F3;
+  font-family: 'Jetbrains-bold', 'Arial', sans-serif;
+  font-size: 36px;
+  line-height: 40px;
+  width: 640px;
+}
+
+.ingredient__name {
+  padding: 16px 0 32px;
+  color: #F2F2F3;
+  font-size: 24px;
+  line-height: 30px;
+  font-family: 'Jetbrains-bold', 'Arial', sans-serif;
+}
+
+.ingredient__details {
+  display: flex;
+  justify-content: space-between;
+  color: #8585AD;
+  font-size: 16px;
+  line-height: 24px;
+  max-width: 520px;
+}
+
+.ingredient__details>p {
+  width: 120px;
+}
+
+.ingredient__details>p>span {
+  display: block;
+}
