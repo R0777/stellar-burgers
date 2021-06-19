@@ -3,29 +3,14 @@ import PropTypes from 'prop-types';
 import { Button, CurrencyIcon, DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorElement from '../burger-constructor-element/burger-constructor-element'
 import styles from './burger-constructor.module.css';
-import { data } from '../../utils/data';
-//import {data} from '../../utils/data'
+import { useSelector, useDispatch } from 'react-redux';
 
 
 
 const BurgerConstructor = (props: any) => {
 
-// const [hleb, setHleb] = useState<any[]>([])
 
-
-//   useEffect(() => {
-//     console.log(props)
-//     setHleb(props)
-//     }, [props]); 
-
-
-
-  // const hlebParcer = ((items:any) => {
-  //   const bred = items.data.filter((el:any) => { return el.type === 'bun' })
-  //   setHleb(bred)
-  //   })
-
-
+//const data = useSelector(store => store.data)
 
   return (
       <section className={styles.constructor__section}>
@@ -44,15 +29,15 @@ const BurgerConstructor = (props: any) => {
         <li className={styles.constructor__list_bottom}><div><DragIcon type="primary" /></div><ConstructorElement
     type="bottom"
     isLocked = {true}
-    text={props.data[data.length - 1]&&props.data[data.length - 1].name}
-    price={props.data[data.length - 1]&&props.data[data.length - 1].price}
-    thumbnail={props.data[data.length - 1]&&props.data[data.length - 1].image}
+    text={props.data[props.data.length - 1]&&props.data[props.data.length - 1].name}
+    price={props.data[props.data.length - 1]&&props.data[props.data.length - 1].price}
+    thumbnail={props.data[props.data.length - 1]&&props.data[props.data.length - 1].image}
   /></li>
         </ul>
         <div className={styles.constructror__currency_box}>
           <p className={styles.constructor__currency}>6275</p>
           <div className={styles.constructror__currency_icon}><CurrencyIcon type="primary" /></div>
-          <div className={styles.constructror__currency_btn} onClick={props.openAcceptPopup}><Button type="primary" size="large">Оформить заказ</Button></div>
+          <div className={styles.constructror__currency_btn}><Button type="primary" size="large">Оформить заказ</Button></div>
         </div>
 
       </section>

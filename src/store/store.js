@@ -1,13 +1,15 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import burgerStoreSlice from './slices'
+import { configureStore } from '@reduxjs/toolkit';
+import rootReducer from './slices'
 
-const rootReducer = (combineReducers({
-reducer: burgerStoreSlice
-}))
-
+// function loggerMiddleWare(store) {
+//   return function (next) {
+//     return function (action) {
+//       console.log(action);
+//       return next(action);
+//     };
+//   };
+// }; 
 
 export const store = configureStore({
   reducer: rootReducer,
-  // devTools: process.env.NODE_ENV !== 'production',
-  // preloadedState
-})
+});

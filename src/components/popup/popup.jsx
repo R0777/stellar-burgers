@@ -2,6 +2,7 @@ import React, {useEffect, useCallback} from 'react';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './popup.module.css'
 
+
 const Popup = (props) => {
 
 const handleClick = (ev) => {

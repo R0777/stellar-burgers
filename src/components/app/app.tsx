@@ -6,6 +6,9 @@ import Footer from '../footer/footer';
 import Modal from '../modal/modal'
 import AcceptPopup from '../accept-popup/accept-popup';
 import IngredientPopup from '../ingredient-popup/ingredient-popup';
+import { useDispatch } from 'react-redux';
+import { getData } from '../../store/slices/get-data-api'
+
 
 const App = () => {
 
@@ -15,23 +18,11 @@ const App = () => {
   const [ingredients, setIngredients] = useState()
   const [data, setData] = useState([])
 
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const getApiIngredients = async() => {
-      try {
-        const urlApi = 'https://norma.nomoreparties.space/api/ingredients'
-        const res = await fetch(urlApi);
-        if (!res.ok) {
-          throw new Error('Что-то сломалось');
-        }
-        const ingredients = await res.json();
-        setData(ingredients.data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getApiIngredients()
-  }, []);
+    dispatch(getData())
+  }, [dispatch]);
 
 
   const openAcceptPopup = () => {

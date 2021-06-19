@@ -4,6 +4,8 @@ import Popup from '../popup/popup'
 import styles from './accept-popup.module.css'
 
 const AcceptPopup = (props) => {
+
+
     return (
         <Popup
             isOpen={props.isOpen}
