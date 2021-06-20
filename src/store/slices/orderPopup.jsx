@@ -15,7 +15,7 @@ export const getOrderNumber = createAsyncThunk('order/getOrderNumber', async (in
     if(!res.ok) throw Error(res.statusText)
     res.json()
     .then(res => dispatch(setOrderNumer(res.order.number)))
-    .then(res => dispatch(popupToggle()))
+    .then(res => dispatch(orderPopupToggle(true)))
     })
 })
 
@@ -23,15 +23,17 @@ const orderPopup = createSlice({
   name: 'order',
   initialState: {
     togglePopup: false,
-    orderId: []
+    orderId: null
   },
   reducers: {
-    popupToggle(state) {
-      state.togglePopup = !(state.togglePopup)
+    orderPopupToggle(state, action) {
+      state.togglePopup = action.payload
     },
     setOrderNumer(state, action) {
       state.orderId = action.payload
-    }
+    },
+
+
   },
   extraReducers: {
     [getOrderNumber.pending]: (state, action) => {
@@ -49,4 +51,4 @@ const orderPopup = createSlice({
 })
 
 export default orderPopup.reducer
-export const {popupToggle, setOrderNumer} = orderPopup.actions
+export const { orderPopupToggle, setOrderNumer } = orderPopup.actions

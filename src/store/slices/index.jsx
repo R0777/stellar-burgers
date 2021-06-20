@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import dataSlice from './get-data-api';
 import getBred from './get-bulki';
-import ingredientsSlice from './get-api-ingredients';
+import ingredientsSlice from './ingredientPopup';
 import orderPopup from './orderPopup';
 
 const rootReducer = combineReducers({

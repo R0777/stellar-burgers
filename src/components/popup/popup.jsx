@@ -1,38 +1,50 @@
 import React, {useEffect, useCallback} from 'react';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './popup.module.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { orderPopupToggle } from '../../store/slices/orderPopup';
+
+
+
 
 
 const Popup = (props) => {
 
-const handleClick = (ev) => {
+  const dispatch = useDispatch()
+
+  const togglePopup = useSelector(state => state.order.togglePopup)
+
+  const handleClose = () => {
+  dispatch(props.isClose(false))
+}
+
+  const handleClick = useCallback((ev) => {
     if (ev.target !== ev.currentTarget) {
         return
     }
-    props.isClose()
-}
+    dispatch(props.isClose(false))
+},[props, dispatch])
 
-
-const handleEscape = useCallback((event) => {
+  const handleEscape = useCallback((event) => {
   if(event.keyCode === 27) {
-      props.isClose()
+    dispatch(props.isClose(false)) 
   }
-}, []);
+  }, [props, dispatch]);
 
   useEffect(() => {
     document.addEventListener("keydown", handleEscape, false);
-    document.addEventListener("keydown", handleClick, false);
+    document.addEventListener("click", handleClick, false);
 
     return () => {
       document.removeEventListener("keydown", handleEscape, false);
-      document.removeEventListener("keydown", handleClick, false);
+      document.removeEventListener("click", handleClick, false);
     };
-  }, []);
+  }, [handleClick, handleEscape]);
 
     return (
         <section className={props.isOpen ? styles.popup_active : styles.popup} onClick={handleClick}>
             <div className={styles.popup__block}>
-                <button className={styles.popup__close} type="button" onClick={props.isClose}><CloseIcon type="primary" /></button>
+                <button className={styles.popup__close} type="button" onClick={handleClose}><CloseIcon type="primary" /></button>
                 
                 {props.children&&props.children}
                 
