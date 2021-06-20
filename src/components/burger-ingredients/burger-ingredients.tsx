@@ -5,11 +5,8 @@ import styles from './burger-ingredients.module.css';
 import BurgerBulka from '../burger-bulka/burger-bulka';
 import BurgerSous from '../burger-sous/burger-sous';
 import BurgerKotleta from '../burger-kotleta/burger-kotleta';
-
-// interface Props {
-//   data: [],
-//   handleOpenPopup: Function
-// }
+import { useSelector, useDispatch } from 'react-redux';
+import { getBulki } from '../../store/slices/get-bulki'
 
 const BurgerIngredients = (props: any) => {
 
@@ -18,29 +15,28 @@ const [kotleta, setKotleta] = useState([])
 const [sous, setSous] = useState([])
 const [current, setCurrent] = useState('Булки')
 
+const dispatch = useDispatch()
+const data = useSelector((state:any) => state.api.data )
 
   useEffect(() => {
-    bulkaParcer(props);
-    kotletaParcer(props);
-    sousParcer(props);
-    }, [props]); 
+    bulkaParcer();
+    kotletaParcer();
+    sousParcer();
+    }, [data]); 
 
-
-
-
-
-const bulkaParcer = ((items:any) => {
-  const bred = items.data.filter((el:any) => { return el.type === 'bun' })
+const bulkaParcer = (() => {
+  const bred = data.filter((el:any) => { return el.type === 'bun' })
   setBulka(bred)
+  dispatch(getBulki(bred))
   })
 
-  const kotletaParcer = ((items:any) => {
-    const kotleta = items.data.filter((el:any) => { return el.type === 'main' })
+  const kotletaParcer = (() => {
+    const kotleta = data.filter((el:any) => { return el.type === 'main' })
     setKotleta(kotleta)
   })
 
-  const sousParcer = ((items:any) => {
-    const sous = items.data.filter((el:any) => { return el.type === 'sauce' })
+  const sousParcer = (() => {
+    const sous = data.filter((el:any) => { return el.type === 'sauce' })
     setSous(sous)
   })
 
