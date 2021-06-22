@@ -1,25 +1,30 @@
 import React from 'react';
 import Popup from '../popup/popup'
 import styles from './ingredient-popup.module.css'
+import { useSelector } from 'react-redux';
+import { ingredientPopupToggle } from '../../store/slices/ingredientPopup';
 
 const IngredientPopup = (props) => {
+
+const { ingredientPopup, ingredient }  = useSelector(state => state.ingredients)
+
     return (
       <Popup
-        isOpen={props.isOpen}
-        isClose={props.isClose}>
+        isOpen={ingredientPopup}
+        isClose={ingredientPopupToggle}>
         
         <h5 className={styles.popup__title}>Детали ингридиента</h5>
-        <img src={props.foodDetails&&props.foodDetails.img} className={styles.ingredient__img} alt="Фкусняшка"/>
-        <p className={styles.ingredient__name}>{props.foodDetails&&props.foodDetails.name}</p>
+        <img src={ingredient && ingredient.img} className={styles.ingredient__img} alt="Фкусняшка"/>
+        <p className={styles.ingredient__name}>{ingredient && ingredient.name}</p>
         <div className={styles.ingredient__details}>
         <p className={styles.ingredient__cal}>Калории
-        <span className="text text_type_digits-default">{props.foodDetails&&props.foodDetails.cal}</span></p>
+        <span className="text text_type_digits-default">{ingredient && ingredient.cal}</span></p>
         <p className={styles.ingredient__cal}>Белки,г
-        <span className="text text_type_digits-default">{props.foodDetails&&props.foodDetails.prot}</span></p>
+        <span className="text text_type_digits-default">{ingredient && ingredient.prot}</span></p>
         <p className={styles.ingredient__cal}>Жиры,г
-        <span className="text text_type_digits-default">{props.foodDetails&&props.foodDetails.fat}</span></p>
+        <span className="text text_type_digits-default">{ingredient && ingredient.fat}</span></p>
         <p className={styles.ingredient__cal}>Углеводы,г
-        <span className="text text_type_digits-default">{props.foodDetails&&props.foodDetails.carb}</span></p>
+        <span className="text text_type_digits-default">{ingredient && ingredient.carb}</span></p>
         </div>
       </Popup>
     );

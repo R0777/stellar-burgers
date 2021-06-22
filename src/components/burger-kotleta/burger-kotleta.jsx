@@ -1,18 +1,13 @@
 import React from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-kotleta.module.css';
+import { useDispatch } from 'react-redux';
+import { ingredientPopupToggle, setIngredient } from '../../store/slices/ingredientPopup';
 
-// interface Props {
-//   key: string,
-//   type: string,
-//   _id: string,
-//   image: string,
-//   price: number,
-//   name: string,
-//   handleOpenPopup: Function
-// }
 
-const BurgerKotleta = ({openIngredientPopup, ...props}) => {
+const BurgerKotleta = (props) => {
+
+  const dispatch = useDispatch()
 
   const ingredient = {
     img: props.image_large,
@@ -24,7 +19,8 @@ const BurgerKotleta = ({openIngredientPopup, ...props}) => {
     }
     
     const getIngredients = () => {
-      openIngredientPopup(ingredient)
+      dispatch(setIngredient(ingredient))
+      dispatch(ingredientPopupToggle(true))
     }
 
   return (

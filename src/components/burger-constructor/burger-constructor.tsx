@@ -26,9 +26,13 @@ const dispatch = useDispatch()
     isLocked = {true}
     type="top"
   /></li>
+
+  
         <div className={styles.constructor__list_middle}>
         {data.map((item:any) => <BurgerConstructorElement key={item._id} {...item} />)}
         </div>
+
+
         <li className={styles.constructor__list_bottom}><div><DragIcon type="primary" /></div><ConstructorElement
     type="bottom"
     isLocked = {true}

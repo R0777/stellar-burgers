@@ -3,12 +3,14 @@ import dataSlice from './get-data-api';
 import getBred from './get-bulki';
 import ingredientsSlice from './ingredientPopup';
 import orderPopup from './orderPopup';
+import constructorElement from './constructor-element';
 
-const rootReducer = combineReducers({
+const rootReducer = combineReducers({ 
   api: dataSlice,
   order: orderPopup,
   ingredients: ingredientsSlice,
-  bulki: getBred
+  bulki: getBred,
+  element: constructorElement
 })
 
 export default rootReducer

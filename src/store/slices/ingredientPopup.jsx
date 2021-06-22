@@ -1,21 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { data } from '../../utils/data'
-
 
 const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState: {
-    ingredients: []
+    ingredient: {},
+    ingredientPopup: false
   },
   reducers: {
-    orderPopupToggle(state) {
-      state.orderPopup = !state.orderPopup
+    ingredientPopupToggle(state, action) {
+      state.ingredientPopup = action.payload
     },
-    ingredientPopupToggle(state) {
-      state.ingredientPopup = !state.ingredientPopup
+    setIngredient(state, {payload}) {
+      state.ingredient = payload
     },
   }
 }) 
 
 export default ingredientsSlice.reducer
-export const {orderPopupToggle, ingredientPopupToggle} = ingredientsSlice.actions
+export const {setIngredient, ingredientPopupToggle} = ingredientsSlice.actions

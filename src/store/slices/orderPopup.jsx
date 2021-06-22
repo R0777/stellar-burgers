@@ -8,7 +8,7 @@ export const getOrderNumber = createAsyncThunk('order/getOrderNumber', async (in
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      ingredients: ['60cb6564fce49c00269d4019','60cb6564fce49c00269d401c','60cb6564fce49c00269d4020']
+      ingredients: ['60d09b3a142e2a00262fd59d','60d09b3a142e2a00262fd59e','60d09b3a142e2a00262fd5a0']
     })
     
   }).then(res => {

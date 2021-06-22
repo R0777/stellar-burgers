@@ -2,30 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-bulka.module.css';
-
-// interface Props {
-//   key: string,
-//   image: string,
-//   price: number,
-//   name: string
-// }
-
-
+import { useDispatch } from 'react-redux';
+import { ingredientPopupToggle, setIngredient } from '../../store/slices/ingredientPopup';
 
 const BurgerBulka = (props: any) => {
 
-const ingredient = {
-img: props.image_large,
-name: props.name,
-cal: props.calories,
-prot: props.proteins,
-fat: props.fat,
-carb: props.carbohydrates
-}
+  const dispatch = useDispatch()
 
-const getIngredients = () => {
-  props.openIngredientPopup(ingredient)
-}
+  const ingredient = {
+  img: props.image_large,
+  name: props.name,
+  cal: props.calories,
+  prot: props.proteins,
+  fat: props.fat,
+  carb: props.carbohydrates
+  }
+
+  const getIngredients = () => {
+  dispatch(setIngredient(ingredient))
+  dispatch(ingredientPopupToggle(true))
+  }
 
   return (
         <li className={styles.bulka_item} onClick={getIngredients}>

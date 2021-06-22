@@ -51,16 +51,11 @@ const App = () => {
       <Footer />
 
       <Modal>
-      <AcceptPopup 
-      isOpen={acceptPopupOpen} 
-      isClose={closeAllPopups} />
+      <AcceptPopup />
     </Modal>
 
     <Modal>
-      <IngredientPopup 
-      foodDetails = {ingredients}
-      isOpen={ingredientPopupOpen} 
-      isClose={closeAllPopups} />
+      <IngredientPopup />
     </Modal>
     </>
   )

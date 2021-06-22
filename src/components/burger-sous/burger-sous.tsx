@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-sous.module.css';
+import { useDispatch } from 'react-redux';
+import { ingredientPopupToggle, setIngredient } from '../../store/slices/ingredientPopup';
 
 // interface Props {
 //   key: string,
@@ -14,6 +16,8 @@ import styles from './burger-sous.module.css';
 
 const BurgerSous = (props: any) => {
 
+  const dispatch = useDispatch()
+
   const ingredient = {
     img: props.image_large,
     name: props.name,
@@ -24,7 +28,8 @@ const BurgerSous = (props: any) => {
     }
     
     const getIngredients = () => {
-      props.openIngredientPopup(ingredient)
+      dispatch(setIngredient(ingredient))
+      dispatch(ingredientPopupToggle(true))
     }
 
   return (
