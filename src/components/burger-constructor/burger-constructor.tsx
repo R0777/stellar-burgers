@@ -27,15 +27,15 @@ const [{isHover}, bulTarget] = useDrop({
   })
 });
 
-const boxShadow = isHover ? 'light' : 'none';
+const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : 'none';
 
 
 
   return (
       <section className={styles.constructor__section}>
 
-        <ul style={{ display: 'flex', flexDirection: 'column', rowGap: '16px', boxShadow }} className={styles.constructor__list} ref={bulTarget}>
-        <li className={styles.constructor__list_top} key={bulki._id&&bulki._id}><div><DragIcon type="primary" /></div><ConstructorElement
+        <ul style={{ display: 'flex', flexDirection: 'column', rowGap: '16px', filter }} className={styles.constructor__list} ref={bulTarget}>
+        <li className={styles.constructor__list_top} key={bulki._id}><div><DragIcon type="primary" /></div><ConstructorElement
     text={bulki[0]&&bulki[0].name}
     price={bulki[0]&&bulki[0].price}
     thumbnail={bulki[0]&&bulki[0].image}

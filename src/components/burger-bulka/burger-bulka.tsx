@@ -9,13 +9,6 @@ import { useDrag } from "react-dnd";
 const BurgerBulka = (props: any) => {
 
   //const {_id, ...props} = props;
-    const [{isDrag}, bulRef] = useDrag({
-        type: "bul",
-        item: props,
-        collect: monitor => ({
-          isDrag: monitor.isDragging()
-      })
-    });
 
   const dispatch = useDispatch()
 
@@ -25,8 +18,17 @@ const BurgerBulka = (props: any) => {
   cal: props.calories,
   prot: props.proteins,
   fat: props.fat,
-  carb: props.carbohydrates
+  carb: props.carbohydrates,
+  price: props.price
   }
+
+  const [{isDrag}, bulRef] = useDrag({
+    type: "bul",
+    item: ingredient,
+    collect: monitor => ({
+      isDrag: monitor.isDragging()
+  })
+});
 
   const getIngredients = () => {
   dispatch(setIngredient(ingredient))
