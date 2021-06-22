@@ -5,21 +5,37 @@ import BurgerConstructorElement from '../burger-constructor-element/burger-const
 import styles from './burger-constructor.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrderNumber } from '../../store/slices/orderPopup';
+import { useDrop } from "react-dnd";
+import { setBulki } from '../../store/slices/constructor-element';
 
 
 const BurgerConstructor = (props: any) => {
 
-const data = useSelector((store:any) => store.api.data)
-const bulki = useSelector((store:any) => store.bulki.bulki)
-const order = useSelector((store:any) => store.order.orderId)
+const data = useSelector((store:any) => store.element.middleElement)
+const bulki = useSelector((store:any) => store.element.bredElement)
 
 const dispatch = useDispatch()
+
+
+const [{isHover}, bulTarget] = useDrop({
+  accept: "bul",
+  drop(item:any) {
+      dispatch(setBulki(item));
+  },
+  collect: monitor => ({
+      isHover: monitor.isOver(),
+  })
+});
+
+const boxShadow = isHover ? 'light' : 'none';
+
+
 
   return (
       <section className={styles.constructor__section}>
 
-        <ul style={{ display: 'flex', flexDirection: 'column', rowGap: '16px' }} className={styles.constructor__list}>
-        <li className={styles.constructor__list_top}><div><DragIcon type="primary" /></div><ConstructorElement
+        <ul style={{ display: 'flex', flexDirection: 'column', rowGap: '16px', boxShadow }} className={styles.constructor__list} ref={bulTarget}>
+        <li className={styles.constructor__list_top} key={bulki._id&&bulki._id}><div><DragIcon type="primary" /></div><ConstructorElement
     text={bulki[0]&&bulki[0].name}
     price={bulki[0]&&bulki[0].price}
     thumbnail={bulki[0]&&bulki[0].image}

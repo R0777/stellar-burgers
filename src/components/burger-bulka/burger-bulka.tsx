@@ -4,8 +4,18 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import styles from './burger-bulka.module.css';
 import { useDispatch } from 'react-redux';
 import { ingredientPopupToggle, setIngredient } from '../../store/slices/ingredientPopup';
+import { useDrag } from "react-dnd";
 
 const BurgerBulka = (props: any) => {
+
+  //const {_id, ...props} = props;
+    const [{isDrag}, bulRef] = useDrag({
+        type: "bul",
+        item: props,
+        collect: monitor => ({
+          isDrag: monitor.isDragging()
+      })
+    });
 
   const dispatch = useDispatch()
 
@@ -24,7 +34,7 @@ const BurgerBulka = (props: any) => {
   }
 
   return (
-        <li className={styles.bulka_item} onClick={getIngredients}>
+    <li className={styles.bulka_item} onClick={getIngredients} ref={bulRef}>
         <figure className={styles.bulka__card}>
         <div className={styles.bulka__counter}><Counter count={1} size="default" /></div>
           <img src={props.image} alt={props.name} />

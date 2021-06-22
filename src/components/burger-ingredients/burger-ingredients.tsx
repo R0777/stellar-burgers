@@ -7,7 +7,8 @@ import BurgerBulka from '../burger-bulka/burger-bulka';
 import BurgerSous from '../burger-sous/burger-sous';
 import BurgerKotleta from '../burger-kotleta/burger-kotleta';
 import { useSelector, useDispatch } from 'react-redux';
-import { getBulki } from '../../store/slices/get-bulki'
+import { getBulki } from '../../store/slices/get-bulki';
+
 
 const BurgerIngredients = (props: any) => {
 
