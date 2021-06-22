@@ -36,9 +36,9 @@ const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : 'n
 
         <ul style={{ display: 'flex', flexDirection: 'column', rowGap: '16px', filter }} className={styles.constructor__list} ref={bulTarget}>
         <li className={styles.constructor__list_top} key={bulki._id}><div><DragIcon type="primary" /></div><ConstructorElement
-    text={bulki[0]&&bulki[0].name}
-    price={bulki[0]&&bulki[0].price}
-    thumbnail={bulki[0]&&bulki[0].image}
+    text={bulki&&bulki.name}
+    price={bulki&&bulki.price}
+    thumbnail={bulki&&bulki.image}
     isLocked = {true}
     type="top"
   /></li>
@@ -52,9 +52,9 @@ const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : 'n
         <li className={styles.constructor__list_bottom}><div><DragIcon type="primary" /></div><ConstructorElement
     type="bottom"
     isLocked = {true}
-    text={bulki[bulki.length - 1]&&bulki[bulki.length - 1].name}
-    price={bulki[bulki.length - 1]&&bulki[bulki.length - 1].price}
-    thumbnail={bulki[bulki.length - 1]&&bulki[bulki.length - 1].image}
+    text={bulki&&bulki.name}
+    price={bulki&&bulki.price}
+    thumbnail={bulki&&bulki.image}
   /></li>
         </ul>
         <div className={styles.constructror__currency_box}>

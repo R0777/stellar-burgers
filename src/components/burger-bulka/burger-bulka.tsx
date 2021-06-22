@@ -13,7 +13,7 @@ const BurgerBulka = (props: any) => {
   const dispatch = useDispatch()
 
   const ingredient = {
-  img: props.image_large,
+  image: props.image_large,
   name: props.name,
   cal: props.calories,
   prot: props.proteins,
