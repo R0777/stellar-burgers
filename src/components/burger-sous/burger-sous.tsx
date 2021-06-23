@@ -5,14 +5,6 @@ import styles from './burger-sous.module.css';
 import { useDispatch } from 'react-redux';
 import { ingredientPopupToggle, setIngredient } from '../../store/slices/ingredientPopup';
 import { useDrag } from "react-dnd";
-// interface Props {
-//   key: string,
-//   type: string,
-//   _id: string,
-//   image: string,
-//   price: number,
-//   name: string
-// }
 
 const BurgerSous = (props: any) => {
 
