@@ -5,7 +5,7 @@ export const getData = createAsyncThunk('root/getData', async () => {
     if(!res.ok) throw Error(res.statusText)
     return res.json()
   })
-  // .then(json => json)
+
 })
 
 const dataSlice = createSlice({

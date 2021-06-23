@@ -10,12 +10,13 @@ const BurgerKotleta = (props) => {
   const dispatch = useDispatch()
 
   const ingredient = {
-    img: props.image_large,
+    image: props.image_large,
     name: props.name,
     cal: props.calories,
     prot: props.proteins,
     fat: props.fat,
-    carb: props.carbohydrates
+    carb: props.carbohydrates,
+    price: props.price
     }
     
     const getIngredients = () => {

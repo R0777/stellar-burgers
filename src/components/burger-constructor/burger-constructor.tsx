@@ -6,13 +6,15 @@ import styles from './burger-constructor.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrderNumber } from '../../store/slices/orderPopup';
 import { useDrop } from "react-dnd";
-import { setBulki } from '../../store/slices/constructor-element';
+import { setBulki, setMiddle, setTotal } from '../../store/slices/constructor-element';
 
 
 const BurgerConstructor = (props: any) => {
 
 const data = useSelector((store:any) => store.element.middleElement)
 const bulki = useSelector((store:any) => store.element.bredElement)
+const total = useSelector((store:any) => store.element.totoal)
+const idBasket = useSelector((store:any) => store.element.idBasket)
 
 const dispatch = useDispatch()
 
@@ -27,14 +29,25 @@ const [{isHover}, bulTarget] = useDrop({
   })
 });
 
+const [, middleTarget] = useDrop({
+  accept: "middle",
+  drop(item:any) {
+      dispatch(setMiddle(item));
+      
+  },
+  collect: monitor => ({
+      midHover: monitor.isOver(),
+  })
+});
+
+
 const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : 'none';
 
 
-
   return (
-      <section className={styles.constructor__section}>
+      <section className={styles.constructor__section} ref={bulTarget}>
 
-        <ul style={{ display: 'flex', flexDirection: 'column', rowGap: '16px', filter }} className={styles.constructor__list} ref={bulTarget}>
+        <ul style={{ display: 'flex', flexDirection: 'column', rowGap: '16px', filter }} className={styles.constructor__list} ref={middleTarget}>
         <li className={styles.constructor__list_top} key={bulki._id}><div><DragIcon type="primary" /></div><ConstructorElement
     text={bulki&&bulki.name}
     price={bulki&&bulki.price}
@@ -58,7 +71,7 @@ const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : 'n
   /></li>
         </ul>
         <div className={styles.constructror__currency_box}>
-          <p className={styles.constructor__currency}>6275</p>
+          <p className={styles.constructor__currency}>{total}</p>
           <div className={styles.constructror__currency_icon}><CurrencyIcon type="primary" /></div>
           <div className={styles.constructror__currency_btn} onClick={() => dispatch(getOrderNumber())}><Button type="primary" size="large">Оформить заказ</Button></div>
         </div>

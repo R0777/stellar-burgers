@@ -14,7 +14,7 @@ const { ingredientPopup, ingredient }  = useSelector(state => state.ingredients)
         isClose={ingredientPopupToggle}>
         
         <h5 className={styles.popup__title}>Детали ингридиента</h5>
-        <img src={ingredient && ingredient.img} className={styles.ingredient__img} alt="Фкусняшка"/>
+        <img src={ingredient && ingredient.image} className={styles.ingredient__img} alt="Фкусняшка"/>
         <p className={styles.ingredient__name}>{ingredient && ingredient.name}</p>
         <div className={styles.ingredient__details}>
         <p className={styles.ingredient__cal}>Калории

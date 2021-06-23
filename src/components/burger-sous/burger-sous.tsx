@@ -4,7 +4,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import styles from './burger-sous.module.css';
 import { useDispatch } from 'react-redux';
 import { ingredientPopupToggle, setIngredient } from '../../store/slices/ingredientPopup';
-
+import { useDrag } from "react-dnd";
 // interface Props {
 //   key: string,
 //   type: string,
@@ -19,13 +19,22 @@ const BurgerSous = (props: any) => {
   const dispatch = useDispatch()
 
   const ingredient = {
-    img: props.image_large,
+    image: props.image_large,
     name: props.name,
     cal: props.calories,
     prot: props.proteins,
     fat: props.fat,
-    carb: props.carbohydrates
+    carb: props.carbohydrates,
+    price: props.price
     }
+
+    const [{isDrag}, middleRef] = useDrag({
+      type: "middle",
+      item: ingredient,
+      collect: monitor => ({
+        isDrag: monitor.isDragging()
+    })
+  });
     
     const getIngredients = () => {
       dispatch(setIngredient(ingredient))
@@ -33,7 +42,7 @@ const BurgerSous = (props: any) => {
     }
 
   return (
-    <li className={styles.sous_item} onClick={getIngredients}>
+    <li className={styles.sous_item} onClick={getIngredients} ref={middleRef}>
     <figure className={styles.sous__card}>
     <div className={styles.sous__counter}><Counter count={1} size="default" /></div>
       <img src={props.image} alt={props.name} />
