@@ -6,7 +6,7 @@ const constructorElement = createSlice({
   initialState: {
     bredElement: [{_id: 0, name: 'Перетащи сюда свои булочки <3', image: "https://code.s3.yandex.net/react/code/bun-02.png", price: null}],
     middleElement: [{_id: 1, name: 'Хватит читать вставляй уже то что будет между булочками',image: 'https://code.s3.yandex.net/react/code/mineral_rings.png', price: null}],
-    total: 0,
+    total: '0',
     idBasket: []
   },
 
