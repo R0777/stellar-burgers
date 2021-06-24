@@ -29,7 +29,7 @@ const [{isHover}, bulTarget] = useDrop({
   })
 });
 
-const [, middleTarget] = useDrop({
+const [{midHover}, middleTarget] = useDrop({
   accept: "middle",
   drop(item:any) {
       dispatch(setMiddle(item));
@@ -41,7 +41,8 @@ const [, middleTarget] = useDrop({
 });
 
 
-const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : 'none';
+const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : midHover ? 'drop-shadow(0px 4px 32px rgba(255, 0, 216, 0.5))': 'none';
+
 
 
   return (
@@ -58,7 +59,7 @@ const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : 'n
 
   
         <div className={styles.constructor__list_middle}>
-        {data.map((item:any) => <BurgerConstructorElement key={item._id} {...item} />)}
+        {data.forEach((item:any) => <BurgerConstructorElement key={item.id} {...item} />)}
         </div>
 
 
