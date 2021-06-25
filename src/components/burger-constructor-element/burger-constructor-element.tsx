@@ -1,17 +1,33 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor-element.module.css';
-
-// interface Props {
-//   key: string,
-//   image: string,
-//   price: number,
-//   name: string,
-//   count: string
-// }
+import { useDispatch } from 'react-redux';
+import { deleteMiddle } from '../../store/slices/constructor-element'
 
 const BurgerConstructorElement = (props:any) => {
+
+  const dispatch = useDispatch()
+
+const handleBinClick = (ev:any) => {
+  if (ev.target.closest('.constructor-element__action')) {
+    dispatch(deleteMiddle(props.id))
+  }
+}
+
+
+  useEffect(() => {
+    document.addEventListener("click", handleBinClick, false);
+
+    return () => {
+      document.removeEventListener("click", handleBinClick, false);
+    };
+  }, [handleBinClick]);
+
+
+
+
+
   return (
     <li className={styles.constructor__list_item}><div><DragIcon type="primary" /></div><ConstructorElement
     type={props.count}

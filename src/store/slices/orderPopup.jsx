@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit' 
 
-export const getOrderNumber = createAsyncThunk('order/getOrderNumber', async (ingredients, { dispatch }) => {
+export const getOrderNumber = createAsyncThunk('order/getOrderNumber', async (idBasket, { dispatch }) => {
   return fetch('https://norma.nomoreparties.space/api/orders',
   {
     method: "POST",
@@ -8,7 +8,7 @@ export const getOrderNumber = createAsyncThunk('order/getOrderNumber', async (in
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      ingredients: ['60d09b3a142e2a00262fd59d','60d09b3a142e2a00262fd59e','60d09b3a142e2a00262fd5a0']
+      ingredients: idBasket
     })
     
   }).then(res => {

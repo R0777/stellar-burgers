@@ -18,25 +18,32 @@ const constructorElement = createSlice({
     },
       
     setMiddle(state, {payload}) {
-        if (state.middleElement[0]._id === 1) {
-        state.middleElement.splice(0,1, payload)
+        if (state.middleElement[0]._id !== 1) {
+          state.middleElement.splice(0,0, payload)
         }
         else {
-          state.middleElement.splice(0,0, payload)
+          state.middleElement.splice(0,1, payload)
         }
         setTotal()
     },
+
+    deleteMiddle(state, {payload}) {
+      const newArray = state.middleElement.filter(item => item.id !== payload);
+      state.middleElement = newArray
+    },
       
-    setTotal(state) {
-      const total = state.bredElement.concat(state.middleElement);
-      console.log(total)
-      const totalPrice = total.map(el => el.price + state.total);
-        state.total = state.total + total[0].price;
-        state.idBasket = total.map(el => state.idBasket.push(el._id))
+    setTotal(state,{payload}) {
+      
+      const total = payload.bulki.concat(payload.data);
+      const totalPrice = total.map(el => el.price);
+      state.total = totalPrice.reduce((sum, current) => {
+      return sum + current;
+      },0)
+      total.map(el => state.idBasket.push(el.id))
     },
   },
 })
 
 
 export default constructorElement.reducer
-export const {setBulki, setMiddle, setTotal} = constructorElement.actions
+export const {setBulki, setMiddle, setTotal, deleteMiddle} = constructorElement.actions

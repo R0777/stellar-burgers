@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { Button, CurrencyIcon, DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+import shortid from 'shortid';
 import BurgerConstructorElement from '../burger-constructor-element/burger-constructor-element'
 import styles from './burger-constructor.module.css';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,11 +14,14 @@ const BurgerConstructor = (props: any) => {
 
 const data = useSelector((store:any) => store.element.middleElement)
 const bulki = useSelector((store:any) => store.element.bredElement)
-const total = useSelector((store:any) => store.element.totoal)
+const total = useSelector((store:any) => store.element.total)
 const idBasket = useSelector((store:any) => store.element.idBasket)
 
 const dispatch = useDispatch()
 
+useEffect(() => {
+  dispatch(setTotal({bulki, data}))
+},[dispatch, bulki, data])
 
 const [{isHover}, bulTarget] = useDrop({
   accept: "bul",
@@ -49,7 +53,7 @@ const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : mi
       <section className={styles.constructor__section} ref={bulTarget}>
 
         <ul style={{ display: 'flex', flexDirection: 'column', rowGap: '16px', filter }} className={styles.constructor__list} ref={middleTarget}>
-        <li className={styles.constructor__list_top} key={bulki._id}><div><DragIcon type="primary" /></div><ConstructorElement
+        <li className={styles.constructor__list_top} key={shortid.generate()}><div><DragIcon type="primary" /></div><ConstructorElement
     text={bulki&&bulki[0].name}
     price={bulki&&bulki[0].price}
     thumbnail={bulki&&bulki[0].image}
@@ -59,11 +63,11 @@ const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : mi
 
   
         <div className={styles.constructor__list_middle}>
-        {data.forEach((item:any) => <BurgerConstructorElement key={item.id} {...item} />)}
+        {data.map((item:any) => <BurgerConstructorElement key={shortid.generate()} {...item} />)}
         </div>
 
 
-        <li className={styles.constructor__list_bottom}><div><DragIcon type="primary" /></div><ConstructorElement
+        <li className={styles.constructor__list_bottom} key={shortid.generate()}><div><DragIcon type="primary" /></div><ConstructorElement
     type="bottom"
     isLocked = {true}
     text={bulki&&bulki[0].name}
@@ -74,7 +78,7 @@ const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : mi
         <div className={styles.constructror__currency_box}>
           <p className={styles.constructor__currency}>{total}</p>
           <div className={styles.constructror__currency_icon}><CurrencyIcon type="primary" /></div>
-          <div className={styles.constructror__currency_btn} onClick={() => dispatch(getOrderNumber())}><Button type="primary" size="large">Оформить заказ</Button></div>
+          <div className={styles.constructror__currency_btn} onClick={() => dispatch(getOrderNumber(idBasket))}><Button type="primary" size="large">Оформить заказ</Button></div>
         </div>
 
       </section>
