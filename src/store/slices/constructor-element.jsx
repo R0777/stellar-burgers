@@ -14,7 +14,6 @@ const constructorElement = createSlice({
 
     setBulki(state, {payload}) {
         state.bredElement.splice(0,1, payload)
-        setTotal()
     },
       
     setMiddle(state, {payload}) {
@@ -24,7 +23,6 @@ const constructorElement = createSlice({
         else {
           state.middleElement.splice(0,1, payload)
         }
-        setTotal()
     },
 
     deleteMiddle(state, {payload}) {
@@ -41,9 +39,23 @@ const constructorElement = createSlice({
       },0)
       total.map(el => state.idBasket.push(el.id))
     },
+
+    resetStore(state) {
+      state.bredElement = [{_id: 0, name: 'Перетащи сюда свои булочки <3', image: "https://code.s3.yandex.net/react/code/bun-02.png", price: null}]
+      state.middleElement = [{_id: 1, name: 'Хватит читать вставляй уже то что будет между булочками',image: 'https://code.s3.yandex.net/react/code/mineral_rings.png', price: null}]
+      state.total =  0
+      state.idBasket = []
+    },
+
+    sortConstructor(state,{payload}) {
+      const fullArr = state.bredElement.concat(state.middleElement);
+      const index = fullArr.indexOf(payload);
+      fullArr.splice()
+    }
+
   },
 })
 
 
 export default constructorElement.reducer
-export const {setBulki, setMiddle, setTotal, deleteMiddle} = constructorElement.actions
+export const {setBulki, setMiddle, setTotal, deleteMiddle, sortConstructor} = constructorElement.actions

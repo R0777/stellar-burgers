@@ -4,37 +4,52 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import styles from './burger-constructor-element.module.css';
 import { useDispatch } from 'react-redux';
 import { deleteMiddle } from '../../store/slices/constructor-element'
+import { useDrag, useDrop } from 'react-dnd';
 
 const BurgerConstructorElement = (props:any) => {
 
   const dispatch = useDispatch()
 
-const handleBinClick = (ev:any) => {
-  if (ev.target.closest('.constructor-element__action')) {
-    dispatch(deleteMiddle(props.id))
-  }
-}
+
+  // const ingredient = {
+  //   id: props._id,
+  // image: props.image_large,
+  // name: props.name,
+  // cal: props.calories,
+  // prot: props.proteins,
+  // fat: props.fat,
+  // carb: props.carbohydrates,
+  // price: props.price
+  // }
 
 
-  useEffect(() => {
-    document.addEventListener("click", handleBinClick, false);
+  const [{isDrag}, midRef] = useDrag({
+    type: "middle",
+    item: props,
+    collect: monitor => ({
+      isDrag: monitor.isDragging(),
+  })
+});
 
-    return () => {
-      document.removeEventListener("click", handleBinClick, false);
-    };
-  }, [handleBinClick]);
+const [{midHover}, midDropRef] = useDrop({
+  accept: "middle",
+  collect: monitor => ({
+      midHover: monitor.isOver(),
+  }),
 
-
-
-
+});
 
   return (
-    <li className={styles.constructor__list_item}><div><DragIcon type="primary" /></div><ConstructorElement
+    <div ref={midRef} className={`${
+      midHover ? styles.onHover : ''}`}>
+    <li className={styles.constructor__list_item} ref={midDropRef}><div><DragIcon type="primary" /></div><ConstructorElement
     type={props.count}
     text={props.name}
+    handleClose = {()=>{dispatch(deleteMiddle(props.id))}}
     price={props.price}
     thumbnail={props.image}
   /></li>
+  </div>
   );
 }
 

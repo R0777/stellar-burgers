@@ -19,9 +19,11 @@ const idBasket = useSelector((store:any) => store.element.idBasket)
 
 const dispatch = useDispatch()
 
+
 useEffect(() => {
   dispatch(setTotal({bulki, data}))
 },[dispatch, bulki, data])
+
 
 const [{isHover}, bulTarget] = useDrop({
   accept: "bul",
@@ -33,27 +35,41 @@ const [{isHover}, bulTarget] = useDrop({
   })
 });
 
-const [{midHover}, middleTarget] = useDrop({
+const [{middleHover}, middleTarget] = useDrop({
   accept: "middle",
   drop(item:any) {
       dispatch(setMiddle(item));
       
   },
   collect: monitor => ({
-      midHover: monitor.isOver(),
+      middleHover: monitor.isOver(),
   })
 });
 
 
-const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : midHover ? 'drop-shadow(0px 4px 32px rgba(255, 0, 216, 0.5))': 'none';
+
+const [{sortHover}, sortedtopRef] = useDrop({
+  accept: "middle",
+  drop(item:any) {
+      dispatch(setMiddle(item));
+      
+  },
+  collect: monitor => ({
+    sortHover: monitor.isOver(),
+  })
+});
+
+
+const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : middleHover ? 'drop-shadow(0px 4px 32px rgba(255, 0, 216, 0.5))': 'none';
 
 
 
   return (
       <section className={styles.constructor__section} ref={bulTarget}>
 
-        <ul style={{ display: 'flex', flexDirection: 'column', rowGap: '16px', filter }} className={styles.constructor__list} ref={middleTarget}>
-        <li className={styles.constructor__list_top} key={shortid.generate()}><div><DragIcon type="primary" /></div><ConstructorElement
+        <ul style={{ display: 'flex', flexDirection: 'column', rowGap: '16px', filter }} className={styles.constructor__list}>
+        <li className={`${styles.constructor__list_top} ${
+      sortHover ? styles.onHover : ''}`} key={shortid.generate()} ref={sortedtopRef}><div><DragIcon type="primary" /></div><ConstructorElement
     text={bulki&&bulki[0].name}
     price={bulki&&bulki[0].price}
     thumbnail={bulki&&bulki[0].image}
@@ -62,8 +78,8 @@ const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : mi
   /></li>
 
   
-        <div className={styles.constructor__list_middle}>
-        {data.map((item:any) => <BurgerConstructorElement key={shortid.generate()} {...item} />)}
+        <div className={styles.constructor__list_middle} ref={middleTarget}>
+        {data.map((item:any) => <BurgerConstructorElement sort={middleHover} key={shortid.generate()} {...item} />)}
         </div>
 
 
@@ -78,7 +94,7 @@ const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : mi
         <div className={styles.constructror__currency_box}>
           <p className={styles.constructor__currency}>{total}</p>
           <div className={styles.constructror__currency_icon}><CurrencyIcon type="primary" /></div>
-          <div className={styles.constructror__currency_btn} onClick={() => dispatch(getOrderNumber(idBasket))}><Button type="primary" size="large">Оформить заказ</Button></div>
+          <div className={styles.constructror__currency_btn} onClick={() => dispatch(getOrderNumber())}><Button type="primary" size="large">Оформить заказ</Button></div>
         </div>
 
       </section>

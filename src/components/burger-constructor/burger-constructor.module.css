@@ -83,3 +83,12 @@
 .light {
   filter: drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5));
 }
+
+.constructor__list_middle {
+display: grid;
+grid-gap: 16px;
+}
+
+.onHover {
+  padding-bottom: 40px
+}
