@@ -7,7 +7,7 @@ import styles from './burger-constructor.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrderNumber } from '../../store/slices/orderPopup';
 import { useDrop } from "react-dnd";
-import { setBulki, setTopMiddle, setTotal, sortConstructor } from '../../store/slices/constructor-element';
+import { setBulki, setTopMiddle, setTotal } from '../../store/slices/constructor-element';
 
 
 const BurgerConstructor = () => {
@@ -20,15 +20,11 @@ const idBasket = useSelector((store) => store.element.idBasket)
 const dispatch = useDispatch()
 
 
-useEffect(() => {
-  dispatch(setTotal({bulki, data}))
-},[dispatch, bulki, data])
-
-
 const [{isHover}, bulTarget] = useDrop({
   accept: "bul",
   drop(item) {
       dispatch(setBulki(item));
+      dispatch(setTotal({bulki, data}))
   },
   collect: monitor => ({
       isHover: monitor.isOver(),
@@ -39,21 +35,21 @@ const [{ middleHover }, middleTarget] = useDrop({
   accept: "middle",
   drop(item) {
       dispatch(setTopMiddle(item));
+      dispatch(setTotal({bulki, data}))
       
   },
   collect: monitor => ({
       middleHover: monitor.isOver(),
-      //middleDrop: monitor.didDrop()
+
   })
 });
-
 
 
 const [{sortHover}, sortedtopRef] = useDrop({
   accept: "middle",
   drop(item) {
       dispatch(setTopMiddle(item));
-      
+      dispatch(setTotal({bulki, data}))
   },
   collect: monitor => ({
     sortHover: monitor.isOver(),
