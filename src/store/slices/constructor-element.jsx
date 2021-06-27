@@ -103,4 +103,4 @@ const constructorElement = createSlice({
 
 
 export default constructorElement.reducer
-export const {setBulki, setTopMiddle, setTotal, deleteMiddle, sortConstructor,getTargetId} = constructorElement.actions
+export const {setBulki, setTopMiddle, setTotal, deleteMiddle, sortConstructor, resetStore} = constructorElement.actions

@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit' 
+import { resetStore } from './constructor-element'
 
 export const getOrderNumber = createAsyncThunk('order/getOrderNumber', async (idBasket, { dispatch }) => {
   return fetch('https://norma.nomoreparties.space/api/orders',
@@ -16,6 +17,7 @@ export const getOrderNumber = createAsyncThunk('order/getOrderNumber', async (id
     res.json()
     .then(res => dispatch(setOrderNumer(res.order.number)))
     .then(res => dispatch(orderPopupToggle(true)))
+    .then(res => dispatch(resetStore()))
     })
 })
 
