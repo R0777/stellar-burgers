@@ -110,14 +110,14 @@ const bulkaParcer = (() => {
     <div className={styles.bulka__section}>
       <h3 className={styles.bulka__title}>Булки</h3>
       <ul className={styles.bulka__grid} ref={bunsRef} id="bulka">
-      {bulka.map((item:any) => <BurgerBulka key={item._id} {...item} openIngredientPopup={props.openIngredientPopup} />)}
+      {bulka.map((item:any) => <BurgerBulka bulka={bulka} key={item._id} {...item} openIngredientPopup={props.openIngredientPopup} />)}
       </ul>
     </div>
 
     <div className={styles.sous__section}>
       <h3 className={styles.sous__title}>Соусы</h3>
       <ul className={styles.sous__grid} ref={saucesRef} id="sous">
-      {sous.map((item:any) => <BurgerSous key={item._id} {...item} openIngredientPopup={props.openIngredientPopup} />)}
+      {sous.map((item:any) => <BurgerSous key={item._id} sous={sous} {...item} openIngredientPopup={props.openIngredientPopup} />)}
       
       </ul>
     </div>
@@ -125,7 +125,7 @@ const bulkaParcer = (() => {
     <div className={styles.kotleta__section} ref={mainsRef}>
       <h3 className={styles.kotleta__title}>Начинки</h3>
       <ul className={styles.kotleta__grid} id="kotleta">
-      {kotleta.map((item:any) => <BurgerKotleta key={item._id} {...item} openIngredientPopup={props.openIngredientPopup} />)}
+      {kotleta.map((item:any) => <BurgerKotleta key={item._id} kotleta={kotleta} {...item} openIngredientPopup={props.openIngredientPopup} />)}
       </ul>
     </div>
   </div>
