@@ -13,16 +13,36 @@ const constructorElement = createSlice({
   reducers: {
 
     setBulki(state, {payload}) {
-        state.bredElement.splice(0,1, payload)
+      state.bredElement.splice(0,1, payload)
     },
       
-    setMiddle(state, {payload}) {
-        if (state.middleElement[0]._id !== 1) {
+
+    setTopMiddle(state, {payload}) {
+
+
+      if (state.middleElement.length === 0) {
+        state.middleElement.splice(0,0, payload)
+      }
+
+      else if (state.middleElement[0]._id !== undefined) {
+      state.middleElement.splice(0,1, payload)
+      }
+
+      else  {
+      const itemIndex = state.middleElement.findIndex(item => item.id === payload.id)
+
+      const inArray = state.middleElement.find(item => item.id === payload.id)
+
+
+        if(!inArray) {
           state.middleElement.splice(0,0, payload)
+
         }
-        else {
-          state.middleElement.splice(0,1, payload)
+        else if (inArray) {
+          const itemIndexArray = state.middleElement.findIndex(item => item.id === inArray.id)
+          state.middleElement.splice(itemIndexArray,1, payload)
         }
+      }     
     },
 
     deleteMiddle(state, {payload}) {
@@ -47,15 +67,40 @@ const constructorElement = createSlice({
       state.idBasket = []
     },
 
-    sortConstructor(state,{payload}) {
-      const fullArr = state.bredElement.concat(state.middleElement);
-      const index = fullArr.indexOf(payload);
-      fullArr.splice()
-    }
+    sortConstructor(state,action) {
+    
 
+    if (state.middleElement[0]._id  !== undefined) {
+        
+        state.middleElement.splice(0,1, action.payload.item)
+      }
+      else if (state.middleElement.length >= 1) {
+        
+        const targetIndex = state.middleElement.findIndex(item => item.id === action.payload.props.id)
+
+        const inArray = state.middleElement.find(item => item.id === action.payload.item.id)
+
+        if (!inArray) {
+          state.middleElement.splice(targetIndex+1,0, action.payload.item)
+        }
+        else {
+          const itemIndex = state.middleElement.findIndex(item => item.id === action.payload.item.id)
+
+          state.middleElement.splice(itemIndex,1)
+
+          state.middleElement.splice(targetIndex+1,0, action.payload.item)
+
+          
+        }
+      }
+      else {
+                  //state.middleElement.splice(itemIndex,1);
+          state.middleElement.splice(0,0, action.payload.item);
+      }
+    }
   },
 })
 
 
 export default constructorElement.reducer
-export const {setBulki, setMiddle, setTotal, deleteMiddle, sortConstructor} = constructorElement.actions
+export const {setBulki, setTopMiddle, setTotal, deleteMiddle, sortConstructor,getTargetId} = constructorElement.actions

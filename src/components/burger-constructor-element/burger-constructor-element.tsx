@@ -1,27 +1,14 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor-element.module.css';
 import { useDispatch } from 'react-redux';
-import { deleteMiddle } from '../../store/slices/constructor-element'
+import { deleteMiddle, sortConstructor } from '../../store/slices/constructor-element'
 import { useDrag, useDrop } from 'react-dnd';
 
 const BurgerConstructorElement = (props:any) => {
 
   const dispatch = useDispatch()
-
-
-  // const ingredient = {
-  //   id: props._id,
-  // image: props.image_large,
-  // name: props.name,
-  // cal: props.calories,
-  // prot: props.proteins,
-  // fat: props.fat,
-  // carb: props.carbohydrates,
-  // price: props.price
-  // }
-
 
   const [{isDrag}, midRef] = useDrag({
     type: "middle",
@@ -31,18 +18,23 @@ const BurgerConstructorElement = (props:any) => {
   })
 });
 
-const [{midHover}, midDropRef] = useDrop({
+const [{midHover, midDrop}, midDropRef] = useDrop({
   accept: "middle",
+  drop(item:any) {
+
+    dispatch(sortConstructor({props, item}))
+  },
   collect: monitor => ({
       midHover: monitor.isOver(),
-  }),
+      midDrop: monitor.didDrop()
 
+  }),
 });
 
   return (
     <div ref={midRef} className={`${
       midHover ? styles.onHover : ''}`}>
-    <li className={styles.constructor__list_item} ref={midDropRef}><div><DragIcon type="primary" /></div><ConstructorElement
+    <li className={`${styles.constructor__list_item} ${midDrop ? 'dropTarget' : ''}`} ref={midDropRef}><div><DragIcon type="primary" /></div><ConstructorElement
     type={props.count}
     text={props.name}
     handleClose = {()=>{dispatch(deleteMiddle(props.id))}}

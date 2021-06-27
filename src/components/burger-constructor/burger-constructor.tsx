@@ -7,10 +7,10 @@ import styles from './burger-constructor.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrderNumber } from '../../store/slices/orderPopup';
 import { useDrop } from "react-dnd";
-import { setBulki, setMiddle, setTotal } from '../../store/slices/constructor-element';
+import { setBulki, setTopMiddle, setTotal, sortConstructor } from '../../store/slices/constructor-element';
 
 
-const BurgerConstructor = (props: any) => {
+const BurgerConstructor = () => {
 
 const data = useSelector((store:any) => store.element.middleElement)
 const bulki = useSelector((store:any) => store.element.bredElement)
@@ -35,14 +35,15 @@ const [{isHover}, bulTarget] = useDrop({
   })
 });
 
-const [{middleHover}, middleTarget] = useDrop({
+const [{ middleHover }, middleTarget] = useDrop({
   accept: "middle",
   drop(item:any) {
-      dispatch(setMiddle(item));
+      dispatch(setTopMiddle(item));
       
   },
   collect: monitor => ({
       middleHover: monitor.isOver(),
+      //middleDrop: monitor.didDrop()
   })
 });
 
@@ -51,7 +52,7 @@ const [{middleHover}, middleTarget] = useDrop({
 const [{sortHover}, sortedtopRef] = useDrop({
   accept: "middle",
   drop(item:any) {
-      dispatch(setMiddle(item));
+      dispatch(setTopMiddle(item));
       
   },
   collect: monitor => ({
