@@ -12,10 +12,10 @@ import { setBulki, setTopMiddle, setTotal, sortConstructor } from '../../store/s
 
 const BurgerConstructor = () => {
 
-const data = useSelector((store:any) => store.element.middleElement)
-const bulki = useSelector((store:any) => store.element.bredElement)
-const total = useSelector((store:any) => store.element.total)
-const idBasket = useSelector((store:any) => store.element.idBasket)
+const data = useSelector((store) => store.element.middleElement)
+const bulki = useSelector((store) => store.element.bredElement)
+const total = useSelector((store) => store.element.total)
+const idBasket = useSelector((store) => store.element.idBasket)
 
 const dispatch = useDispatch()
 
@@ -27,7 +27,7 @@ useEffect(() => {
 
 const [{isHover}, bulTarget] = useDrop({
   accept: "bul",
-  drop(item:any) {
+  drop(item) {
       dispatch(setBulki(item));
   },
   collect: monitor => ({
@@ -37,7 +37,7 @@ const [{isHover}, bulTarget] = useDrop({
 
 const [{ middleHover }, middleTarget] = useDrop({
   accept: "middle",
-  drop(item:any) {
+  drop(item) {
       dispatch(setTopMiddle(item));
       
   },
@@ -51,7 +51,7 @@ const [{ middleHover }, middleTarget] = useDrop({
 
 const [{sortHover}, sortedtopRef] = useDrop({
   accept: "middle",
-  drop(item:any) {
+  drop(item) {
       dispatch(setTopMiddle(item));
       
   },
@@ -80,7 +80,7 @@ const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : mi
 
   
         <div className={styles.constructor__list_middle} ref={middleTarget}>
-        {data.map((item:any) => <BurgerConstructorElement sort={middleHover} key={shortid.generate()} {...item} />)}
+        {data.map((item) => <BurgerConstructorElement sort={middleHover} key={shortid.generate()} {...item} />)}
         </div>
 
 
@@ -95,7 +95,7 @@ const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : mi
         <div className={styles.constructror__currency_box}>
           <p className={styles.constructor__currency}>{total}</p>
           <div className={styles.constructror__currency_icon}><CurrencyIcon type="primary" /></div>
-          <div className={styles.constructror__currency_btn} onClick={() => dispatch(getOrderNumber())}><Button type="primary" size="large">Оформить заказ</Button></div>
+          <div className={styles.constructror__currency_btn} onClick={() => dispatch(getOrderNumber(idBasket))}><Button type="primary" size="large">Оформить заказ</Button></div>
         </div>
 
       </section>
