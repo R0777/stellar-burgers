@@ -1,6 +1,5 @@
 
 .ingredients__list::-webkit-scrollbar-button {
-  background-image: url('');
   background-repeat: no-repeat;
   width: 8px;
 }

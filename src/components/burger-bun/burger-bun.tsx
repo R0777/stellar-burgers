@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './burger-bulka.module.css';
+import styles from './burger-bun.module.css';
 import { useDispatch } from 'react-redux';
 import { ingredientPopupToggle, setIngredient } from '../../store/slices/ingredientPopup';
 import { useDrag } from "react-dnd";
 
-const BurgerBulka = (props: any) => {
-
-  //const {_id, ...props} = props;
+const BurgerBun = (props: any) => {
 
   const dispatch = useDispatch()
 
@@ -23,8 +21,8 @@ const BurgerBulka = (props: any) => {
   price: props.price
   }
 
-  const [{isDrag}, bulRef] = useDrag({
-    type: "bul",
+  const [, bulRef] = useDrag({
+    type: "bun",
     item: ingredient,
     collect: monitor => ({
       isDrag: monitor.isDragging()
@@ -39,7 +37,7 @@ const BurgerBulka = (props: any) => {
   return (
     <li className={styles.bulka_item} onClick={getIngredients} >
         <figure className={styles.bulka__card} >
-        <div className={styles.bulka__counter}><Counter count={props.bulka.length} size="default" /></div>
+        <div className={styles.bulka__counter}><Counter count={props.bun.length} size="default" /></div>
           <img src={props.image} alt={props.name} ref={bulRef}/>
           <div className={styles.currency__info}><p className={styles.currency__text}>{props.price}</p><div className={styles.currency__icon}><CurrencyIcon type='primary' /></div></div>
           <figcaption className={styles.bulka__info}>{props.name}</figcaption>
@@ -48,7 +46,7 @@ const BurgerBulka = (props: any) => {
   );
 }
 
-BurgerBulka.propTypes = {
+BurgerBun.propTypes = {
   props: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -62,10 +60,9 @@ BurgerBulka.propTypes = {
     image_mobile: PropTypes.string.isRequired,
     image_large: PropTypes.string.isRequired,
     __v: PropTypes.number,
-    openIngredientPopup: PropTypes.func,
   })),
 }
 
 
 
-export default BurgerBulka;
+export default BurgerBun;

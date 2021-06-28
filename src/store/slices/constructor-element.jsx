@@ -4,15 +4,16 @@ import { createSlice } from '@reduxjs/toolkit'
 const constructorElement = createSlice({
   name: 'element',
   initialState: {
-    bredElement: [{_id: 0, name: 'Перетащи сюда свои булочки <3', image: "https://code.s3.yandex.net/react/code/bun-02.png", price: null}],
-    middleElement: [{_id: 1, name: 'Хватит читать вставляй уже то что будет между булочками',image: 'https://code.s3.yandex.net/react/code/mineral_rings.png', price: null}],
+    bredElement: [{_id: 0, name: 'Перетащи сюда свои булочки <3', price: null}],
+    middleElement: [{_id: 1, name: 'Хватит читать вставляй уже то что будет между булочками', price: null}],
+    elementAmount: 0,
     total: 0,
     idBasket: []
   },
 
   reducers: {
 
-    setBulki(state, {payload}) {
+    setBun(state, {payload}) {
       state.bredElement.splice(0,1, payload)
     },
       
@@ -29,7 +30,6 @@ const constructorElement = createSlice({
       }
 
       else  {
-      const itemIndex = state.middleElement.findIndex(item => item.id === payload.id)
 
       const inArray = state.middleElement.find(item => item.id === payload.id)
 
@@ -52,7 +52,7 @@ const constructorElement = createSlice({
       
     setTotal(state,{payload}) {
       
-      const total = payload.bulki.concat(payload.data);
+      const total = payload.bun.concat(payload.data);
       const totalPrice = total.map(el => el.price);
       state.total = totalPrice.reduce((sum, current) => {
       return sum + current;
@@ -61,15 +61,21 @@ const constructorElement = createSlice({
     },
 
     resetStore(state) {
-      state.bredElement = [{_id: 0, name: 'Перетащи сюда свои булочки <3', image: "https://code.s3.yandex.net/react/code/bun-02.png", price: null}]
-      state.middleElement = [{_id: 1, name: 'Хватит читать вставляй уже то что будет между булочками',image: 'https://code.s3.yandex.net/react/code/mineral_rings.png', price: null}]
+      state.bredElement = [{_id: 0, name: 'Перетащи сюда свои булочки <3', price: null}]
+      state.middleElement = [{_id: 1, name: 'Хватит читать вставляй уже то что будет между булочками', price: null}]
       state.total =  0
       state.idBasket = []
     },
 
+    elementCounter(state, {payload}) {
+      const fullArr = state.bredElement.concat(state.middleElement);
+      const amount =  fullArr.length && fullArr.filter((item) => item.name === payload);
+      state.elementAmount = amount
+    },
+
+
     sortConstructor(state,action) {
     
-
     if (state.middleElement[0]._id  !== undefined) {
         
         state.middleElement.splice(0,1, action.payload.item)
@@ -94,7 +100,6 @@ const constructorElement = createSlice({
         }
       }
       else {
-                  //state.middleElement.splice(itemIndex,1);
           state.middleElement.splice(0,0, action.payload.item);
       }
     }
@@ -103,4 +108,4 @@ const constructorElement = createSlice({
 
 
 export default constructorElement.reducer
-export const {setBulki, setTopMiddle, setTotal, deleteMiddle, sortConstructor, resetStore} = constructorElement.actions
+export const {setBun, setTopMiddle, setTotal, deleteMiddle, sortConstructor, resetStore, elementCounter} = constructorElement.actions

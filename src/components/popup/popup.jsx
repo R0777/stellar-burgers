@@ -1,19 +1,13 @@
 import React, {useEffect, useCallback} from 'react';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './popup.module.css'
-import { useDispatch, useSelector } from 'react-redux';
-import { orderPopupToggle } from '../../store/slices/orderPopup';
-
-
-
-
+import { useDispatch } from 'react-redux';
 
 
 const Popup = (props) => {
 
   const dispatch = useDispatch()
 
-  const togglePopup = useSelector(state => state.order.togglePopup)
 
   const handleClose = () => {
   dispatch(props.isClose(false))

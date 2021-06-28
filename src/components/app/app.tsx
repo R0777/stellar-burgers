@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types'
+import React, {useEffect} from 'react';
 import AppHeader from '../app-header/app-header';
 import Main from '../main/main';
 import Footer from '../footer/footer';
@@ -12,12 +11,6 @@ import { getData } from '../../store/slices/get-data-api'
 
 const App = () => {
 
-  const [acceptPopupOpen, setAcceptPopupOpen] = useState(false)
-  const [ingredientPopupOpen, setIngredientPopupOpen] = useState(false)
-
-  const [ingredients, setIngredients] = useState()
-  const [data, setData] = useState([])
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,61 +18,21 @@ const App = () => {
   }, [dispatch]);
 
 
-  const openAcceptPopup = () => {
-    setAcceptPopupOpen(true)
-  }
-
-  const openIngredientPopup = (ingredients: any) => {
-    setIngredients(ingredients)
-    setIngredientPopupOpen(true)
-  }
-
-  const closeAllPopups = () => {
-    setAcceptPopupOpen(false)
-    setIngredientPopupOpen(false)
-}
-
-
   return (
     <>
       <AppHeader />
-      <Main 
-      openIngredientPopup={openIngredientPopup}
-      openAcceptPopup={openAcceptPopup}
-      data={data}
-      />
+      <Main/>
       <Footer />
 
       <Modal>
       <AcceptPopup />
-    </Modal>
+      </Modal>
 
-    <Modal>
+      <Modal>
       <IngredientPopup />
-    </Modal>
+      </Modal>
     </>
   )
-}
-
-App.propTypes = {
-  openAcceptPopup: PropTypes.func,
-  openIngredientPopup: PropTypes.func,
-  data: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    proteins: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    calories: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    __v: PropTypes.number,
-    
-  })),
-  
 }
 
 export default App;

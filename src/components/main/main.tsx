@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
@@ -7,43 +6,18 @@ import BurgerConstaructor from '../burger-constructor/burger-constructor';
 import styles from './main.module.css';
 
 
-const Main = (props: any) => {
+const Main = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
 
       <main className={styles.main}>
-        <BurgerIngredients 
-          data={props.data} 
-          openIngredientPopup={props.openIngredientPopup} />
-
-        <BurgerConstaructor 
-          data = {props.data} 
-          openAcceptPopup={props.openAcceptPopup} />
+        <BurgerIngredients />
+        <BurgerConstaructor />
       </main>
 
     </DndProvider>
   );
-}
-
-Main.propTypes = {
-  openAcceptPopup: PropTypes.func,
-  openIngredientPopup: PropTypes.func,
-  data: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    proteins: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    calories: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    __v: PropTypes.number,
-  })),
-  
 }
 
 export default Main;

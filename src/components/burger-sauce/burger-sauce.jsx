@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './burger-sous.module.css';
-import { useDispatch } from 'react-redux';
+import styles from './burger-sauce.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 import { ingredientPopupToggle, setIngredient } from '../../store/slices/ingredientPopup';
+import { elementCounter } from '../../store/slices/constructor-element';
 import { useDrag } from "react-dnd";
 
-const BurgerSous = (props: any) => {
+const BurgerSauce = (props) => {
+
+  const amount = useSelector(store => store.element.elementAmount)
 
   const dispatch = useDispatch()
+
 
   const ingredient = {
     id: props._id,
@@ -21,7 +25,11 @@ const BurgerSous = (props: any) => {
     price: props.price
     }
 
-    const [{isDrag}, sousRef] = useDrag({
+    useEffect(() => {
+      dispatch(elementCounter(props.name))
+    }, [props,dispatch])
+
+    const [, sauceRef] = useDrag({
       type: "middle",
       item: ingredient,
       collect: monitor => ({
@@ -37,8 +45,8 @@ const BurgerSous = (props: any) => {
   return (
     <li className={styles.sous_item} onClick={getIngredients}>
     <figure className={styles.sous__card}>
-    <div className={styles.sous__counter}><Counter count={props.sous.length} size="default" /></div>
-      <img src={props.image} alt={props.name} ref={sousRef}/>
+    <div className={styles.sous__counter}><Counter count={amount} size="default" /></div>
+      <img src={props.image} alt={props.name} ref={sauceRef}/>
       <div className={styles.currency__info}><p className={styles.currency__text}>{props.price}</p><div className={styles.currency__icon}><CurrencyIcon type='primary' /></div></div>
       <figcaption className={styles.sous__info}>{props.name}</figcaption>
     </figure>
@@ -46,7 +54,7 @@ const BurgerSous = (props: any) => {
 );
 }
 
-BurgerSous.propTypes = {
+BurgerSauce.propTypes = {
   
   props: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.string.isRequired,
@@ -61,10 +69,10 @@ BurgerSous.propTypes = {
     image_mobile: PropTypes.string.isRequired,
     image_large: PropTypes.string.isRequired,
     __v: PropTypes.number,
-    openIngredientPopup: PropTypes.func
+
     
   })),
 
 }
 
-export default BurgerSous;
+export default BurgerSauce;

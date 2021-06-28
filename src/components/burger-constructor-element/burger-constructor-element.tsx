@@ -1,5 +1,6 @@
-import React, {useEffect, useMemo} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import burgMid from '../../images/burgMid.png'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor-element.module.css';
 import { useDispatch } from 'react-redux';
@@ -10,7 +11,7 @@ const BurgerConstructorElement = (props:any) => {
 
   const dispatch = useDispatch()
 
-  const [{isDrag}, midRef] = useDrag({
+  const [, midRef] = useDrag({
     type: "middle",
     item: props,
     collect: monitor => ({
@@ -39,7 +40,7 @@ const [{midHover, midDrop}, midDropRef] = useDrop({
     text={props.name}
     handleClose = {()=>{dispatch(deleteMiddle(props.id))}}
     price={props.price}
-    thumbnail={props.image}
+    thumbnail={props.image ? props.image : burgMid}
   /></li>
   </div>
   );

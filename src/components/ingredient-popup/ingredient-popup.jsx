@@ -4,7 +4,7 @@ import styles from './ingredient-popup.module.css'
 import { useSelector } from 'react-redux';
 import { ingredientPopupToggle } from '../../store/slices/ingredientPopup';
 
-const IngredientPopup = (props) => {
+const IngredientPopup = () => {
 
 const { ingredientPopup, ingredient }  = useSelector(state => state.ingredients)
 

@@ -5,7 +5,7 @@ import styles from './accept-popup.module.css'
 import { useSelector } from 'react-redux';
 import { orderPopupToggle } from '../../store/slices/orderPopup';
 
-const AcceptPopup = (props) => {
+const AcceptPopup = () => {
 
     const { orderId, togglePopup } = useSelector(state => state.order)
 

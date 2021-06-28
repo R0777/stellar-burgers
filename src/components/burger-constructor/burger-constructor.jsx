@@ -1,30 +1,34 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Button, CurrencyIcon, DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+import burgBun from '../../images/burgBun.png'
+import { Button, CurrencyIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import shortid from 'shortid';
 import BurgerConstructorElement from '../burger-constructor-element/burger-constructor-element'
 import styles from './burger-constructor.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrderNumber } from '../../store/slices/orderPopup';
 import { useDrop } from "react-dnd";
-import { setBulki, setTopMiddle, setTotal } from '../../store/slices/constructor-element';
+import { setBun, setTopMiddle, setTotal } from '../../store/slices/constructor-element';
 
 
 const BurgerConstructor = () => {
 
 const data = useSelector((store) => store.element.middleElement)
-const bulki = useSelector((store) => store.element.bredElement)
+const bun = useSelector((store) => store.element.bredElement)
 const total = useSelector((store) => store.element.total)
 const idBasket = useSelector((store) => store.element.idBasket)
 
 const dispatch = useDispatch()
 
+useEffect(() => {
+  dispatch(setTotal({bun, data}))
+},[dispatch,bun,data])
 
 const [{isHover}, bulTarget] = useDrop({
-  accept: "bul",
+  accept: "bun",
   drop(item) {
-      dispatch(setBulki(item));
-      dispatch(setTotal({bulki, data}))
+      dispatch(setBun(item));
+      
   },
   collect: monitor => ({
       isHover: monitor.isOver(),
@@ -35,7 +39,7 @@ const [{ middleHover }, middleTarget] = useDrop({
   accept: "middle",
   drop(item) {
       dispatch(setTopMiddle(item));
-      dispatch(setTotal({bulki, data}))
+      
       
   },
   collect: monitor => ({
@@ -49,7 +53,7 @@ const [{sortHover}, sortedtopRef] = useDrop({
   accept: "middle",
   drop(item) {
       dispatch(setTopMiddle(item));
-      dispatch(setTotal({bulki, data}))
+      dispatch(setTotal({bun, data}))
   },
   collect: monitor => ({
     sortHover: monitor.isOver(),
@@ -59,17 +63,15 @@ const [{sortHover}, sortedtopRef] = useDrop({
 
 const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : middleHover ? 'drop-shadow(0px 4px 32px rgba(255, 0, 216, 0.5))': 'none';
 
-
-
   return (
       <section className={styles.constructor__section} ref={bulTarget}>
 
         <ul style={{ display: 'flex', flexDirection: 'column', rowGap: '16px', filter }} className={styles.constructor__list}>
         <li className={`${styles.constructor__list_top} ${
-      sortHover ? styles.onHover : ''}`} key={shortid.generate()} ref={sortedtopRef}><div><DragIcon type="primary" /></div><ConstructorElement
-    text={bulki&&bulki[0].name}
-    price={bulki&&bulki[0].price}
-    thumbnail={bulki&&bulki[0].image}
+      sortHover ? styles.onHover : ''}`} ref={sortedtopRef}><ConstructorElement
+    text={bun&&bun[0].name}
+    price={bun&&bun[0].price}
+    thumbnail={bun[0].image ? bun[0].image : burgBun}
     isLocked = {true}
     type="top"
   /></li>
@@ -80,12 +82,12 @@ const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : mi
         </div>
 
 
-        <li className={styles.constructor__list_bottom} key={shortid.generate()}><div><DragIcon type="primary" /></div><ConstructorElement
+        <li className={styles.constructor__list_bottom}><ConstructorElement
     type="bottom"
     isLocked = {true}
-    text={bulki&&bulki[0].name}
-    price={bulki&&bulki[0].price}
-    thumbnail={bulki&&bulki[0].image}
+    text={bun&&bun[0].name}
+    price={bun&&bun[0].price}
+    thumbnail={bun[0].image ? bun[0].image : burgBun}
   /></li>
         </ul>
         <div className={styles.constructror__currency_box}>

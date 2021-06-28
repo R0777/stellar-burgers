@@ -2,16 +2,16 @@ import { createSlice } from '@reduxjs/toolkit'
 
 
 const getBred = createSlice({
-  name: 'bulki',
+  name: 'bun',
   initialState: {
-    bulki: []
+    buns: []
   },
   reducers: {
-    getBulki(state, action) {
-      state.bulki = action.payload
+    getBun(state, action) {
+      state.buns = action.payload
     },
   }
 })
 
 export default getBred.reducer
-export const {getBulki} = getBred.actions
+export const {getBun} = getBred.actions
