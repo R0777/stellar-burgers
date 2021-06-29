@@ -9,6 +9,7 @@ import { useDrag, useDrop } from 'react-dnd';
 
 const BurgerConstructorElement = (props:any) => {
 
+
   const dispatch = useDispatch()
 
   const [, midRef] = useDrag({
@@ -33,17 +34,18 @@ const [{midHover, midDrop}, midDropRef] = useDrop({
 });
 
   return (
+
     <div ref={midRef} className={`${
       midHover ? styles.onHover : ''}`}>
     <li className={`${styles.constructor__list_item} ${midDrop ? 'dropTarget' : ''}`} ref={midDropRef}><div><DragIcon type="primary" /></div><ConstructorElement
     type={props.count}
     text={props.name}
-    handleClose = {()=>{dispatch(deleteMiddle(props.id))}}
+    handleClose = {()=>{dispatch(deleteMiddle(props.ver))}}
     price={props.price}
     thumbnail={props.image ? props.image : burgMid}
   /></li>
   </div>
-  );
+  )
 }
 
 BurgerConstructorElement.propTypes = {
@@ -56,6 +58,7 @@ BurgerConstructorElement.propTypes = {
     carbohydrates: PropTypes.number.isRequired,
     calories: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
+    var: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     image_mobile: PropTypes.string.isRequired,
     image_large: PropTypes.string.isRequired,
