@@ -1,19 +1,14 @@
 import React from 'react';
-import ModalOverlay from '../modal-overlay/modal-overlay';
 import styles from './ingredient-popup.module.css'
 import { useSelector } from 'react-redux';
-import { ingredientPopupToggle } from '../../store/slices/ingredientPopup';
+
 
 const IngredientPopup = () => {
 
-const { ingredientPopup, ingredient }  = useSelector(state => state.ingredients)
+const { ingredient }  = useSelector(state => state.ingredients)
 
     return (
-      <ModalOverlay
-        isOpen={ingredientPopup}
-        isClose={ingredientPopupToggle}>
-        
-        <h5 className={styles.popup__title}>Детали ингридиента</h5>
+      <>
         <img src={ingredient && ingredient.image} className={styles.ingredient__img} alt="Фкусняшка"/>
         <p className={styles.ingredient__name}>{ingredient && ingredient.name}</p>
         <div className={styles.ingredient__details}>
@@ -26,7 +21,7 @@ const { ingredientPopup, ingredient }  = useSelector(state => state.ingredients)
         <p className={styles.ingredient__cal}>Углеводы,г
         <span className="text text_type_digits-default">{ingredient && ingredient.carb}</span></p>
         </div>
-      </ModalOverlay>
+      </>
     );
 }
 
