@@ -49,8 +49,7 @@ const [{midHover, midDrop}, midDropRef] = useDrop({
 }
 
 BurgerConstructorElement.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,
+  _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     proteins: PropTypes.number.isRequired,
@@ -58,13 +57,10 @@ BurgerConstructorElement.propTypes = {
     carbohydrates: PropTypes.number.isRequired,
     calories: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
-    var: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     image_mobile: PropTypes.string.isRequired,
     image_large: PropTypes.string.isRequired,
-    __v: PropTypes.number
-  })),
-  
+    __v: PropTypes.number,
 }
 
 export default BurgerConstructorElement;

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import AppHeader from '../app-header/app-header';
 import Main from '../main/main';
 import Footer from '../footer/footer';
@@ -23,11 +23,29 @@ const App = () => {
   }, [dispatch]);
 
 
+  const handleClick = useCallback((ev) => {
+    if (ev.target !== ev.currentTarget) {
+        return
+    }
+    dispatch(orderPopupToggle(false))
+    dispatch(ingredientPopupToggle(false))
+},[dispatch])
+
+
+useEffect(() => {
+  document.addEventListener("click", handleClick, false);
+
+  return () => {
+    document.removeEventListener("click", handleClick, false);
+  };
+}, [handleClick]);
+
+
   const handleClose = () => {
     dispatch(orderPopupToggle(false))
     dispatch(ingredientPopupToggle(false))
   }
-  
+
   useEffect(() => {
     const handleEscape = (event) => event.key === 'Escape' && handleClose();
     document.addEventListener('keydown', handleEscape);
@@ -35,20 +53,21 @@ const App = () => {
     return () => document.removeEventListener('keydown', handleEscape);
   }, []);
 
-
   return (
     <>
       <AppHeader />
       <Main/>
       <Footer />
 
-      { togglePopup && <Modal isClose={handleClose} isOpen={togglePopup}>
+      { togglePopup && (<Modal handleClick={handleClick} onClose={handleClose} isOpen={togglePopup}>
       <AcceptPopup />
-      </Modal>}
+      </Modal>)
+      }
 
-      { ingredientPopup && <Modal isClose={handleClose} isOpen={ingredientPopup}>
+      { ingredientPopup && (<Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ingredientPopup}>
       <IngredientPopup />
-      </Modal>}
+      </Modal>)
+      }
     </>
   )
 }

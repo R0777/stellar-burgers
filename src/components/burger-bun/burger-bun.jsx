@@ -44,7 +44,7 @@ const BurgerBun = (props) => {
   return (
     <li className={styles.bulka_item} onClick={getIngredients} >
         <figure className={styles.bulka__card} >
-        <div className={styles.bulka__counter}>{!!amount &&<Counter count={amount} size="default" />}</div>
+        <div className={styles.bulka__counter}>{!!amount && (<Counter count={amount} size="default" />)}</div>
           <img src={props.image} alt={props.name} ref={bulRef}/>
           <div className={styles.currency__info}><p className={styles.currency__text}>{props.price}</p><div className={styles.currency__icon}><CurrencyIcon type='primary' /></div></div>
           <figcaption className={styles.bulka__info}>{props.name}</figcaption>
@@ -54,8 +54,7 @@ const BurgerBun = (props) => {
 }
 
 BurgerBun.propTypes = {
-  props: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,
+  _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     proteins: PropTypes.number.isRequired,
@@ -67,7 +66,6 @@ BurgerBun.propTypes = {
     image_mobile: PropTypes.string.isRequired,
     image_large: PropTypes.string.isRequired,
     __v: PropTypes.number,
-  })),
 }
 
 

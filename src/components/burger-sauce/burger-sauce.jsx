@@ -45,7 +45,7 @@ const BurgerSauce = (props) => {
   return (
     <li className={styles.sous_item} onClick={getIngredients}>
     <figure className={styles.sous__card}>
-    <div className={styles.sous__counter}>{!! amount &&<Counter count={amount} size="default" />}</div>
+    <div className={styles.sous__counter}>{!! amount && (<Counter count={amount} size="default" />)}</div>
       <img src={props.image} alt={props.name} ref={sauceRef}/>
       <div className={styles.currency__info}><p className={styles.currency__text}>{props.price}</p><div className={styles.currency__icon}><CurrencyIcon type='primary' /></div></div>
       <figcaption className={styles.sous__info}>{props.name}</figcaption>
@@ -55,9 +55,7 @@ const BurgerSauce = (props) => {
 }
 
 BurgerSauce.propTypes = {
-  
-  props: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,
+  _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     proteins: PropTypes.number.isRequired,
@@ -69,10 +67,6 @@ BurgerSauce.propTypes = {
     image_mobile: PropTypes.string.isRequired,
     image_large: PropTypes.string.isRequired,
     __v: PropTypes.number,
-
-    
-  })),
-
 }
 
 export default BurgerSauce;
