@@ -5,7 +5,7 @@ const Modal = (props) => {
 
     return ReactDom.createPortal(
       <>
-      {props.children}
+        {props.children}  
       </>, document.body
     )
 }

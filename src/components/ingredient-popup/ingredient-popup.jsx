@@ -1,5 +1,5 @@
 import React from 'react';
-import Popup from '../popup/popup'
+import ModalOverlay from '../modal-overlay/modal-overlay';
 import styles from './ingredient-popup.module.css'
 import { useSelector } from 'react-redux';
 import { ingredientPopupToggle } from '../../store/slices/ingredientPopup';
@@ -9,7 +9,7 @@ const IngredientPopup = () => {
 const { ingredientPopup, ingredient }  = useSelector(state => state.ingredients)
 
     return (
-      <Popup
+      <ModalOverlay
         isOpen={ingredientPopup}
         isClose={ingredientPopupToggle}>
         
@@ -26,7 +26,7 @@ const { ingredientPopup, ingredient }  = useSelector(state => state.ingredients)
         <p className={styles.ingredient__cal}>Углеводы,г
         <span className="text text_type_digits-default">{ingredient && ingredient.carb}</span></p>
         </div>
-      </Popup>
+      </ModalOverlay>
     );
 }
 
