@@ -1,10 +1,3 @@
-.popup__title {
-  color: #F2F2F3;
-  font-family: 'Jetbrains-bold', 'Arial', sans-serif;
-  font-size: 36px;
-  line-height: 40px;
-  width: 640px;
-}
 
 .ingredient__name {
   padding: 16px 0 32px;

@@ -22,3 +22,13 @@
 .constructor-element__text {
   height: 80px;
 }
+
+.onHover {
+  padding-bottom: 40px
+}
+
+.topHover {
+  padding-bottom: 0px;
+  padding-top: 40px
+}
+
