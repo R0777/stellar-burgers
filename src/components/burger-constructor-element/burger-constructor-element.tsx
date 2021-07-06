@@ -48,19 +48,15 @@ const [{midHover, midDrop}, midDropRef] = useDrop({
 }
 
 BurgerConstructorElement.propTypes = {
-  name: PropTypes.string.isRequired,
-  fat: PropTypes.number.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string
+  id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    ver: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.string,
+    cal: PropTypes.number.isRequired,
+    carb: PropTypes.number.isRequired,
+    fat: PropTypes.number.isRequired,
+    prot: PropTypes.number.isRequired
 }
-
-//Может такой вариант типизации более верный?
-// BurgerConstructorElement.propTypes = {
-//   id: PropTypes.string.isRequired,
-//     name: PropTypes.string.isRequired,
-//     ver: PropTypes.string.isRequired,
-//     price: PropTypes.number.isRequired,
-//     image: PropTypes.string
-// }
 
 export default BurgerConstructorElement;
