@@ -1,0 +1,41 @@
+.window {
+  max-width: 480px;
+  margin: 180px auto
+}
+
+.window__title {
+  text-align: center;
+  color: #F2F2F3;
+  font-size: 24px;
+  line-height: 30px;
+  font-family: 'Jetbrains-bold', 'Arial', sans-serif;
+}
+
+.window__btn {
+  margin-top: 24px;
+  width: 100%;
+}
+
+.window__suptext {
+  padding-top: 80px;
+  font-size: 16px;
+  line-height: 24px;
+  font-family: 'Jetbrains', 'Arial', sans-serif;
+  color: #8585AD;
+}
+
+.window__suptextlink {
+  color: #4C4CFF;
+}
+
+.window__subtext {
+  padding-top: 8px;
+  font-size: 16px;
+  line-height: 24px;
+  font-family: 'Jetbrains', 'Arial', sans-serif;
+  color: #8585AD;
+}
+
+.window__subtextlink {
+  color: #4C4CFF;
+}

@@ -1,9 +1,13 @@
 import React, {useEffect, useCallback} from 'react';
 import AppHeader from '../app-header/app-header';
+import { BrowserRouter as Router, Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import Main from '../main/main';
 import Footer from '../footer/footer';
 import Modal from '../modal/modal'
 import AcceptPopup from '../accept-popup/accept-popup';
+import Window from '../window/window';
+import Register from '../register/register';
+import Login from '../login/login';
 import IngredientPopup from '../ingredient-popup/ingredient-popup';
 import { useDispatch, useSelector } from 'react-redux';
 import { getData } from '../../store/slices/get-data-api'
@@ -56,7 +60,41 @@ useEffect(() => {
   return (
     <>
       <AppHeader />
-      <Main/>
+
+<Router>
+  <Switch>
+    <Route path="/login" exact={true}>
+      <Window
+    title ="Вход"
+    buttonTitle = "Войти"
+    supText = "Вы — новый пользователь?"
+    supTextLink = "Зарегистрироваться"
+    subText = "Забыли пароль?"
+    subTextLink ="Восстановить пароль">
+        <Login />
+      </Window>
+    </Route>
+  </Switch>
+  
+  <Switch>
+    <Route path="/register" exact={true}>
+      <Window   
+    title ="Регистрация"
+    buttonTitle = "Зарегистрироваться"
+    supText = "Уже зарегистрированы?"
+    supTextLink = "Войти">
+        <Register />
+      </Window>
+    </Route>
+  </Switch>
+
+  <Switch>
+    <Route path="/" exact={true}>
+      <Main />
+    </Route>
+  </Switch>
+
+</Router>
       <Footer />
 
       { togglePopup && (<Modal handleClick={handleClick} onClose={handleClose} isOpen={togglePopup}>
@@ -68,7 +106,7 @@ useEffect(() => {
       <IngredientPopup />
       </Modal>)
       }
-    </>
+  </>
   )
 }
 
