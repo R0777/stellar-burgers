@@ -25,7 +25,7 @@ const Window = (props: any) => {
 </div>
 </form>
 <p className={styles.window__suptext}>{props.supText}<Link to="/register" className={styles.window__suptextlink}>{props.supTextLink}</Link></p>
-{props.subText && <p className={styles.window__subtext}>{props.subText}<Link to="/forgot-password">{props.subTextLink}</Link></p>}
+{props.subText && <p className={styles.window__subtext}>{props.subText}<Link to="/forgot-password" className={styles.window__subtextlink}>{props.subTextLink}</Link></p>}
 </section>
   )
 }

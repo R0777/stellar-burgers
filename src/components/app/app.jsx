@@ -67,9 +67,9 @@ useEffect(() => {
       <Window
     title ="Вход"
     buttonTitle = "Войти"
-    supText = "Вы — новый пользователь?"
+    supText = "Вы — новый пользователь? "
     supTextLink = "Зарегистрироваться"
-    subText = "Забыли пароль?"
+    subText = "Забыли пароль? "
     subTextLink ="Восстановить пароль">
         <Login />
       </Window>
@@ -81,7 +81,7 @@ useEffect(() => {
       <Window   
     title ="Регистрация"
     buttonTitle = "Зарегистрироваться"
-    supText = "Уже зарегистрированы?"
+    supText = "Уже зарегистрированы? "
     supTextLink = "Войти">
         <Register />
       </Window>
