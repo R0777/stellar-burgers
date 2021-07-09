@@ -1,16 +1,14 @@
 import React, {useRef, useState} from 'react';
 import PropTypes from 'prop-types';
-import {Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Input} from '@ya.praktikum/react-developer-burger-ui-components';
 
 
-const Login = (props : any) => {
+const ForgetPass = (props : any) => {
     
     const [value,
         setValue] = useState('')
-    const [pass,
-        setPass] = useState('')
     const emailRef = useRef(null)
-    const passRef = useRef(null)
+  
     const inputClick = () => {
         //setTimeout(() => inputRef.current.focus(), 0)
         alert('Pass Click Callback')
@@ -18,7 +16,7 @@ const Login = (props : any) => {
 
     return (<> <Input
         type={'email'}
-        placeholder={'E-mail'}
+        placeholder={'Укажите e-mail'}
         onChange={e => setValue(e.target.value)}
         value={value}
         name={'email'}
@@ -26,17 +24,13 @@ const Login = (props : any) => {
         ref={emailRef}
         onIconClick={inputClick}
         errorText={'Ошибка'}/> 
-        
-        <PasswordInput onChange = {
-        e => setPass(e.target.value)}
-        value = { pass }
-        name = {'password'} /> 
+
     </>)
 
 }
 
-// Login.propTypes = {   onClose: PropTypes.func.isRequired,   title:
+// ForgetPass.propTypes = {   onClose: PropTypes.func.isRequired,   title:
 // PropTypes.string,   handleClick: PropTypes.func.isRequired,   isOpen:
 // PropTypes.bool.isRequired,   children:PropTypes.element.isRequired }
 
-export default Login;
+export default ForgetPass;

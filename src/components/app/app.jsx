@@ -8,11 +8,15 @@ import AcceptPopup from '../accept-popup/accept-popup';
 import Window from '../window/window';
 import Register from '../register/register';
 import Login from '../login/login';
+import ForgetPass from '../forget-pass/forget-pass';
+import ResetPassword from '../reset-pass/reset-pass';
+import NotFound404 from '../not-found404/not-found';
 import IngredientPopup from '../ingredient-popup/ingredient-popup';
 import { useDispatch, useSelector } from 'react-redux';
 import { getData } from '../../store/slices/get-data-api'
 import { orderPopupToggle } from '../../store/slices/orderPopup';
 import { ingredientPopupToggle } from '../../store/slices/ingredientPopup';
+
 
 
 const App = () => {
@@ -59,41 +63,74 @@ useEffect(() => {
 
   return (
     <>
-      <AppHeader />
 
 <Router>
   <Switch>
     <Route path="/login" exact={true}>
+    <AppHeader />
       <Window
-    title ="Вход"
-    buttonTitle = "Войти"
-    supText = "Вы — новый пользователь? "
-    supTextLink = "Зарегистрироваться"
-    subText = "Забыли пароль? "
-    subTextLink ="Восстановить пароль">
-        <Login />
+    title = {'Вход'}
+    supText = {"Вы — новый пользователь? "}
+    supTextLink = {"Зарегистрироваться"}
+    subText = {"Забыли пароль? "}
+    subTextLink = {"Восстановить пароль"}
+    suplink = {"/register"}
+    sublink = {"/forgot-password"}
+    >
+      
+        <Login buttonTitle = {"Войти"} />
       </Window>
     </Route>
-  </Switch>
-  
-  <Switch>
-    <Route path="/register" exact={true}>
-      <Window   
-    title ="Регистрация"
-    buttonTitle = "Зарегистрироваться"
-    supText = "Уже зарегистрированы? "
-    supTextLink = "Войти">
-        <Register />
-      </Window>
-    </Route>
-  </Switch>
 
-  <Switch>
+  
+
+    <Route path="/register" exact={true}>
+    <AppHeader />
+      <Window   
+    title = {"Регистрация"}
+
+    supText = {"Уже зарегистрированы? "}
+    supTextLink = {"Войти"}
+    suplink= {"/login"}>
+        <Register buttonTitle = {"Зарегистрироваться"} />
+      </Window>
+    </Route>
+
+
+
+    <Route path="/forgot-password" exact={true}>
+    <AppHeader />
+      <Window   
+    title = {"Восстановление пароля"}
+    buttonTitle = {"Восстановить"}
+    supText = {"Вспомнили пароль? "}
+    supTextLink = {"Войти"}
+    suplink={"/login"}>
+        <ForgetPass />
+      </Window>
+    </Route>
+
+    <Route path="/reset-password" exact={true}>
+    <AppHeader />
+      <Window   
+    title ={"Восстановление пароля"}
+    buttonTitle = {"Сохранить"}
+    supText = {"Вспомнили пароль? "}
+    supTextLink = {"Войти"}
+    suplink = {"/login"}>
+        <ResetPassword />
+      </Window>
+    </Route>
+
     <Route path="/" exact={true}>
+    <AppHeader />
       <Main />
     </Route>
-  </Switch>
 
+    <Route>
+      <NotFound404 />
+    </Route>
+  </Switch>
 </Router>
       <Footer />
 

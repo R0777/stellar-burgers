@@ -27,6 +27,7 @@ form {
 .window__suptext {
   padding-top: 80px;
   font-size: 16px;
+  text-align: center;
   line-height: 24px;
   font-family: 'Jetbrains', 'Arial', sans-serif;
   color: #8585AD;
@@ -42,10 +43,19 @@ form {
   font-size: 16px;
   line-height: 24px;
   font-family: 'Jetbrains', 'Arial', sans-serif;
+  text-align: center;
   color: #8585AD;
 }
 
 .window__subtextlink {
   color: #4C4CFF;
   text-decoration: none;
+}
+
+:global(.input__container) {
+  width: 100%
+}
+
+:global(.input_size_default) {
+  width: 100%
 }

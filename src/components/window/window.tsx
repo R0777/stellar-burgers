@@ -1,17 +1,15 @@
-import React, { useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './window.module.css'
-import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { getCookie } from '../../utils/cookie';
 
 const Window = (props: any) => {
 
-  const [value, setValue] = React.useState('value')
-  const inputRef = useRef(null)
-  const onIconClick = () => {
-  //setTimeout(() => inputRef.current.focus(), 0)
-    alert('Icon Click Callback')
-  }
+  useEffect(() => {
+    console.log(getCookie('token'))
+  },[])
+
 
   return (
 <section className={styles.window}>
@@ -19,13 +17,9 @@ const Window = (props: any) => {
 <form>
 {props.children}
 
-<div className={styles.window__btn}><Button type="primary" size="large">
-  {props.buttonTitle}
-</Button>
-</div>
 </form>
-<p className={styles.window__suptext}>{props.supText}<Link to="/register" className={styles.window__suptextlink}>{props.supTextLink}</Link></p>
-{props.subText && <p className={styles.window__subtext}>{props.subText}<Link to="/forgot-password" className={styles.window__subtextlink}>{props.subTextLink}</Link></p>}
+<p className={styles.window__suptext}>{props.supText}<Link to={props.suplink} className={styles.window__suptextlink}>{props.supTextLink}</Link></p>
+{props.subText && <p className={styles.window__subtext}>{props.subText&&props.subText}<Link to={props.sublink&&props.sublink} className={styles.window__subtextlink}>{props.subTextLink&&props.subTextLink}</Link></p>}
 </section>
   )
 }
