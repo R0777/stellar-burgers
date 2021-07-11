@@ -2,14 +2,8 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './window.module.css'
-import { getCookie } from '../../utils/cookie';
 
 const Window = (props: any) => {
-
-  useEffect(() => {
-    console.log(getCookie('token'))
-  },[])
-
 
   return (
 <section className={styles.window}>

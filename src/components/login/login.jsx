@@ -1,26 +1,36 @@
 import React, {useRef, useState} from 'react';
 import PropTypes from 'prop-types';
-import {Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Input, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch } from 'react-redux';
+import { userLogin } from '../../store/slices/login';
 
+const Login = (props) => {
 
-const Login = (props : any) => {
+    const dispatch = useDispatch()
     
-    const [value,
-        setValue] = useState('')
-    const [pass,
-        setPass] = useState('')
+    const [email, setEmail] = useState('')
+    const [pass,  setPass] = useState('')
     const emailRef = useRef(null)
-    const passRef = useRef(null)
     const inputClick = () => {
         //setTimeout(() => inputRef.current.focus(), 0)
         alert('Pass Click Callback')
     }
 
+    const loginUser = {
+        'email': email,
+        'pass': pass,
+    }
+
+    const submitLoginHandler = (ev) => {
+    ev.preventDefault();
+    dispatch(userLogin(loginUser))
+    }
+
     return (<> <Input
         type={'email'}
         placeholder={'E-mail'}
-        onChange={e => setValue(e.target.value)}
-        value={value}
+        onChange={e => setEmail(e.target.value)}
+        value={email}
         name={'email'}
         error={false}
         ref={emailRef}
@@ -31,6 +41,11 @@ const Login = (props : any) => {
         e => setPass(e.target.value)}
         value = { pass }
         name = {'password'} /> 
+
+<div style={{ margin: 'auto' }}><Button onClick={submitLoginHandler} type="primary" size="large">
+  {props.buttonTitle}
+</Button>
+</div>
     </>)
 
 }

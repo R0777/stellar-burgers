@@ -1,7 +1,10 @@
+li {
+  display: contents;
+}
+
 .header {
   width: 100%;
   background: #1C1C21;
-  color: #8585AD;
   font-size: 16px;
 }
 .header__nav {
@@ -41,9 +44,10 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  color: #8585AD;
 }
 
-.nav__list_item:hover > .nav__icon > svg {
+.nav__list_li:hover > .nav__icon > svg {
   fill: #f2f2f3;
 }
 
@@ -51,8 +55,13 @@
   color: #f2f2f3
 }
 
+.active {
+  color: #f2f2f3
+}
+
+
 .nav__icon {
-  margin-right: 8px;
+  padding-right: 8px;
 }
 
 .nav__list_item:nth-of-type(2) {

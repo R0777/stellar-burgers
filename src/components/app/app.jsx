@@ -1,7 +1,9 @@
 import React, {useEffect, useCallback} from 'react';
 import AppHeader from '../app-header/app-header';
-import { BrowserRouter as Router, Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import ProtectedRoute from '../protected-route/protected-route';
 import Main from '../main/main';
+import Profile from '../profile/profile';
 import Footer from '../footer/footer';
 import Modal from '../modal/modal'
 import AcceptPopup from '../accept-popup/accept-popup';
@@ -16,18 +18,45 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getData } from '../../store/slices/get-data-api'
 import { orderPopupToggle } from '../../store/slices/orderPopup';
 import { ingredientPopupToggle } from '../../store/slices/ingredientPopup';
+import { getCookie } from '../../utils/cookie';
+import { resetToken } from '../../store/slices/resetToken';
+import { getUserData } from '../../store/slices/get-user';
+import { setLogin } from '../../store/slices/login';
 
-
+import { deleteCookie } from '../../utils/cookie';
 
 const App = () => {
 
   const togglePopup = useSelector(state => state.order.togglePopup)
   const ingredientPopup = useSelector(state => state.ingredients.ingredientPopup)
+  const loggedIn = useSelector(store => store.loginUser.login)
 
   const dispatch = useDispatch();
 
+
+  const tokenCheck = () => {
+
+    const jwt = getCookie('token');
+    if (!jwt) {
+      const refresh = getCookie('refreshToken')
+        if (!refresh) {
+          console.log('ничего совсем нету')
+          return
+        }
+        console.log('есть refresh token')
+        dispatch(resetToken(getCookie('refreshToken')))
+        //dispatch(getUserData(getCookie('token')))
+        //dispatch(setLogin(true))
+    }
+    console.log('есть jwt')
+    console.log(getCookie('token'))
+    dispatch(getUserData(getCookie('token')))
+    dispatch(setLogin(true))    
+  }
+
   useEffect(() => {
     dispatch(getData())
+    tokenCheck()
   }, [dispatch]);
 
 
@@ -67,64 +96,67 @@ useEffect(() => {
 <Router>
   <Switch>
     <Route path="/login" exact={true}>
-    <AppHeader />
-      <Window
-    title = {'Вход'}
-    supText = {"Вы — новый пользователь? "}
-    supTextLink = {"Зарегистрироваться"}
-    subText = {"Забыли пароль? "}
-    subTextLink = {"Восстановить пароль"}
-    suplink = {"/register"}
-    sublink = {"/forgot-password"}
-    >
-      
-        <Login buttonTitle = {"Войти"} />
-      </Window>
+      <AppHeader />
+        <Window
+          title = {'Вход'}
+          supText = {"Вы — новый пользователь? "}
+          supTextLink = {"Зарегистрироваться"}
+          subText = {"Забыли пароль? "}
+          subTextLink = {"Восстановить пароль"}
+          suplink = {"/register"}
+          sublink = {"/forgot-password"}>
+          <Login buttonTitle = {"Войти"} />
+        </Window>
     </Route>
 
-  
 
     <Route path="/register" exact={true}>
-    <AppHeader />
-      <Window   
-    title = {"Регистрация"}
-
-    supText = {"Уже зарегистрированы? "}
-    supTextLink = {"Войти"}
-    suplink= {"/login"}>
-        <Register buttonTitle = {"Зарегистрироваться"} />
+      <AppHeader />
+        <Window   
+          title = {"Регистрация"}
+          supText = {"Уже зарегистрированы? "}
+          supTextLink = {"Войти"}
+          suplink= {"/login"}>
+          <Register buttonTitle = {"Зарегистрироваться"} />
       </Window>
     </Route>
-
 
 
     <Route path="/forgot-password" exact={true}>
     <AppHeader />
       <Window   
-    title = {"Восстановление пароля"}
-    buttonTitle = {"Восстановить"}
-    supText = {"Вспомнили пароль? "}
-    supTextLink = {"Войти"}
-    suplink={"/login"}>
-        <ForgetPass />
+        title = {"Восстановление пароля"}
+        supText = {"Вспомнили пароль? "}
+        supTextLink = {"Войти"}
+        suplink={"/login"}>
+        <ForgetPass buttonTitle = {"Восстановить"} />
       </Window>
     </Route>
+
 
     <Route path="/reset-password" exact={true}>
-    <AppHeader />
-      <Window   
-    title ={"Восстановление пароля"}
-    buttonTitle = {"Сохранить"}
-    supText = {"Вспомнили пароль? "}
-    supTextLink = {"Войти"}
-    suplink = {"/login"}>
-        <ResetPassword />
+      <AppHeader />
+        <Window   
+          title ={"Восстановление пароля"}
+          supText = {"Вспомнили пароль? "}
+          supTextLink = {"Войти"}
+          suplink = {"/login"}>
+          <ResetPassword
+          buttonTitle = {"Сохранить"} />
       </Window>
     </Route>
 
+
     <Route path="/" exact={true}>
-    <AppHeader />
-      <Main />
+      <AppHeader />
+        <Main />
+    </Route>
+
+    <Route path="/profile" exact={true}>
+      <AppHeader />
+        <ProtectedRoute 
+          loggedIn={loggedIn}
+          component={Profile} />
     </Route>
 
     <Route>
@@ -132,7 +164,7 @@ useEffect(() => {
     </Route>
   </Switch>
 </Router>
-      <Footer />
+<Footer />
 
       { togglePopup && (<Modal handleClick={handleClick} onClose={handleClose} isOpen={togglePopup}>
       <AcceptPopup />

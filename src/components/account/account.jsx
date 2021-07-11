@@ -1,12 +1,12 @@
 import React, {useState, useRef} from 'react';
 import PropTypes from 'prop-types';
+import styles from './account.module.css'
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
-import { userRegister } from '../../store/slices/register';
+import { useSelector } from 'react-redux';
 
-const Register = (props) => {
 
-const dispatch = useDispatch()
+const Account = (props) => {
+
 
 const [email, setEmail] = useState('')
 const [pass, setPass] = useState('')
@@ -17,23 +17,14 @@ const inputClick = () => {
     //setTimeout(() => inputRef.current.focus(), 0)
 }
 
-const registerUser = {
-  'email': email,
-  'pass': pass,
-  'name': name
-}
 
-const submitRegisterHandler = (ev) => {
-  ev.preventDefault();
-  dispatch(userRegister(registerUser))
-}
+return (
 
-return (<>
-
+<section className={styles.account}>
   <Input
   type={'text'}
   placeholder={'Имя'}
-  onChange={e => setName(e.target.value)}
+  onChange = { e => setName(e.target.value)}
   value={name}
   name={'name'}
   error={false}
@@ -41,11 +32,10 @@ return (<>
   onIconClick={inputClick}
   errorText={'Ошибка'}/>
 
-
   <Input
   type={'email'}
-  placeholder={'E-mail'}
-  onChange={e => setEmail(e.target.value)}
+  placeholder={'Логин'}
+  onChange = { e => setEmail(e.target.value)}
   value={email}
   name={'email'}
   error={false}
@@ -53,16 +43,11 @@ return (<>
   onIconClick={inputClick}
   errorText={'Ошибка'}/> 
   
-  <PasswordInput onChange = {
-  e => setPass(e.target.value)}
+  <PasswordInput 
+  onChange = { e => setPass(e.target.value)}
   value = { pass }
   name = {'password'} /> 
-
-<div style={{ margin: 'auto' }}><Button onClick={submitRegisterHandler} type="primary" size="large">
-  {props.buttonTitle}
-</Button>
-</div>
-</>)
+</section>)
 
 }
 
@@ -74,4 +59,4 @@ return (<>
 //   children:PropTypes.element.isRequired
 // }
 
-export default Register;
+export default Account;

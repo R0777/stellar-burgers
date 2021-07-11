@@ -1,0 +1,31 @@
+.profile {
+  max-width: 1240px;
+  margin: 120px auto;
+  display: flex;
+  font-size: 24px;
+  line-height: 30px;
+  align-self: flex-start;
+  justify-content: left;
+  font-family: 'Jetbrains-bold', 'Arial', sans-serif;
+}
+
+.profile__nav {
+  max-width: 320px;
+  margin-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.profile__link {
+  height: 64px;
+  color: #8585AD;
+}
+
+.profile__text {
+  color: #8585AD;
+  font-size: 16px;
+  opacity: .4;
+  line-height: 24px;
+  font-family: 'Jetbrains', 'Arial', sans-serif;
+}
