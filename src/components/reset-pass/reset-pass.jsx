@@ -1,4 +1,5 @@
 import React, {useRef, useState} from 'react';
+import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 import {Input, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from 'react-redux';
@@ -30,6 +31,15 @@ const ResetPassword = (props) => {
     dispatch(resetPass(userData))
   }
 
+  if (props.loggedIn) {
+    return (
+      <Redirect
+        to={{
+          pathname: '/'
+        }}
+      />
+    );
+  }
 
 return (<>
   <PasswordInput 

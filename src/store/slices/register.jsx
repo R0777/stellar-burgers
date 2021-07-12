@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit' 
 import { setCookie } from '../../utils/cookie'
+import { setLogin } from './login'
 
 export const userRegister = createAsyncThunk('registerUser/userRegister', async (user, { dispatch }) => {
   return fetch('https://norma.nomoreparties.space/api/auth/register',
@@ -21,8 +22,8 @@ export const userRegister = createAsyncThunk('registerUser/userRegister', async 
       dispatch(setRegisterRefreshToken(res.refreshToken))
       dispatch(setRegisterAccessToken(res.accessToken))
       dispatch(setRegisterUserData(res.user))
-      window.location.href='/'
       })
+      .then(res => dispatch(setLogin(true)))
 
     })
 })
@@ -43,7 +44,7 @@ const userDetails = createSlice({
         if (authToken.indexOf('Bearer') === 0) {            
         authToken = authToken.split('Bearer ')[1];
         state.accessToken = authToken
-        setCookie('token', authToken)
+        setCookie('token', authToken, { expires: 1200 })
 
         }   
     },

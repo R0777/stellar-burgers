@@ -1,5 +1,6 @@
 import React, {useState, useRef} from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from 'react-redux';
 import { userRegister } from '../../store/slices/register';
@@ -26,6 +27,16 @@ const registerUser = {
 const submitRegisterHandler = (ev) => {
   ev.preventDefault();
   dispatch(userRegister(registerUser))
+}
+
+if (props.loggedIn) {
+  return (
+    <Redirect
+      to={{
+        pathname: '/'
+      }}
+    />
+  );
 }
 
 return (<>

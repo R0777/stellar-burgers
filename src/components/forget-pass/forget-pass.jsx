@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import { useHistory} from "react-router-dom";
+import { useHistory, Redirect} from "react-router-dom";
 import PropTypes from 'prop-types';
 import {Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from 'react-redux';
@@ -27,6 +27,16 @@ const ForgetPass = (props) => {
             history.push('/reset-password')
           }
         })
+    }
+
+    if (props.loggedIn) {
+      return (
+        <Redirect
+          to={{
+            pathname: '/'
+          }}
+        />
+      );
     }
 
     return (<> <Input

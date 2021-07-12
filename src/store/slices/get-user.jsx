@@ -15,7 +15,6 @@ export const getUserData = createAsyncThunk('resetUser/getUserData', async (toke
     if(!res.ok) throw Error(res.statusText)
       res.json()
       .then(res => {
-        console.log('данные пользователя')
       dispatch(setLoginUserData(res.user))
       })
   })
@@ -24,7 +23,6 @@ export const getUserData = createAsyncThunk('resetUser/getUserData', async (toke
 const userReset = createSlice({
   name: 'resetUser',
   initialState: {},
-
 
   extraReducers: {
     [getUserData.pending]: (state, action) => {

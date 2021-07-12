@@ -1,12 +1,17 @@
 import React, {useRef, useState} from 'react';
+import { Redirect, useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 import {Input, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userLogin } from '../../store/slices/login';
+
 
 const Login = (props) => {
 
     const dispatch = useDispatch()
+    const location = useLocation();
+    const root = location.state.from.pathname
+
     
     const [email, setEmail] = useState('')
     const [pass,  setPass] = useState('')
@@ -24,6 +29,16 @@ const Login = (props) => {
     const submitLoginHandler = (ev) => {
     ev.preventDefault();
     dispatch(userLogin(loginUser))
+    // console.log(location.pathname)
+    // history.push(location.pathname)
+    }
+
+    if (props.loggedIn) {
+      return (
+        <Redirect
+          to={ root ? root : '/' }
+        />
+      );
     }
 
     return (<> <Input
