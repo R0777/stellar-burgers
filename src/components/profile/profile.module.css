@@ -1,6 +1,6 @@
 .profile {
   max-width: 1240px;
-  margin: 120px auto;
+  margin: 40px auto;
   display: flex;
   font-size: 24px;
   line-height: 30px;
@@ -12,6 +12,7 @@
 .profile__nav {
   max-width: 320px;
   margin-bottom: 80px;
+  margin-right: 60px;
   display: flex;
   flex-direction: column;
   text-decoration: none;
@@ -20,6 +21,8 @@
 .profile__link {
   height: 64px;
   color: #8585AD;
+  display: flex;
+  align-items: center;
 }
 
 .profile__text {

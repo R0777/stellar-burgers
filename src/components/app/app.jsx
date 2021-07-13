@@ -156,6 +156,13 @@ useEffect(() => {
           component={Profile} />
     </Route>
 
+    <Route path="/profile/order" exact={true}>
+      <AppHeader />
+        <ProtectedRoute 
+          loggedIn={loggedIn}
+          component={Profile} />
+    </Route>
+
     <Route>
       <NotFound404 />
     </Route>

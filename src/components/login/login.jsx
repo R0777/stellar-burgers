@@ -10,8 +10,12 @@ const Login = (props) => {
 
     const dispatch = useDispatch()
     const location = useLocation();
-    const root = location.state.from.pathname
 
+    const getPath = () => {
+    if (location.state !== undefined) {
+    return location.state.from.pathname
+    }
+  }
     
     const [email, setEmail] = useState('')
     const [pass,  setPass] = useState('')
@@ -29,14 +33,13 @@ const Login = (props) => {
     const submitLoginHandler = (ev) => {
     ev.preventDefault();
     dispatch(userLogin(loginUser))
-    // console.log(location.pathname)
-    // history.push(location.pathname)
+
     }
 
     if (props.loggedIn) {
       return (
         <Redirect
-          to={ root ? root : '/' }
+          to={ location.state !== undefined ? getPath() : '/' }
         />
       );
     }

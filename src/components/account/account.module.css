@@ -1,3 +1,7 @@
 .account {
-  max-width: 480px;
+  width: 480px;
+}
+
+.account > div:not(:first-of-type) {
+  margin-top: 24px;
 }

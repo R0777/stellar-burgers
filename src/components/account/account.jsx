@@ -7,10 +7,12 @@ import { useSelector } from 'react-redux';
 
 const Account = (props) => {
 
+const login = useSelector(store => store.loginUser.userData.name)
+const mail = useSelector(store => store.loginUser.userData.email)
 
-const [email, setEmail] = useState('')
+const [email, setEmail] = useState(mail)
 const [pass, setPass] = useState('')
-const [name, setName] = useState('')
+const [name, setName] = useState(login)
 const emailRef = useRef(null)
 const nameRef = useRef(null)
 const inputClick = () => {
@@ -26,6 +28,7 @@ return (
   placeholder={'Имя'}
   onChange = { e => setName(e.target.value)}
   value={name}
+  icon={'EditIcon'}
   name={'name'}
   error={false}
   ref={nameRef}
@@ -38,6 +41,7 @@ return (
   onChange = { e => setEmail(e.target.value)}
   value={email}
   name={'email'}
+  icon={'EditIcon'}
   error={false}
   ref={emailRef}
   onIconClick={inputClick}
