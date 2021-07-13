@@ -1,6 +1,6 @@
 .orders {
   width: 852px;
-  height: 70vh;
+  height: 80vh;
   padding-right: 8px;
   display: flex;
   flex-direction: column;
@@ -82,7 +82,8 @@ color: #f2f2f3;
   color: #f2f2f3
 }
 
-.done {
+.order__status_done {
+  composes: order__status;
   color: #00CCCC;
 }
 
@@ -94,19 +95,28 @@ color: #f2f2f3;
 }
 
 .order__details > ul {
-  position: relative;
-  display: inline-block;
+  
+  display: flex;
   max-width: 305px;
   list-style: none;
+  -webkit-transform: rotate(180deg) translate(-20px,0);
+  -ms-transform: rotate(180deg) translate(-20px,0); 
+  transform: rotate(180deg) translate(-20px,0);
 }
 
-.order__details > li {
-  overflow: hidden;
+.order__details li {
+  display: block;
+  width: 45px;
+}
+
+.order__details img {
+
+  display: block;
   width: 64px;
-}
-
-.order__details > img {
-position: absolute;
+  margin-right: 15px;
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg); 
+  transform: rotate(180deg);
 }
 
 .order__price {

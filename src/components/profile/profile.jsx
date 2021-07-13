@@ -23,8 +23,8 @@ const Profile = (props) => {
   return(
     <section className={styles.profile}>
       <nav className={styles.profile__nav}>
-        <NavLink className={styles.profile__link} activeStyle={{ color: "#f2f2f3" }} to='/profile'>Профиль</NavLink>
-        <NavLink className={styles.profile__link} activeStyle={{ color: "#f2f2f3" }} to='/profile/order'>История заказов</NavLink>
+        <Link className={location.pathname === '/profile' ? styles.profile__link_white : styles.profile__link} to='/profile'>Профиль</Link>
+        <Link className={location.pathname === '/profile/order' ? styles.profile__link_white : styles.profile__link} to='/profile/order'>История заказов</Link>
         <Link className={styles.profile__link} to='/' onClick={logoutHandler}>Выход</Link>
         <p className={styles.profile__text}>В этом разделе вы можете изменить свои персональные данные?</p>
       </nav>
