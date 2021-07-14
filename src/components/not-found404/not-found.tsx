@@ -13,7 +13,7 @@ const NotFound404 = () => {
           <p>Таких бургеров у нас нет</p>
           <br />
           <br />
-          <p>Поищите на основном <Link to='/' className={styles.link}>сайте</Link></p>
+          <p>Поищите на <Link to='/' className={styles.link}>основном сайте</Link></p>
         </div>
       </div>
     </div>

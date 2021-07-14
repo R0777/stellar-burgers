@@ -12,22 +12,20 @@ import Register from '../register/register';
 import Login from '../login/login';
 import ForgetPass from '../forget-pass/forget-pass';
 import ResetPassword from '../reset-pass/reset-pass';
+import Orders from '../orders/orders';
 import NotFound404 from '../not-found404/not-found';
 import IngredientPopup from '../ingredient-popup/ingredient-popup';
 import { useDispatch, useSelector } from 'react-redux';
 import { getData } from '../../store/slices/get-data-api'
 import { orderPopupToggle } from '../../store/slices/orderPopup';
 import { ingredientPopupToggle } from '../../store/slices/ingredientPopup';
-import { getCookie, deleteCookie } from '../../utils/cookie';
+import { getCookie } from '../../utils/cookie';
 import { resetToken } from '../../store/slices/resetToken';
 import { getUserData } from '../../store/slices/get-user';
 import { setLogin } from '../../store/slices/login';
 
 
 const App = () => {
-
-  // deleteCookie('token')
-  // deleteCookie('refreshToken')
 
   const togglePopup = useSelector(state => state.order.togglePopup)
   const ingredientPopup = useSelector(state => state.ingredients.ingredientPopup)
@@ -161,6 +159,11 @@ useEffect(() => {
         <ProtectedRoute 
           loggedIn={loggedIn}
           component={Profile} />
+    </Route>
+
+    <Route path="/feed" exact={true}>
+      <AppHeader />
+      <Orders />
     </Route>
 
     <Route>
