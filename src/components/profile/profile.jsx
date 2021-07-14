@@ -41,11 +41,11 @@ const Profile = (props) => {
     </Switch>
   </Router> */}
 
-      {/* {location.pathname === '/profile' ? <Account /> : <AccountOrders /> } */}
+      {location.pathname === '/profile' ? <Account /> : <AccountOrders /> }
 
-      {location.pathname === '/profile' && <Account /> }
+      {/* {location.pathname === '/profile' && <Account /> }
 
-      {location.pathname === '/profile/order' && <AccountOrders /> }
+      {location.pathname === '/profile/order' && <AccountOrders /> } */}
     </section>
   )
 }

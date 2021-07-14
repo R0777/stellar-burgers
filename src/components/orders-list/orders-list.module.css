@@ -1,6 +1,5 @@
 
 .orders {
-  padding-top: 20px;
   width: 584px;
   height: 80vh;
   padding-right: 8px;
@@ -14,6 +13,7 @@
   font-size: 36px;
   line-height: 40px;
   padding-top: 40px;
+  padding-bottom: 20px;
 }
 
 .orders::-webkit-scrollbar-button {
