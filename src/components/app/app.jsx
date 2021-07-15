@@ -166,10 +166,36 @@ useEffect(() => {
       <Orders />
     </Route>
 
+    <Router path="/ingredients/:id" exact>
+    { ingredientPopup && (
+        <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ingredientPopup}>
+          <IngredientPopup />
+        </Modal>
+        )
+        
+    }
+    </Router>
+
+
+
+
     <Route>
       <NotFound404 />
     </Route>
   </Switch>
+
+  <Router path="/ingredients/:id" exact>
+    { ingredientPopup && (
+        <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ingredientPopup}>
+          <IngredientPopup />
+        </Modal>
+        )
+    }
+    </Router>
+
+
+
+
 </Router>
 <Footer />
 
@@ -177,13 +203,20 @@ useEffect(() => {
       <AcceptPopup />
       </Modal>)
       }
+      
 
-      { ingredientPopup && (<Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ingredientPopup}>
-      <IngredientPopup />
-      </Modal>)
-      }
-  </>
+    <Router>
+    { ingredientPopup && (
+        <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ingredientPopup}>
+          <IngredientPopup />
+        </Modal>
+        )
+        
+    }
+    </Router>
+    </>
   )
+
 }
 
 export default App;
