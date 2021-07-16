@@ -97,6 +97,7 @@ const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : mi
     price={bun[0]&&bun[0].price}
     thumbnail={bun[0] ? bun[0].image : burgBun}
   /></li>
+  
         </ul>
         <div className={styles.constructror__currency_box}>
           <p className={styles.constructor__currency}>{total}</p>

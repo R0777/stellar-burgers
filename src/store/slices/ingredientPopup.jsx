@@ -13,6 +13,10 @@ const ingredientsSlice = createSlice({
     setIngredient(state, {payload}) {
       state.ingredient = payload
     },
+    getIngredint(state, action) {
+      
+    }
+
   }
 }) 
 

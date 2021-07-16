@@ -5,13 +5,15 @@ import styles from './burger-bun.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { ingredientPopupToggle, setIngredient } from '../../store/slices/ingredientPopup';
 import { useDrag } from "react-dnd";
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
 const BurgerBun = (props) => {
 
   const bredArray = useSelector((store) => store.element.bredElement)
 
+  const history = useHistory()
   const dispatch = useDispatch()
+  const location = useLocation()
 
   const ingredient = {
     id: props._id,
@@ -43,7 +45,10 @@ const BurgerBun = (props) => {
   }
 
   return (
-    <Link to={{pathname: `/ingredients/${ingredient.id}`}} className={styles.ingredient__link}><li className={styles.bulka_item} onClick={getIngredients} >
+    <Link to={{
+      pathname: `/ingredients/${ingredient.id}`,
+      state: {background: location}
+    }} className={styles.ingredient__link}><li className={styles.bulka_item} onClick={getIngredients} >
         <figure className={styles.bulka__card} >
         <div className={styles.bulka__counter}>{!!amount && (<Counter count={amount} size="default" />)}</div>
           <img src={props.image} alt={props.name} ref={bulRef}/>

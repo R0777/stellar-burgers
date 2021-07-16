@@ -1,6 +1,6 @@
 import React, {useEffect, useCallback} from 'react';
 import AppHeader from '../app-header/app-header';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import ProtectedRoute from '../protected-route/protected-route';
 import Main from '../main/main';
 import Profile from '../profile/profile';
@@ -15,6 +15,7 @@ import ResetPassword from '../reset-pass/reset-pass';
 import Orders from '../orders/orders';
 import NotFound404 from '../not-found404/not-found';
 import IngredientPopup from '../ingredient-popup/ingredient-popup';
+import ModalSwitch from '../modal-switch/modal-switch';
 import { useDispatch, useSelector } from 'react-redux';
 import { getData } from '../../store/slices/get-data-api'
 import { orderPopupToggle } from '../../store/slices/orderPopup';
@@ -26,6 +27,12 @@ import { setLogin } from '../../store/slices/login';
 
 
 const App = () => {
+
+    // const location = useLocation()
+    // const history = useHistory()
+  
+
+  // let background = history.action === 'POP' && location.state && location.state.background
 
   const togglePopup = useSelector(state => state.order.togglePopup)
   const ingredientPopup = useSelector(state => state.ingredients.ingredientPopup)
@@ -142,11 +149,6 @@ useEffect(() => {
     </Route>
 
 
-    <Route path="/" exact={true}>
-      <AppHeader />
-        <Main />
-    </Route>
-
     <Route path="/profile" exact={true}>
       <AppHeader />
         <ProtectedRoute 
@@ -166,17 +168,19 @@ useEffect(() => {
       <Orders />
     </Route>
 
-    <Router path="/ingredients/:id" exact>
+    <Router path="/ingredients/:id">
     { ingredientPopup && (
         <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ingredientPopup}>
           <IngredientPopup />
         </Modal>
-        )
-        
+        )   
     }
     </Router>
 
-
+    <Route path="/" exact={true}>
+      <AppHeader />
+        <Main />
+    </Route>
 
 
     <Route>
@@ -184,7 +188,7 @@ useEffect(() => {
     </Route>
   </Switch>
 
-  <Router path="/ingredients/:id" exact>
+  {/* {background && <Router path="/ingredients/:id">
     { ingredientPopup && (
         <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ingredientPopup}>
           <IngredientPopup />
@@ -192,9 +196,7 @@ useEffect(() => {
         )
     }
     </Router>
-
-
-
+    } */}
 
 </Router>
 <Footer />
@@ -204,16 +206,6 @@ useEffect(() => {
       </Modal>)
       }
       
-
-    <Router>
-    { ingredientPopup && (
-        <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ingredientPopup}>
-          <IngredientPopup />
-        </Modal>
-        )
-        
-    }
-    </Router>
     </>
   )
 
