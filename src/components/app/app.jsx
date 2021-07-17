@@ -1,6 +1,6 @@
 import React, {useEffect, useCallback} from 'react';
 import AppHeader from '../app-header/app-header';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import ProtectedRoute from '../protected-route/protected-route';
 import Main from '../main/main';
 import Profile from '../profile/profile';
@@ -15,6 +15,7 @@ import ResetPassword from '../reset-pass/reset-pass';
 import Orders from '../orders/orders';
 import NotFound404 from '../not-found404/not-found';
 import IngredientPopup from '../ingredient-popup/ingredient-popup';
+import ModalSwitch from '../modal-switch/modal-switch';
 import { useDispatch, useSelector } from 'react-redux';
 import { getData } from '../../store/slices/get-data-api'
 import { orderPopupToggle } from '../../store/slices/orderPopup';
@@ -32,6 +33,10 @@ const App = () => {
   const loggedIn = useSelector(store => store.loginUser.login)
 
   const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
+
+  let background = ingredientPopup===true && location && location.state.background
 
   const tokenCheck = () => {
 
@@ -90,7 +95,7 @@ useEffect(() => {
     <>
 
 <Router>
-  <Switch>
+  <Switch location={background || location}>
     <Route path="/login" exact={true}>
       <AppHeader />
         <Window
@@ -166,34 +171,29 @@ useEffect(() => {
       <Orders />
     </Route>
 
-    <Router path="/ingredients/:id" exact>
-    { ingredientPopup && (
+    <Route path="/ingredients/:id" exact>
+    { ingredientPopup === true && (
         <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ingredientPopup}>
           <IngredientPopup />
         </Modal>
         )
         
     }
-    </Router>
+    </Route>
 
-
+    
+  <Route path="/ingredients/:id" exact>
+    { ingredientPopup === false && (
+        <ModalSwitch />
+        )
+    }
+    </Route>
 
 
     <Route>
       <NotFound404 />
     </Route>
   </Switch>
-
-  <Router path="/ingredients/:id" exact>
-    { ingredientPopup && (
-        <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ingredientPopup}>
-          <IngredientPopup />
-        </Modal>
-        )
-    }
-    </Router>
-
-
 
 
 </Router>
@@ -204,16 +204,6 @@ useEffect(() => {
       </Modal>)
       }
       
-
-    <Router>
-    { ingredientPopup && (
-        <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ingredientPopup}>
-          <IngredientPopup />
-        </Modal>
-        )
-        
-    }
-    </Router>
     </>
   )
 
