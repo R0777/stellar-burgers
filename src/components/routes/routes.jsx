@@ -1,10 +1,11 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import React, {useEffect, useCallback} from "react";
+import { BrowserRouter as Router, Route, Switch, useHistory, useLocation, useParams } from 'react-router-dom';
 import Window from '../window/window';
 import Register from '../register/register';
 import Login from '../login/login';
 import ForgetPass from '../forget-pass/forget-pass';
 import ResetPassword from '../reset-pass/reset-pass';
+import AcceptPopup from '../accept-popup/accept-popup';
 import Orders from '../orders/orders';
 import NotFound404 from '../not-found404/not-found';
 import IngredientPopup from '../ingredient-popup/ingredient-popup';
@@ -14,7 +15,9 @@ import Main from '../main/main';
 import Profile from '../profile/profile';
 import AppHeader from '../app-header/app-header';
 import Modal from "../modal/modal";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { orderPopupToggle } from "../../store/slices/orderPopup";
+import { ingredientPopupToggle } from "../../store/slices/ingredientPopup";
 
 
 const Routes = (props) => {
@@ -22,16 +25,52 @@ const Routes = (props) => {
   const togglePopup = useSelector(state => state.order.togglePopup)
   const ingredientPopup = useSelector(state => state.ingredients.ingredientPopup)
   const loggedIn = useSelector(store => store.loginUser.login)
+  const dispatch = useDispatch()
 
   const location = useLocation();
   const history = useHistory();
 
-  let background = ingredientPopup===true && location && location.state.background
+  let background = history.action === 'PUSH' && location.state && location.state.background;
+
+  const handleClick = useCallback((ev) => {
+    if (ev.target !== ev.currentTarget) {
+        return
+    }
+    dispatch(orderPopupToggle(false))
+    dispatch(ingredientPopupToggle(false))
+},[dispatch])
+
+
+useEffect(() => {
+  document.addEventListener("click", handleClick, false);
+
+  return () => {
+    document.removeEventListener("click", handleClick, false);
+  };
+}, [handleClick]);
+
+
+  const handleClose = () => {
+    dispatch(orderPopupToggle(false))
+    dispatch(ingredientPopupToggle(false))
+  }
+
+  useEffect(() => {
+    const handleEscape = (event) => event.key === 'Escape' && handleClose();
+    document.addEventListener('keydown', handleEscape);
+
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, []);
 
 return (
+<>
+  <Switch>
 
-  <Router>
-  <Switch location={background || location}>
+  <Route path="/" exact>
+    <AppHeader />
+      <Main />
+  </Route>
+
   <Route path="/login" exact={true}>
     <AppHeader />
       <Window
@@ -82,12 +121,6 @@ return (
     </Window>
   </Route>
 
-
-  <Route path="/" exact={true}>
-    <AppHeader />
-      <Main />
-  </Route>
-
   <Route path="/profile" exact={true}>
     <AppHeader />
       <ProtectedRoute 
@@ -106,31 +139,33 @@ return (
     <AppHeader />
     <Orders />
   </Route>
-
+{ingredientPopup &&
   <Route path="/ingredients/:id" exact>
-  { ingredientPopup === true && (
-      <Modal handleClick={props.handleClick} onClose={props.handleClose} title={'Детали ингридиента'} isOpen={ingredientPopup}>
+    (
+      <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ingredientPopup}>
         <IngredientPopup />
       </Modal>
       )
-      
-  }
   </Route>
+}
 
-  
-<Route path="/ingredients/:id" exact>
-  { ingredientPopup === false && (
-      <ModalSwitch />
-      )
-  }
+  <Route path="/ingredients/:id">
+      <ModalSwitch 
+      children={
+        <IngredientPopup />
+      } />
   </Route>
-
 
   <Route>
     <NotFound404 />
   </Route>
 </Switch>
-</Router>
+
+{ togglePopup && (<Modal handleClick={handleClick} onClose={handleClose} isOpen={togglePopup}>
+      <AcceptPopup />
+      </Modal>)
+      }
+</>
 )
 }
 

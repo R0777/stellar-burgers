@@ -6,12 +6,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import shortid from 'shortid';
 import { ingredientPopupToggle, setIngredient } from '../../store/slices/ingredientPopup';
 import { useDrag } from "react-dnd";
+import { Link, useLocation } from 'react-router-dom';
 
 const BurgerSauce = (props) => {
 
   const sauceArray = useSelector((store) => store.element.middleElement)
 
   const dispatch = useDispatch()
+  let location = useLocation()
 
   const ingredient = {
     id: props._id,
@@ -43,14 +45,17 @@ const BurgerSauce = (props) => {
     }
 
   return (
-    <li className={styles.sous_item} onClick={getIngredients}>
+    <Link to={{
+      pathname: `/ingredients/${ingredient.id}`,
+      state: {background: location},
+    }} className={styles.ingredient__link}><li className={styles.sous_item} onClick={getIngredients}>
     <figure className={styles.sous__card}>
     <div className={styles.sous__counter}>{!! amount && (<Counter count={amount} size="default" />)}</div>
       <img src={props.image} alt={props.name} ref={sauceRef}/>
       <div className={styles.currency__info}><p className={styles.currency__text}>{props.price}</p><div className={styles.currency__icon}><CurrencyIcon type='primary' /></div></div>
       <figcaption className={styles.sous__info}>{props.name}</figcaption>
     </figure>
-    </li>
+    </li></Link>
 );
 }
 

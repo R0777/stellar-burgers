@@ -34,10 +34,10 @@ const App = () => {
   const loggedIn = useSelector(store => store.loginUser.login)
 
   const dispatch = useDispatch();
-  let location = useLocation();
-  const history = useHistory();
+  // let location = useLocation();
+  // const history = useHistory();
 
-  let background = ingredientPopup===true && location && location.state.background
+  //let background = ingredientPopup===true && location && location.state.background
 
   const tokenCheck = () => {
 
@@ -96,15 +96,11 @@ useEffect(() => {
     <>
 
 <Router>
-  <Routes handleClick={handleClick} handleClose={handleClose} />
+  <Routes />
 </Router>
 <Footer />
 
-      { togglePopup && (<Modal handleClick={handleClick} onClose={handleClose} isOpen={togglePopup}>
-      <AcceptPopup />
-      </Modal>)
-      }
-      
+
     </>
   )
 
