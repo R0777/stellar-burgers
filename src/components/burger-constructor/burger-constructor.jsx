@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import burgBun from '../../images/burgBun.png'
 import { Button, CurrencyIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import shortid from 'shortid';
@@ -17,7 +18,7 @@ const bun = useSelector((store) => store.element.bredElement)
 const total = useSelector((store) => store.element.total)
 const idBasket = useSelector((store) => store.element.idBasket)
 const logedIn = useSelector((store) => store.loginUser.login)
-
+const history = useHistory()
 const dispatch = useDispatch()
 
 const overal = bun.concat(data)
@@ -27,7 +28,10 @@ useEffect(() => {
 },[dispatch,bun,data])
 
 const authCheck = () => {
-  if (logedIn && overal.length >=2) {
+  if (!logedIn) {
+    history.push('/login')
+  } 
+  else if (logedIn && overal.length >=2) {
     dispatch(getOrderNumber(idBasket))
   }
 }

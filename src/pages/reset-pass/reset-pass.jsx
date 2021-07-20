@@ -14,7 +14,6 @@ const ResetPassword = (props) => {
   const [pass, setPass] = useState('')
   const codeRef = useRef(null)
   const inputClick = () => {
-    //setTimeout(() => inputRef.current.focus(), 0)
     alert('Pass Click Callback')
   }
   const onChange = (e) => {
@@ -67,8 +66,9 @@ return (<>
 
 }
 
-// ResetPassword.propTypes = {   onClose: PropTypes.func.isRequired,   title:
-// PropTypes.string,   handleClick: PropTypes.func.isRequired,   isOpen:
-// PropTypes.bool.isRequired,   children:PropTypes.element.isRequired }
+ResetPassword.propTypes = {  
+  buttonTitle: PropTypes.string.isRequired,   
+  loggedIn: PropTypes.bool.isRequired
+}
 
 export default ResetPassword;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './window.module.css'
@@ -18,12 +18,16 @@ const Window = (props: any) => {
   )
 }
 
-// Window.propTypes = {
-//   onClose: PropTypes.func.isRequired,
-//   title: PropTypes.string,
-//   handleClick: PropTypes.func.isRequired,
-//   isOpen: PropTypes.bool.isRequired,
-//   children:PropTypes.element.isRequired
-// }
+Window.propTypes = {
+  onClose: PropTypes.string,
+  title: PropTypes.string,
+  supTextLink: PropTypes.string,
+  suplink: PropTypes.string,
+  supText:PropTypes.string,
+  subText: PropTypes.string,
+  sublink: PropTypes.string,
+  subTextLink: PropTypes.string
+
+}
 
 export default Window;

@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit' 
-import { getCookie } from '../../utils/cookie'
 
 export const forgotPass = createAsyncThunk('passwordForgot/forgotPassword', async (email, { dispatch }) => {
   return fetch('https://norma.nomoreparties.space/api/password-reset',

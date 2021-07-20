@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getCookie } from '../../utils/cookie';
 import { logoutState } from './login';
 
 export const logout = createAsyncThunk('logoutState/logout', async (refreshToken, { dispatch }) => {

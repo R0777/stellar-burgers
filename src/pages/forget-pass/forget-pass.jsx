@@ -14,7 +14,6 @@ const ForgetPass = (props) => {
     const emailRef = useRef(null)
   
     const inputClick = () => {
-        //setTimeout(() => inputRef.current.focus(), 0)
         alert('Pass Click Callback')
     }
 
@@ -56,11 +55,10 @@ const ForgetPass = (props) => {
 </div>
 
     </>)
-
 }
 
-// ForgetPass.propTypes = {   onClose: PropTypes.func.isRequired,   title:
-// PropTypes.string,   handleClick: PropTypes.func.isRequired,   isOpen:
-// PropTypes.bool.isRequired,   children:PropTypes.element.isRequired }
+ForgetPass.propTypes = { 
+  loggedIn: PropTypes.bool.isRequired
+}
 
 export default ForgetPass;

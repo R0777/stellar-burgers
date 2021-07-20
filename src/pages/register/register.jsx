@@ -15,7 +15,6 @@ const [name, setName] = useState('')
 const emailRef = useRef(null)
 const nameRef = useRef(null)
 const inputClick = () => {
-    //setTimeout(() => inputRef.current.focus(), 0)
 }
 
 const registerUser = {
@@ -77,12 +76,9 @@ return (<>
 
 }
 
-// Register.propTypes = {
-//   onClose: PropTypes.func.isRequired,
-//   title: PropTypes.string,
-//   handleClick: PropTypes.func.isRequired,
-//   isOpen: PropTypes.bool.isRequired,
-//   children:PropTypes.element.isRequired
-// }
+Register.propTypes = {  
+  buttonTitle: PropTypes.string.isRequired,   
+  loggedIn: PropTypes.bool.isRequired
+}
 
 export default Register;

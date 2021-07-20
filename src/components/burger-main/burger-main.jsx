@@ -13,7 +13,7 @@ const BurgerMain = (props) => {
   const mainArray = useSelector((store) => store.element.middleElement)
 
   const dispatch = useDispatch()
-  let location = useLocation()
+  const location = useLocation()
 
   const ingredient = {
     id: props._id,

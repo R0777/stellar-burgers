@@ -1,36 +1,30 @@
 import React, {useEffect, useCallback} from "react";
-import { BrowserRouter as Router, Route, Switch, useHistory, useLocation, useParams } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Window from '../window/window';
-import Register from '../register/register';
-import Login from '../login/login';
-import ForgetPass from '../forget-pass/forget-pass';
-import ResetPassword from '../reset-pass/reset-pass';
+import Register from '../../pages/register/register';
+import Login from '../../pages/login/login';
+import ForgetPass from '../../pages/forget-pass/forget-pass';
+import ResetPassword from '../../pages/reset-pass/reset-pass';
 import AcceptPopup from '../accept-popup/accept-popup';
-import Orders from '../orders/orders';
-import NotFound404 from '../not-found404/not-found';
+import Orders from '../../pages/orders/orders';
+import NotFound404 from '../../pages/not-found404/not-found';
 import IngredientPopup from '../ingredient-popup/ingredient-popup';
 import ModalSwitch from '../modal-switch/modal-switch';
 import ProtectedRoute from '../protected-route/protected-route';
 import Main from '../main/main';
 import Profile from '../profile/profile';
-import AppHeader from '../app-header/app-header';
 import Modal from "../modal/modal";
 import { useSelector, useDispatch } from "react-redux";
 import { orderPopupToggle } from "../../store/slices/orderPopup";
 import { ingredientPopupToggle } from "../../store/slices/ingredientPopup";
 
 
-const Routes = (props) => {
+const Routes = () => {
 
   const togglePopup = useSelector(state => state.order.togglePopup)
   const ingredientPopup = useSelector(state => state.ingredients.ingredientPopup)
   const loggedIn = useSelector(store => store.loginUser.login)
   const dispatch = useDispatch()
-
-  const location = useLocation();
-  const history = useHistory();
-
-  let background = history.action === 'PUSH' && location.state && location.state.background;
 
   const handleClick = useCallback((ev) => {
     if (ev.target !== ev.currentTarget) {
@@ -62,18 +56,16 @@ useEffect(() => {
     return () => document.removeEventListener('keydown', handleEscape);
   }, []);
 
-return (
-<>
+  return (
+    <>
   <Switch>
 
   <Route path="/" exact>
-    <AppHeader />
-      <Main />
+    <Main />
   </Route>
 
   <Route path="/login" exact={true}>
-    <AppHeader />
-      <Window
+    <Window
         title = {'Вход'}
         supText = {"Вы — новый пользователь? "}
         supTextLink = {"Зарегистрироваться"}
@@ -81,13 +73,13 @@ return (
         subTextLink = {"Восстановить пароль"}
         suplink = {"/register"}
         sublink = {"/forgot-password"}>
-        <Login buttonTitle = {"Войти"} loggedIn = {loggedIn} />
-      </Window>
+      <Login buttonTitle = {"Войти"} loggedIn = {loggedIn} />
+    </Window>
   </Route>
 
 
   <Route path="/register" exact={true}>
-    <AppHeader />
+
       <Window   
         title = {"Регистрация"}
         supText = {"Уже зарегистрированы? "}
@@ -99,7 +91,7 @@ return (
 
 
   <Route path="/forgot-password" exact={true}>
-  <AppHeader />
+
     <Window   
       title = {"Восстановление пароля"}
       supText = {"Вспомнили пароль? "}
@@ -111,32 +103,34 @@ return (
 
 
   <Route path="/reset-password" exact={true}>
-    <AppHeader />
+
       <Window   
         title ={"Восстановление пароля"}
         supText = {"Вспомнили пароль? "}
         supTextLink = {"Войти"}
         suplink = {"/login"}>
-        <ResetPassword loggedIn = {loggedIn} buttonTitle = {"Сохранить"} />
+        <ProtectedRoute 
+        loggedIn={loggedIn}
+        component={ResetPassword} />
     </Window>
   </Route>
 
   <Route path="/profile" exact={true}>
-    <AppHeader />
+
       <ProtectedRoute 
         loggedIn={loggedIn}
         component={Profile} />
   </Route>
 
   <Route path="/profile/order" exact={true}>
-    <AppHeader />
+
       <ProtectedRoute 
         loggedIn={loggedIn}
         component={Profile} />
   </Route>
 
   <Route path="/feed" exact={true}>
-    <AppHeader />
+
     <Orders />
   </Route>
 {ingredientPopup &&
@@ -165,8 +159,8 @@ return (
       <AcceptPopup />
       </Modal>)
       }
-</>
-)
+  </>
+  )
 }
 
 export default Routes

@@ -16,14 +16,14 @@ const BurgerBun = (props) => {
 
   const ingredient = {
     id: props._id,
-  ver: null,
-  image: props.image_large,
-  name: props.name,
-  cal: props.calories,
-  prot: props.proteins,
-  fat: props.fat,
-  carb: props.carbohydrates,
-  price: props.price
+    ver: null,
+    image: props.image_large,
+    name: props.name,
+    cal: props.calories,
+    prot: props.proteins,
+    fat: props.fat,
+    carb: props.carbohydrates,
+    price: props.price
   }
 
   const usedBredArray = bredArray.length && bredArray.filter((item) => item.name === props.name);

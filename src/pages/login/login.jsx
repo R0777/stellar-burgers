@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import { Redirect, useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 import {Input, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { userLogin } from '../../store/slices/login';
 
 
@@ -21,7 +21,6 @@ const Login = (props) => {
     const [pass,  setPass] = useState('')
     const emailRef = useRef(null)
     const inputClick = () => {
-        //setTimeout(() => inputRef.current.focus(), 0)
         alert('Pass Click Callback')
     }
 
@@ -68,8 +67,9 @@ const Login = (props) => {
 
 }
 
-// Login.propTypes = {   onClose: PropTypes.func.isRequired,   title:
-// PropTypes.string,   handleClick: PropTypes.func.isRequired,   isOpen:
-// PropTypes.bool.isRequired,   children:PropTypes.element.isRequired }
+Login.propTypes = {  
+  buttonTitle: PropTypes.string.isRequired,   
+  loggedIn: PropTypes.bool.isRequired
+}
 
 export default Login;

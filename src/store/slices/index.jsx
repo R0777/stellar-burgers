@@ -10,7 +10,8 @@ import forgotPassword from './forgot-password';
 import resetPassword from './reset-password';
 import userLogout from './logout';
 import refreshToken from './resetToken';
-import userReset from './get-user'
+import userReset from './get-user';
+import userPatch from './patch-user';
 
 
 const rootReducer = combineReducers({ 
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
   passwordReset: resetPassword,
   logoutState: userLogout,
   tokenReset: refreshToken,
-  resetUser: userReset
+  resetUser: userReset,
+  patchUser: userPatch
 })
 
 export default rootReducer
