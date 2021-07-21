@@ -12,7 +12,7 @@ import IngredientPopup from '../ingredient-popup/ingredient-popup';
 import ModalSwitch from '../modal-switch/modal-switch';
 import ProtectedRoute from '../protected-route/protected-route';
 import Main from '../main/main';
-import Profile from '../profile/profile';
+import Profile from '../../pages/profile/profile';
 import Modal from "../modal/modal";
 import { useSelector, useDispatch } from "react-redux";
 import { orderPopupToggle } from "../../store/slices/orderPopup";

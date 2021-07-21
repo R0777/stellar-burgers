@@ -1,5 +1,5 @@
 import React from 'react';
-import AygulList from '../aygul-list/aygul-list'
+import AygulList from '../moon-flover-list/moon-flower-list'
 import styles from './orders-list.module.css'
 
 const OrdersList = () => {

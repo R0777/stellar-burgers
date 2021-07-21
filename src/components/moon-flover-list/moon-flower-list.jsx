@@ -9,7 +9,7 @@ import six from '../../images/six.png'
 import styles from '../../components/orders-list/orders-list.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const AygulList = () => {
+const MoonFlowerList = () => {
 
 return (
 
@@ -105,4 +105,4 @@ return (
 
 }
 
-export default AygulList;
+export default MoonFlowerList;

@@ -1,13 +1,13 @@
 import React, {useRef, useState} from 'react';
-import { Redirect } from 'react-router';
+import { Redirect, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {Input, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from 'react-redux';
 import { resetPass } from '../../store/slices/reset-password'
 
-
 const ResetPassword = (props) => {
 
+  const history = useHistory()
   const dispatch = useDispatch()
     
   const [resetCode, setResetCode] = useState('')
@@ -28,7 +28,12 @@ const ResetPassword = (props) => {
   const resetPasswordHandler = (ev) => {
     ev.preventDefault();
     dispatch(resetPass(userData))
-  }
+    .then(res => {
+      if (res.payload.success === true) {
+        history.push('/login')
+      }
+    })
+}
 
   if (props.loggedIn) {
     return (
@@ -58,7 +63,7 @@ return (<>
     errorText={'Ошибка'}/> 
 
 <div style={{ margin: 'auto' }}><Button onClick={resetPasswordHandler} type="primary" size="large">
-  {props.buttonTitle}
+  Сохранить
 </Button>
 </div>
 
@@ -66,8 +71,7 @@ return (<>
 
 }
 
-ResetPassword.propTypes = {  
-  buttonTitle: PropTypes.string.isRequired,   
+ResetPassword.propTypes = {   
   loggedIn: PropTypes.bool.isRequired
 }
 

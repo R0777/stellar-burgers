@@ -14,7 +14,7 @@ export const resetPass = createAsyncThunk('passwordReset/resetPassword', async (
     
   }).then(res => {
     if(!res.ok) throw Error(res.statusText)
-      res.json()
+    return res.json()
     })
 })
 

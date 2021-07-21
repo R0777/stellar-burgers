@@ -3,6 +3,7 @@ import styles from './account.module.css'
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { patchUserData } from '../../store/slices/patch-user';
+import { Link } from 'react-router-dom';
 
 
 const Account = () => {
@@ -27,7 +28,11 @@ const newUserData = {
 const submitPatchHandler = (ev) => {
 ev.preventDefault();
 dispatch(patchUserData(newUserData))
+}
 
+const handleCancel = () => {
+  setMail(email)
+  setLogin(name)
 }
 
 
@@ -63,7 +68,7 @@ return (
   value = { pass }
   name = {'password'} /> 
 
-<div style={{ margin: 'auto' }}><Button onClick={submitPatchHandler} type="primary" size="large">
+<Link to='#' onClick={handleCancel} className={styles.cancel__link}>Отменить</Link><div style={{ margin: 'auto', display: 'inline-block' }}><Button onClick={submitPatchHandler} type="primary" size="large">
   Сохранить
 </Button>
 </div>

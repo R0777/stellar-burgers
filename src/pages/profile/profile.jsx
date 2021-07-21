@@ -1,8 +1,8 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import styles from './profile.module.css'
-import Account from '../../pages/account/account';
-import AccountOrders from '../account-orders/account-orders';
+import Account from '../account/account';
+import AccountOrders from '../../components/account-orders/account-orders';
 import { logout } from '../../store/slices/logout';
 import { useDispatch } from 'react-redux';
 import { getCookie } from '../../utils/cookie';
