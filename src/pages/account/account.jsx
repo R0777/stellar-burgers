@@ -68,9 +68,9 @@ return (
   value = { pass }
   name = {'password'} /> 
 
-<Link to='#' onClick={handleCancel} className={styles.cancel__link}>Отменить</Link><div style={{ margin: 'auto', display: 'inline-block' }}><Button onClick={submitPatchHandler} type="primary" size="large">
+<div className={styles.account__links}><Link to='#' onClick={handleCancel} className={styles.cancel__link}>Отменить</Link><div style={{ display: 'inline-block' }}><Button onClick={submitPatchHandler} type="primary" size="large">
   Сохранить
-</Button>
+</Button></div>
 </div>
 
 </section>
