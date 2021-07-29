@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import burgBun from '../../images/burgBun.png'
 import { Button, CurrencyIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import shortid from 'shortid';
@@ -16,7 +17,8 @@ const data = useSelector((store) => store.element.middleElement)
 const bun = useSelector((store) => store.element.bredElement)
 const total = useSelector((store) => store.element.total)
 const idBasket = useSelector((store) => store.element.idBasket)
-
+const logedIn = useSelector((store) => store.loginUser.login)
+const history = useHistory()
 const dispatch = useDispatch()
 
 const overal = bun.concat(data)
@@ -24,6 +26,15 @@ const overal = bun.concat(data)
 useEffect(() => {
   dispatch(setTotal({bun, data}))
 },[dispatch,bun,data])
+
+const authCheck = () => {
+  if (!logedIn) {
+    history.push('/login')
+  } 
+  else if (logedIn && overal.length >=2) {
+    dispatch(getOrderNumber(idBasket))
+  }
+}
 
 const [{isHover}, bulTarget] = useDrop({
   accept: "bun",
@@ -94,7 +105,7 @@ const filter = isHover ? 'drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5))' : mi
         <div className={styles.constructror__currency_box}>
           <p className={styles.constructor__currency}>{total}</p>
           <div className={styles.constructror__currency_icon}><CurrencyIcon type="primary" /></div>
-          <div className={styles.constructror__currency_btn} onClick={() => overal.length >=2 && dispatch(getOrderNumber(idBasket))}><Button type="primary" size="large">Оформить заказ</Button></div>
+          <div className={styles.constructror__currency_btn} onClick={authCheck}><Button type="primary" size="large">Оформить заказ</Button></div>
         </div>
 
       </section>

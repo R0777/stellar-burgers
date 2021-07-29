@@ -6,12 +6,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ingredientPopupToggle, setIngredient } from '../../store/slices/ingredientPopup';
 import { useDrag } from "react-dnd";
 import shortid from 'shortid';
+import { Link, useLocation } from 'react-router-dom';
 
 const BurgerMain = (props) => {
 
   const mainArray = useSelector((store) => store.element.middleElement)
 
   const dispatch = useDispatch()
+  const location = useLocation()
 
   const ingredient = {
     id: props._id,
@@ -43,14 +45,17 @@ const BurgerMain = (props) => {
     }
 
   return (
-    <li className={styles.kotleta_item} onClick={getIngredients}>
+    <Link to={{
+      pathname: `/ingredients/${ingredient.id}`,
+      state: {background: location},
+    }} className={styles.ingredient__link}><li className={styles.kotleta_item} onClick={getIngredients}>
     <figure className={styles.kotleta__card}>
     <div className={styles.kotleta__counter}>{!! amount && (<Counter count={amount} size="default" />)}</div>
       <img src={props.image} alt={props.name} ref={mainRef} />
       <div className={styles.currency__info}><p className={styles.currency__text}>{props.price}</p><div className={styles.currency__icon}><CurrencyIcon type='primary' /></div></div>
       <figcaption className={styles.kotleta__info}>{props.name}</figcaption>
     </figure>
-    </li>
+    </li></Link>
   );
 }
 

@@ -34,3 +34,8 @@
   right: 8px;
   top: 0;
 }
+
+.ingredient__link {
+  text-decoration: none;
+  color: #f2f2f3
+}

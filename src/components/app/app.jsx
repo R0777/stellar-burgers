@@ -1,75 +1,50 @@
-import React, {useEffect, useCallback} from 'react';
-import AppHeader from '../app-header/app-header';
-import Main from '../main/main';
+import React, {useEffect} from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Footer from '../footer/footer';
-import Modal from '../modal/modal'
-import AcceptPopup from '../accept-popup/accept-popup';
-import IngredientPopup from '../ingredient-popup/ingredient-popup';
-import { useDispatch, useSelector } from 'react-redux';
+import Routes from '../routes/routes'
+import AppHeader from '../app-header/app-header';
+import { useDispatch } from 'react-redux';
 import { getData } from '../../store/slices/get-data-api'
-import { orderPopupToggle } from '../../store/slices/orderPopup';
-import { ingredientPopupToggle } from '../../store/slices/ingredientPopup';
+import { getCookie } from '../../utils/cookie';
+import { resetToken } from '../../store/slices/resetToken';
+import { getUserData } from '../../store/slices/get-user';
+import { setLogin } from '../../store/slices/login';
 
 
 const App = () => {
 
-  const togglePopup = useSelector(state => state.order.togglePopup)
-  const ingredientPopup = useSelector(state => state.ingredients.ingredientPopup)
-
   const dispatch = useDispatch();
+  const tokenCheck = () => {
 
-  useEffect(() => {
-    dispatch(getData())
-  }, [dispatch]);
-
-
-  const handleClick = useCallback((ev) => {
-    if (ev.target !== ev.currentTarget) {
-        return
-    }
-    dispatch(orderPopupToggle(false))
-    dispatch(ingredientPopupToggle(false))
-},[dispatch])
-
-
-useEffect(() => {
-  document.addEventListener("click", handleClick, false);
-
-  return () => {
-    document.removeEventListener("click", handleClick, false);
-  };
-}, [handleClick]);
-
-
-  const handleClose = () => {
-    dispatch(orderPopupToggle(false))
-    dispatch(ingredientPopupToggle(false))
+    const jwt = getCookie('token');
+      if (!jwt) {
+        const refresh = getCookie('refreshToken')
+          if (!refresh) {
+            return
+          }
+      dispatch(resetToken(getCookie('refreshToken')))
+      }
+    dispatch(getUserData(getCookie('token')))
+    dispatch(setLogin(true))
   }
 
   useEffect(() => {
-    const handleEscape = (event) => event.key === 'Escape' && handleClose();
-    document.addEventListener('keydown', handleEscape);
-
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, []);
+    dispatch(getData())
+    tokenCheck()
+  }, [dispatch]);
 
   return (
     <>
-      <AppHeader />
-      <Main/>
-      <Footer />
 
-      { togglePopup && (<Modal handleClick={handleClick} onClose={handleClose} isOpen={togglePopup}>
-      <AcceptPopup />
-      </Modal>)
-      }
+<Router>
+  <AppHeader />
+  <Routes />
+</Router>
+<Footer />
 
-      { ingredientPopup && (<Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ingredientPopup}>
-      <IngredientPopup />
-      </Modal>)
-      }
     </>
   )
+
 }
 
 export default App;

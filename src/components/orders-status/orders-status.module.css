@@ -1,0 +1,73 @@
+.orders__status {
+  padding-top: 100px;
+  max-width: 580px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  color: #f2f2f3
+}
+
+.orders__progress {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.orders__done {
+  width: 280px;
+}
+
+.orders__inprogress {
+  composes: orders__done
+}
+
+.orders__progress_title {
+  font-family: 'Jetbrains-bold', 'Helvetica', sans-serif;
+  font-size: 24px;
+  line-height: 30px;
+}
+
+.orders__done ul, .orders__inprogress ul {
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.orders__done li {
+  display: block;
+  list-style: none;
+  font-family: 'Iceland', 'Helvetica', sans-serif;
+  font-size: 28px;
+  line-height: 24px;
+  color: #00CCCC
+}
+
+.orders__inprogress li {
+  display: block;
+  list-style: none;
+  font-family: 'Iceland', 'Helvetica', sans-serif;
+  font-size: 28px;
+  line-height: 24px;
+  color: #f2f2f3;
+}
+
+.orders__done_overal_number {
+  text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25), 0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
+  font-family: 'Iceland', 'Helvetica', sans-serif;
+  font-size: 144px;
+  line-height: 120px;
+
+}
+
+.orders__done_today_number {
+  composes: orders__done_overal_number
+}
+
+.orders__done_overal {
+  padding-top: 60px;
+  composes: orders__progress_title
+}
+
+.orders__done_today {
+  composes: orders__done_overal
+}
