@@ -150,6 +150,53 @@ useEffect(() => {
       } />
   </Route>
 
+
+
+  {ordersListPopup &&
+  <Route path="/feed/:id" exact>
+    (
+      <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ordersListPopup}>
+        <IngredientPopup />
+      </Modal>
+      )
+  </Route>
+}
+
+  <Route path="/feed/:id">
+      <ModalSwitch 
+      children={
+        <IngredientPopup />
+      } />
+  </Route>
+
+
+
+  {profileOrderPopup &&
+  <Route path="/profile/orders/:id" exact>
+    (
+      <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={profileOrderPopup}>
+        <IngredientPopup />
+      </Modal>
+      )
+  </Route>
+}
+
+  <Route path="/profile/orders/:id">
+      <ModalSwitch 
+      children={
+        <IngredientPopup />
+      } />
+  </Route>
+
+
+
+
+
+
+
+
+
+
   <Route>
     <NotFound404 />
   </Route>

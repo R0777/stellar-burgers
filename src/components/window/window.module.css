@@ -52,10 +52,18 @@ form {
   text-decoration: none;
 }
 
+.input_size_default {
+  width: 480px
+}
+
 :global(.input__container) {
   width: 100%
 }
 
 :global(.input_size_default) {
-  width: 100%
+  width: 480px
+}
+
+:global(.input__container > *) {
+  width: 480px
 }
