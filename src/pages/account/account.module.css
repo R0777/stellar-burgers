@@ -14,3 +14,11 @@
   line-height: 24px;
   font-family: 'Jetbrains', 'Arial', sans-serif;
 }
+
+.account__links {
+  width: 100%;
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+} 

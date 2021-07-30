@@ -1,20 +1,26 @@
 import React from 'react';
 import styles from './modal-switch.module.css'
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import IngredientPopup from '../ingredient-popup/ingredient-popup';
+import Order from '../order/order';
+
 
 const ModalSwitch = () => {
 
-  const {id} = useParams();  
-  
-  const data = useSelector(state => state.api.data)
+  const location = useLocation()
 
-  const ingredient = data.find(item => item._id === id)
+  const {id} = useParams();
+
+      const data = useSelector(state => state.api.data)
+      const wsdata = useSelector(state => state.api.data)
+
+      const ingredient = data.find(item => item._id === id)
+      const order = wsdata.find(item => item._id === id)
 
     return (
       <div className={styles.switch}> 
-        <IngredientPopup ingredient={ingredient} />
+        { location.pathname === `/ingredients/${id}` ? <IngredientPopup ingredient={ingredient} /> : <Order order={order} /> }
       </div>
     );
 }

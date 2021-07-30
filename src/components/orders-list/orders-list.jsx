@@ -1,5 +1,5 @@
 import React from 'react';
-import MoonFlowerList from '../moon-flover-list/moon-flower-list'
+import OrderListItem from '../order-list-item/order-list-item';
 import styles from './orders-list.module.css'
 
 const OrdersList = () => {
@@ -8,7 +8,9 @@ return (
 <section>
   <h2 className={styles.orders__title}>Лента заказов</h2>
   <div className={styles.orders}>
-    <MoonFlowerList />
+    <ul>
+      <OrderListItem />
+    </ul>
   </div>
 </section>
 

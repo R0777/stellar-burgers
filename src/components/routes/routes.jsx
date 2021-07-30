@@ -14,17 +14,24 @@ import ProtectedRoute from '../protected-route/protected-route';
 import Main from '../main/main';
 import Profile from '../../pages/profile/profile';
 import Modal from "../modal/modal";
+import Order from '../order/order'
 import { useSelector, useDispatch } from "react-redux";
 import { orderPopupToggle } from "../../store/slices/orderPopup";
 import { ingredientPopupToggle } from "../../store/slices/ingredientPopup";
+import { ordersListPopupToggle } from "../../store/slices/order-list-popup"; 
+import { profileOrderPopupToggle } from "../../store/slices/profile-order-popup";
+
 
 
 const Routes = () => {
 
   const togglePopup = useSelector(state => state.order.togglePopup)
   const ingredientPopup = useSelector(state => state.ingredients.ingredientPopup)
+  const profileOrderPopup = useSelector(state => state.profileOrderlistPop.profileOrderPopup)
+  const ordersListPopup = useSelector(state => state.orderlistPop.ordersListPopup)
   const loggedIn = useSelector(store => store.loginUser.login)
   const dispatch = useDispatch()
+
 
   const handleClick = useCallback((ev) => {
     if (ev.target !== ev.currentTarget) {
@@ -47,6 +54,8 @@ useEffect(() => {
   const handleClose = () => {
     dispatch(orderPopupToggle(false))
     dispatch(ingredientPopupToggle(false))
+    dispatch(ordersListPopupToggle(false))
+    dispatch(profileOrderPopupToggle(false))
   }
 
   useEffect(() => {
@@ -135,11 +144,11 @@ useEffect(() => {
   </Route>
 {ingredientPopup &&
   <Route path="/ingredients/:id" exact>
-    (
+    
       <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ingredientPopup}>
         <IngredientPopup />
       </Modal>
-      )
+      
   </Route>
 }
 
@@ -151,48 +160,40 @@ useEffect(() => {
   </Route>
 
 
-
   {ordersListPopup &&
   <Route path="/feed/:id" exact>
-    (
+    
       <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ordersListPopup}>
-        <IngredientPopup />
+        <Order />
       </Modal>
-      )
+      
   </Route>
 }
 
   <Route path="/feed/:id">
       <ModalSwitch 
       children={
-        <IngredientPopup />
+        <Order />
       } />
   </Route>
 
 
-
   {profileOrderPopup &&
   <Route path="/profile/orders/:id" exact>
-    (
+    
       <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={profileOrderPopup}>
-        <IngredientPopup />
+        <Order />
       </Modal>
-      )
+      
   </Route>
 }
 
   <Route path="/profile/orders/:id">
       <ModalSwitch 
       children={
-        <IngredientPopup />
+        <Order />
       } />
   </Route>
-
-
-
-
-
-
 
 
 

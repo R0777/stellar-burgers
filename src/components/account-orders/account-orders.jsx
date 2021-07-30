@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './account-orders.module.css'
-import AygulList from '../moon-flover-list/moon-flower-list'
+import AygulList from '../order-list-profile/order-list-profile'
 
 const AccountOrders = () => {
 

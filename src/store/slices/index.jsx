@@ -12,6 +12,9 @@ import userLogout from './logout';
 import refreshToken from './resetToken';
 import userReset from './get-user';
 import userPatch from './patch-user';
+import profileOrderSlice from './profile-order-popup';
+import orderlistSlice from './order-list-popup';
+
 
 
 const rootReducer = combineReducers({ 
@@ -27,7 +30,9 @@ const rootReducer = combineReducers({
   logoutState: userLogout,
   tokenReset: refreshToken,
   resetUser: userReset,
-  patchUser: userPatch
+  patchUser: userPatch,
+  profileOrderlistPop: profileOrderSlice,
+  orderlistPop: orderlistSlice
 })
 
 export default rootReducer
