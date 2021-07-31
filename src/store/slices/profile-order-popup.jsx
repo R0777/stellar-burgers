@@ -3,7 +3,11 @@ import { createSlice } from '@reduxjs/toolkit'
 const profileOrderSlice = createSlice({
   name: 'profileOrderlistPop',
   initialState: {
-    profileOrder: {},
+    orders: [],
+    total: 0,
+    dailyTotal: 0,
+    onnected: false,
+    error: false,
     profileOrderPopup: true
   },
   reducers: {
