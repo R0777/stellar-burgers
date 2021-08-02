@@ -6,7 +6,7 @@ import shortid from 'shortid';
 import BurgerConstructorElement from '../burger-constructor-element/burger-constructor-element'
 import styles from './burger-constructor.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { getOrderNumber } from '../../store/slices/orderPopup';
+import { getOrderNumber } from '../../store/slices/order-popup';
 import { useDrop } from "react-dnd";
 import { setBun, setTopMiddle, setTotal } from '../../store/slices/constructor-element';
 

@@ -1,18 +1,17 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import dataSlice from './get-data-api';
 import getBred from './get-bun';
-import ingredientsSlice from './ingredientPopup';
-import orderPopup from './orderPopup';
+import ingredientsSlice from './ingredient-popup';
+import orderPopup from './order-popup';
 import constructorElement from './constructor-element';
 import userDetails from './register';
 import loginUserDetails from './login';
 import forgotPassword from './forgot-password';
 import resetPassword from './reset-password';
 import userLogout from './logout';
-import refreshToken from './resetToken';
+import refreshToken from './reset-token';
 import userReset from './get-user';
 import userPatch from './patch-user';
-import profileOrderSlice from './profile-order-popup';
 import orderlistSlice from './order-list-popup';
 
 
@@ -31,7 +30,6 @@ const rootReducer = combineReducers({
   tokenReset: refreshToken,
   resetUser: userReset,
   patchUser: userPatch,
-  profileOrderlistPop: profileOrderSlice,
   orderlistPop: orderlistSlice
 })
 

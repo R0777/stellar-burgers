@@ -16,10 +16,10 @@ import Profile from '../../pages/profile/profile';
 import Modal from "../modal/modal";
 import Order from '../order/order'
 import { useSelector, useDispatch } from "react-redux";
-import { orderPopupToggle } from "../../store/slices/orderPopup";
-import { ingredientPopupToggle } from "../../store/slices/ingredientPopup";
+import { orderPopupToggle } from "../../store/slices/order-popup";
+import { ingredientPopupToggle } from "../../store/slices/ingredient-popup";
 import { ordersListPopupToggle } from "../../store/slices/order-list-popup"; 
-import { profileOrderPopupToggle } from "../../store/slices/profile-order-popup";
+import { profileOrderPopupToggle } from "../../store/slices/order-list-popup";
 
 
 
@@ -27,10 +27,13 @@ const Routes = () => {
 
   const togglePopup = useSelector(state => state.order.togglePopup)
   const ingredientPopup = useSelector(state => state.ingredients.ingredientPopup)
-  const profileOrderPopup = useSelector(state => state.profileOrderlistPop.profileOrderPopup)
+  const profileOrderPopup = useSelector(state => state.orderlistPop.profileOrderPopup)
   const ordersListPopup = useSelector(state => state.orderlistPop.ordersListPopup)
   const loggedIn = useSelector(store => store.loginUser.login)
   const dispatch = useDispatch()
+
+
+  const order  = useSelector(state => state.orderlistPop.order)
 
 
   const handleClick = useCallback((ev) => {
@@ -163,7 +166,7 @@ useEffect(() => {
   {ordersListPopup &&
   <Route path="/feed/:id" exact>
     
-      <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ordersListPopup}>
+      <Modal handleClick={handleClick} onClose={handleClose} title={order.name} isOpen={ordersListPopup}>
         <Order />
       </Modal>
       
@@ -171,9 +174,9 @@ useEffect(() => {
 }
 
   <Route path="/feed/:id">
-      <ModalSwitch 
+      <ModalSwitch title={order.name}
       children={
-        <Order />
+        <Order  />
       } />
   </Route>
 
@@ -181,7 +184,7 @@ useEffect(() => {
   {profileOrderPopup &&
   <Route path="/profile/orders/:id" exact>
     
-      <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={profileOrderPopup}>
+      <Modal handleClick={handleClick} onClose={handleClose} title={order.name} isOpen={profileOrderPopup}>
         <Order />
       </Modal>
       
@@ -189,7 +192,7 @@ useEffect(() => {
 }
 
   <Route path="/profile/orders/:id">
-      <ModalSwitch 
+      <ModalSwitch title={order.name}
       children={
         <Order />
       } />

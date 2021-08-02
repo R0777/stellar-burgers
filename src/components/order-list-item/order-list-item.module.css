@@ -52,6 +52,11 @@ color: #f2f2f3;
   color: #00CCCC;
 }
 
+.order__status_canceled {
+  composes: order__status;
+  color: red;
+}
+
 .order__details {
   padding-top: 24px;
   width: 100%;
@@ -74,17 +79,37 @@ color: #f2f2f3;
   width: 45px;
 }
 
-.order__details img {
+.order__ingredient__img {
 
-  display: block;
+  border: 2px solid #5d3ade;
+
+background: #131316;
+border-radius: 50%;
+  height: 64px;
   width: 64px;
+  object-fit: cover;
+  overflow: hidden;
+  display: block;
   margin-right: 15px;
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg); 
   transform: rotate(180deg);
+
+}
+
+.order__ingredient__six {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg); 
+  transform: rotate(180deg);
+  height: 64px;
+  padding: 22px;
+  margin-right: -18px;
+  color: white;
+  background: url(../../images/six.png)no-repeat;
 }
 
 .order__price {
+
   font-family: 'Iceland', 'Arial', 'Helvetica', sans-serif;
   font-size: 28px;
   display: flex;
@@ -94,5 +119,16 @@ color: #f2f2f3;
 }
 
 .order__price > span {
+  display: block;
   padding-right: 9px;
+}
+
+.order__price > svg {
+  display: block;
+  width: 24px
+}
+
+.order__link {
+  text-decoration: none;
+  color: none;
 }

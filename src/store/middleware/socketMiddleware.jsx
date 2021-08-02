@@ -15,7 +15,7 @@ export const socketMiddleware = () => {
 
       if (socket) {
         socket.onopen = () => dispatch(wsConnectionOpened());
-        socket.onclose = () => dispatch(wsConnectionClose());;
+        socket.onclose = () => dispatch(wsConnectionClose());
         socket.onerror = (event) => dispatch(wsConnectionError(event));
         socket.onmessage = (event) =>
           dispatch(wsGetMessage(JSON.parse(event.data)));

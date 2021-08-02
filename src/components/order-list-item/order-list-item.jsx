@@ -1,50 +1,92 @@
 import React from 'react';
-
-import one from '../../images/one.png'
-import two from '../../images/two.png'
-import three from '../../images/three.png'
-import four from '../../images/four.png'
-import five from '../../images/five.png'
-import six from '../../images/six.png'
-import styles from '../../components/order-list-item/order-list-item.module.css'
+import moment from 'moment';
+import 'moment/locale/ru'
+import styles from './order-list-item.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { profileOrderPopupToggle, ordersListPopupToggle, setOrder } from '../../store/slices/order-list-popup';
+import shortid from 'shortid';
 
 const OrderListItem = (props) => {
 
   const location = useLocation()
+  const dispatch = useDispatch()
+  const data = useSelector(state => state.api.data)
+  const priceArray = []  
 
   const order = {
-    ingredients: props.ingredients,
-    id: props._id,
-    status: props.status,
-    number: props.number,
-    createdAt: props.createdAt,
-    updatedAt: props.updatedAt
+    ingredients: props.order.ingredients,
+    id: props.order._id,
+    status: props.order.status,
+    number: props.order.number,
+    name: props.order.name,
+    createdAt: new Date(props.order.createdAt),
+    updatedAt: props.order.updatedAt,
   }
+
+
+  const options = {
+    hour: 'numeric',
+    minute: 'numeric',
+  };
+
+  moment.locale('ru')
+  const getDays = moment(order.createdAt).fromNow()
+
+
+  const orderPrice = (ingredient, priceArray) => {
+    priceArray.push(ingredient[0]&&ingredient[0].price)
+  }
+
+  const getPicture = (el) => {
+    const ingredient = data.filter(item => item._id === el)
+    orderPrice(ingredient, priceArray)
+    return ingredient
+    
+  }
+
+  const amountIngredients = (ingredientArray) => {
+    if (order.ingredients.length > 5) {
+      
+      const objArray = {
+        firstArray: order.ingredients.slice(0,5),
+        secondArray: order.ingredients.slice(5,(order.ingredients.length))
+      }
+      return objArray
+    }
+  }
+
+  const getOrder = () => {
+    dispatch(setOrder(order))
+    location.pathname === '/feed' ? dispatch(ordersListPopupToggle(true)) : dispatch(profileOrderPopupToggle(true))
+    }
+
 
 return (
 
       <li>
-      <Link to={{
+      <Link onClick={getOrder} className={styles.order__link} to={{
               pathname: location.pathname === '/profile/order' ? `/profile/orders/${order.id}` : `/feed/${order.id}`,
               state: {background: location},
       }}><div className={styles.order__item}>
           <div className={styles.order__iddate}>
-            <p className={styles.order__id}>#034535</p>
-            <p className={styles.order__date}>Сегодня, 16:20 i-GMT+3</p>
+            <p className={styles.order__id}>#{order.number}</p>
+            <p className={styles.order__date}>{getDays}, {order.createdAt.toLocaleString("ru", options)} i-GMT+{order.createdAt.getTimezoneOffset()/-60}</p>
           </div>
-          <h5 className={styles.order__title}>Death Star Starship Main бургер</h5>
-          <p className={styles.order__status}>Создан</p>
+          <h5 className={styles.order__title}>{order.name}</h5>
+          <p className={order.status === 'canceled' ? styles.order__status_canceled : order.status === 'inprogress' ? styles.order__status_done : styles.order__status}>{order.status === 'canceled' ? 'Отменен' : order.status === 'inprogress' ? 'Готовится' : 'Выполнен'}</p>
           <div className={styles.order__details}>
             <ul className={styles.order__list}>
-              <li><img src={five} alt='five' /></li>
-              <li><img src={four} alt='four' /></li>
-              <li><img src={three} alt='tree' /></li>
-              <li><img src={two} alt='two' /></li>
-              <li><img src={one} alt='One' /></li>          
+
+            {order.ingredients.length > 5 && <li key={shortid} style={{width: '65px'}} className={styles.order__ingredient__six}>+{amountIngredients(order.ingredients).secondArray.length}</li>}
+
+            {order.ingredients.length > 5 ? amountIngredients(order.ingredients).firstArray.map(el => <li key={shortid}><img src={getPicture(el)[0]&&getPicture(el)[0].image_mobile} className={styles.order__ingredient__img} alt={getPicture(el).name}/></li>)
+            :
+            order.ingredients.map(el => <li key={shortid}><img src={getPicture(el)[0]&&getPicture(el)[0].image_mobile} className={styles.order__ingredient__img} alt={getPicture(el).name}/></li>)}
+
             </ul>          
-            <p className={styles.order__price}><span>480</span> <CurrencyIcon type="primary" /></p>
+            <p className={styles.order__price}><span>{(priceArray.reduce((sum, current) => sum + current, 0))/3}</span> <CurrencyIcon type="primary" /></p>
           </div>
         </div>
         </Link>

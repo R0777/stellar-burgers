@@ -6,7 +6,7 @@ import AppHeader from '../app-header/app-header';
 import { useDispatch } from 'react-redux';
 import { getData } from '../../store/slices/get-data-api'
 import { getCookie } from '../../utils/cookie';
-import { resetToken } from '../../store/slices/resetToken';
+import { resetToken } from '../../store/slices/reset-token';
 import { getUserData } from '../../store/slices/get-user';
 import { setLogin } from '../../store/slices/login';
 

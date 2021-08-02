@@ -21,7 +21,6 @@ li {
 .nav__list {
   display: flex;
   width: 100%;
-  /* justify-content: space-between; */
   list-style: none;
   align-items: center;
 }
@@ -58,7 +57,6 @@ li {
 .active {
   color: #f2f2f3
 }
-
 
 .nav__icon {
   padding-right: 8px;

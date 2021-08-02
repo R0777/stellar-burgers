@@ -4,11 +4,13 @@ const orderlistSlice = createSlice({
   name: 'orderlistPop',
   initialState: {
     orders: [],
+    order: {},
     total: 0,
     dailyTotal: 0,
     connected: false,
     error: false,
-    ordersListPopup: false
+    ordersListPopup: false,
+    profileOrderPopup: false
   },
 
   reducers: {
@@ -16,6 +18,14 @@ const orderlistSlice = createSlice({
     ordersListPopupToggle(state, action) {
       state.ordersListPopup = action.payload
     },
+
+    profileOrderPopupToggle(state, action) {
+      state.profileOrderPopup = action.payload
+    },
+    setOrder(state, action) {
+      state.order = action.payload
+    },
+
     wsConnectionOpened: (state) => {
       state.connected = true;
       state.error = false;
@@ -38,4 +48,4 @@ const orderlistSlice = createSlice({
 }) 
 
 export default orderlistSlice.reducer
-export const {wsConnectionOpened, wsGetMessage, wsConnectionClose, wsConnectionError, ordersListPopupToggle} = orderlistSlice.actions
+export const {wsConnectionOpened, wsGetMessage, wsConnectionClose, wsConnectionError, ordersListPopupToggle, profileOrderPopupToggle, setOrder} = orderlistSlice.actions
