@@ -6,8 +6,6 @@ const constructorElement = createSlice({
   initialState: {
     bredElement: [],
     middleElement: [],
-    // bredElement: [{_id: 0, name: 'Перетащи сюда свои булочки <3', price: null}],
-    // middleElement: [{_id: 1, name: 'Хватит читать вставляй уже то что будет между булочками', price: null}],
     elementAmount: 0,
     total: 0,
     idBasket: []
@@ -47,7 +45,8 @@ const constructorElement = createSlice({
       state.total = totalPrice.reduce((sum, current) => {
       return sum + current;
       },0)
-      total.map(el => state.idBasket.push(el.id))
+      state.idBasket = []
+      total.forEach(el => state.idBasket.push(el.id))
     },
 
     resetStore(state) {
@@ -59,9 +58,7 @@ const constructorElement = createSlice({
 
     elementCounter(state, {payload}) {
       const fullArr = state.bredElement.concat(state.middleElement);
-      console.log(fullArr, payload)
       const amount =  fullArr.filter(item => item.name === payload);
-      console.log(amount)
       state.elementAmount = amount.length
     },
 

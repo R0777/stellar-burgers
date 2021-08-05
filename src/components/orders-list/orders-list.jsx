@@ -9,7 +9,6 @@ const OrdersList = () => {
 const {orders} = useSelector(state => state.orderlistPop)
 
 
-
 return (
 <section>
   <h2 className={styles.orders__title}>Лента заказов</h2>

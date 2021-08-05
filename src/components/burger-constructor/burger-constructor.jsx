@@ -32,7 +32,10 @@ const authCheck = () => {
     history.push('/login')
   } 
   else if (logedIn && overal.length >=2) {
-    dispatch(getOrderNumber(idBasket))
+
+    const basketArray = [...idBasket] 
+    basketArray.reverse()
+    dispatch(getOrderNumber(basketArray))
   }
 }
 

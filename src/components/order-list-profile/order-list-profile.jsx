@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
 import OrderListItem from '../order-list-item/order-list-item';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getCookie } from '../../utils/cookie';
 import { WS_CONNECTION_START, WS_CONNECTION_CLOSE } from '../../store/actions/wsActions';
+import shortid from 'shortid';
 
 const OrderListProfile = () => {
 
@@ -15,10 +16,15 @@ useEffect(() => {
   return () => dispatch(WS_CONNECTION_CLOSE());
 }, [dispatch])
 
+const {orders} = useSelector(state => state.orderlistPop)
+
+const ordersArray = [...orders]
+
+ordersArray.reverse()
 
   return (
     <ul>
-      <OrderListItem />
+      {ordersArray.map(el => <OrderListItem order={el} key={shortid} />)}
     </ul>
   )
 }
