@@ -79,9 +79,9 @@ return (
           <div className={styles.order__details}>
             <ul className={styles.order__list}>
 
-            {order.ingredients.length > 5 && <li key={shortid} style={{width: '65px'}} className={styles.order__ingredient__six}>+{amountIngredients(order.ingredients).secondArray.length}</li>}
+            {order.ingredients&&order.ingredients.length > 5 && <li key={shortid} style={{width: '65px'}} className={styles.order__ingredient__six}>+{amountIngredients(order.ingredients).secondArray.length}</li>}
 
-            {order.ingredients.length > 5 ? amountIngredients(order.ingredients).firstArray.map(el => <li key={shortid}><img src={getPicture(el)[0]&&getPicture(el)[0].image_mobile} className={styles.order__ingredient__img} alt={getPicture(el).name}/></li>)
+            {order.ingredients&&order.ingredients.length > 5 ? amountIngredients(order.ingredients).firstArray.map(el => <li key={shortid}><img src={getPicture(el)[0]&&getPicture(el)[0].image_mobile} className={styles.order__ingredient__img} alt={getPicture(el).name}/></li>)
             :
             order.ingredients.map(el => <li key={shortid}><img src={getPicture(el)[0]&&getPicture(el)[0].image_mobile} className={styles.order__ingredient__img} alt={getPicture(el).name}/></li>)}
 

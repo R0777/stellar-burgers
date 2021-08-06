@@ -1,5 +1,5 @@
 import React, {useEffect, useCallback} from "react";
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Window from '../window/window';
 import Register from '../../pages/register/register';
 import Login from '../../pages/login/login';
@@ -31,7 +31,7 @@ const Routes = () => {
   const ordersListPopup = useSelector(state => state.orderlistPop.ordersListPopup)
   const loggedIn = useSelector(store => store.loginUser.login)
   const dispatch = useDispatch()
-  const location = useLocation()
+
 
 
   const order  = useSelector(state => state.orderlistPop.order)
@@ -41,8 +41,10 @@ const Routes = () => {
     if (ev.target !== ev.currentTarget) {
         return
     }
+    window.location.href='/'
     dispatch(orderPopupToggle(false))
     dispatch(ingredientPopupToggle(false))
+    
 },[dispatch])
 
 
@@ -56,18 +58,19 @@ useEffect(() => {
 
 
   const handleClose = () => {
+    window.location.href='/'
     dispatch(orderPopupToggle(false))
     dispatch(ingredientPopupToggle(false))
     dispatch(ordersListPopupToggle(false))
     dispatch(profileOrderPopupToggle(false))
-    location.pathname = '/'
   }
 
   useEffect(() => {
     const handleEscape = (event) => event.key === 'Escape' && handleClose();
     document.addEventListener('keydown', handleEscape);
 
-    return () => document.removeEventListener('keydown', handleEscape);
+    return () => { document.removeEventListener('keydown', handleEscape)
+    window.location.reload()}
   }, []);
 
   return (
