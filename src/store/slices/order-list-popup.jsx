@@ -24,6 +24,7 @@ const orderlistSlice = createSlice({
     },
     setOrder(state, action) {
       state.order = action.payload
+      
     },
 
     wsConnectionOpened: (state) => {

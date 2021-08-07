@@ -14,6 +14,7 @@ import { setLogin } from '../../store/slices/login';
 const App = () => {
 
   const dispatch = useDispatch();
+
   const tokenCheck = () => {
 
     const jwt = getCookie('token');
@@ -24,6 +25,7 @@ const App = () => {
           }
       dispatch(resetToken(getCookie('refreshToken')))
       }
+
     dispatch(getUserData(getCookie('token')))
     dispatch(setLogin(true))
   }

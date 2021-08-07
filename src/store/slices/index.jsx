@@ -13,6 +13,7 @@ import refreshToken from './reset-token';
 import userReset from './get-user';
 import userPatch from './patch-user';
 import orderlistSlice from './order-list-popup';
+import getOrderDetails from './get-order-details';
 
 
 
@@ -30,7 +31,8 @@ const rootReducer = combineReducers({
   tokenReset: refreshToken,
   resetUser: userReset,
   patchUser: userPatch,
-  orderlistPop: orderlistSlice
+  orderlistPop: orderlistSlice,
+  orderInfo: getOrderDetails
 })
 
 export default rootReducer

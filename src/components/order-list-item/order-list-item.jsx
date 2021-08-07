@@ -25,14 +25,13 @@ const OrderListItem = (props) => {
     updatedAt: props.order.updatedAt,
   }
 
-
   const options = {
     hour: 'numeric',
     minute: 'numeric',
   };
 
   moment.locale('ru')
-  const getDays = moment(order.createdAt).fromNow()
+  const getDays = moment(order.createdAt && order.createdAt).fromNow()
 
 
   const orderPrice = (ingredient, priceArray) => {
@@ -43,7 +42,6 @@ const OrderListItem = (props) => {
     const ingredient = data.filter(item => item._id === el)
     orderPrice(ingredient, priceArray)
     return ingredient
-    
   }
 
   const amountIngredients = (ingredientArray) => {
@@ -72,16 +70,16 @@ return (
       }}><div className={styles.order__item}>
           <div className={styles.order__iddate}>
             <p className={styles.order__id}>#{order.number}</p>
-            <p className={styles.order__date}>{getDays}, {order.createdAt.toLocaleString("ru", options)} i-GMT+{order.createdAt.getTimezoneOffset()/-60}</p>
+            <p className={styles.order__date}>{getDays}, {order.createdAt&&order.createdAt.toLocaleString("ru", options)} i-GMT+{order.createdAt&&order.createdAt.getTimezoneOffset()/-60}</p>
           </div>
           <h5 className={styles.order__title}>{order.name}</h5>
           <p className={order.status === 'canceled' ? styles.order__status_canceled : order.status === 'inprogress' ? styles.order__status_done : styles.order__status}>{order.status === 'canceled' ? 'Отменен' : order.status === 'inprogress' ? 'Готовится' : 'Выполнен'}</p>
           <div className={styles.order__details}>
             <ul className={styles.order__list}>
 
-            {order.ingredients&&order.ingredients.length > 5 && <li key={shortid} style={{width: '65px'}} className={styles.order__ingredient__six}>+{amountIngredients(order.ingredients).secondArray.length}</li>}
+            {order.ingredients.length > 5 && <li key={shortid} style={{width: '65px'}} className={styles.order__ingredient__six}>+{amountIngredients(order.ingredients).secondArray.length}</li>}
 
-            {order.ingredients&&order.ingredients.length > 5 ? amountIngredients(order.ingredients).firstArray.map(el => <li key={shortid}><img src={getPicture(el)[0]&&getPicture(el)[0].image_mobile} className={styles.order__ingredient__img} alt={getPicture(el).name}/></li>)
+            {order.ingredients.length > 5 ? amountIngredients(order.ingredients).firstArray.map(el => <li key={shortid}><img src={getPicture(el)[0]&&getPicture(el)[0].image_mobile} className={styles.order__ingredient__img} alt={getPicture(el).name}/></li>)
             :
             order.ingredients.map(el => <li key={shortid}><img src={getPicture(el)[0]&&getPicture(el)[0].image_mobile} className={styles.order__ingredient__img} alt={getPicture(el).name}/></li>)}
 

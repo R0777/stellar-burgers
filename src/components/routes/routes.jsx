@@ -1,5 +1,5 @@
 import React, {useEffect, useCallback} from "react";
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import Window from '../window/window';
 import Register from '../../pages/register/register';
 import Login from '../../pages/login/login';
@@ -32,19 +32,22 @@ const Routes = () => {
   const loggedIn = useSelector(store => store.loginUser.login)
   const dispatch = useDispatch()
 
+  const orderPopup = useSelector(state => state.orderlistPop.order)
+  const orderPage = useSelector(state => state.orderInfo.order)
+
+  console.log(orderPage.name)
 
 
-  const order  = useSelector(state => state.orderlistPop.order)
-
+  const history = useHistory()
 
   const handleClick = useCallback((ev) => {
     if (ev.target !== ev.currentTarget) {
         return
     }
-    window.location.href='/'
+    window.location.href = '/'
     dispatch(orderPopupToggle(false))
     dispatch(ingredientPopupToggle(false))
-    
+
 },[dispatch])
 
 
@@ -58,19 +61,24 @@ useEffect(() => {
 
 
   const handleClose = () => {
-    window.location.href='/'
+    window.location.href = '/'
     dispatch(orderPopupToggle(false))
     dispatch(ingredientPopupToggle(false))
     dispatch(ordersListPopupToggle(false))
     dispatch(profileOrderPopupToggle(false))
   }
 
-  useEffect(() => {
-    const handleEscape = (event) => event.key === 'Escape' && handleClose();
-    document.addEventListener('keydown', handleEscape);
+  const handleEsc = (event) => {
+    if (event.key === 'Escape') {
+      history.push('/')
+    }
+  }
 
-    return () => { document.removeEventListener('keydown', handleEscape)
-    window.location.reload()}
+  useEffect(() => {
+    document.addEventListener("keydown", handleEsc, false);
+
+    return () => { document.removeEventListener('keydown', handleEsc, false)
+  }
   }, []);
 
   return (
@@ -150,6 +158,7 @@ useEffect(() => {
 
     <Orders />
   </Route>
+
 {ingredientPopup &&
   <Route path="/ingredients/:id" exact>
     
@@ -171,7 +180,7 @@ useEffect(() => {
   {ordersListPopup &&
   <Route path="/feed/:id" exact>
     
-      <Modal handleClick={handleClick} onClose={handleClose} title={order.name} isOpen={ordersListPopup}>
+      <Modal handleClick={handleClick} onClose={handleClose} title={orderPopup.name} isOpen={ordersListPopup}>
         <Order />
       </Modal>
       
@@ -179,7 +188,7 @@ useEffect(() => {
 }
 
   <Route path="/feed/:id">
-      <ModalSwitch title={order.name}
+      <ModalSwitch title={orderPopup.name}
       children={
         <Order  />
       } />
@@ -189,7 +198,7 @@ useEffect(() => {
   {profileOrderPopup &&
   <Route path="/profile/orders/:id" exact>
     
-      <Modal handleClick={handleClick} onClose={handleClose} title={order.name} isOpen={profileOrderPopup}>
+      <Modal handleClick={handleClick} onClose={handleClose} title={orderPage.name} isOpen={profileOrderPopup}>
         <Order />
       </Modal>
       
@@ -197,7 +206,7 @@ useEffect(() => {
 }
 
   <Route path="/profile/orders/:id">
-      <ModalSwitch title={order.name}
+      <ModalSwitch title={orderPopup.name}
       children={
         <Order />
       } />

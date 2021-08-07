@@ -3,8 +3,8 @@ import styles from './account-orders.module.css'
 import OrderListItem from '../order-list-profile/order-list-profile'
 import { useDispatch, useSelector } from 'react-redux';
 import { WS_CONNECTION_START, WS_CONNECTION_CLOSE } from '../../store/actions/wsActions';
-import shortid from 'shortid';
 import { getCookie } from '../../utils/cookie';
+import shortid from 'shortid';
 
 
 const AccountOrders = () => {

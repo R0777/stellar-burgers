@@ -9,7 +9,8 @@ export const socketMiddleware = () => {
       const { type, payload } = action;
 
       if (type === WS_CONNECTION_START.toString())
-        socket = new WebSocket(payload);
+      socket = new WebSocket(payload);
+
 
       if (type === WS_CONNECTION_CLOSE.toString()) socket.close();
 

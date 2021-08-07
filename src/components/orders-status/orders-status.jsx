@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import styles from './orders-status.module.css'
 import shortid from 'shortid';

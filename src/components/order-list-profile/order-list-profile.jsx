@@ -24,7 +24,7 @@ ordersArray.reverse()
 
   return (
     <ul>
-      {ordersArray&&ordersArray.map(el => <OrderListItem order={el} key={shortid} />)}
+      {ordersArray.map(el => <OrderListItem order={el} key={el._id} />)}
     </ul>
   )
 }
