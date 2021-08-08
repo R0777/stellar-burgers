@@ -1,13 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit' 
 import { resetStore } from './constructor-element'
+import { getCookie } from '../../utils/cookie'
 
 export const getOrderNumber = createAsyncThunk('order/getOrderNumber', async (idBasket, { dispatch }) => {
   return fetch('https://norma.nomoreparties.space/api/orders',
   {
     method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + getCookie('token')
     },
+
     body: JSON.stringify({
       ingredients: idBasket
     })

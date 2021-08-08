@@ -7,7 +7,9 @@ const Window = (props: any) => {
 
   return (
 <section className={styles.window}>
+  
 <h3 className={styles.window__title}>{props.title}</h3>
+{props.status && <p className={styles.window__status__order}>{props.status&&props.status}</p>}
 <form>
 {props.children}
 

@@ -1,17 +1,33 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import { WS_CONNECTION_START, WS_CONNECTION_CLOSE } from '../../store/actions/wsActions';
+import { getCookie } from '../../utils/cookie';
+import { resetToken } from '../../store/slices/reset-token';
 import styles from './profile.module.css'
 import Account from '../account/account';
 import AccountOrders from '../../components/account-orders/account-orders';
 import { logout } from '../../store/slices/logout';
 import { useDispatch } from 'react-redux';
-import { getCookie } from '../../utils/cookie';
+
+
 
 const Profile = () => {
 
   const dispatch = useDispatch()
-
   const location = useLocation()
+
+  const PROFILE_ORDERS_URL = 'wss://norma.nomoreparties.space/orders'
+
+  const jwt = getCookie('token')
+
+  useEffect(() => {
+
+    if (jwt === undefined) {dispatch(resetToken(getCookie('refreshToken')))}
+    else dispatch(WS_CONNECTION_START(`${PROFILE_ORDERS_URL}?token=${getCookie('token')}`));
+    
+    return () => dispatch(WS_CONNECTION_CLOSE());
+  }, [dispatch, jwt])
+
 
   const logoutHandler = () => {
     dispatch(logout(getCookie('refreshToken')))

@@ -12,7 +12,7 @@ const Modal = (props) => {
     return ReactDom.createPortal(
       <ModalOverlay handleClick={props.handleClick} isOpen={props.isOpen}>
         <div className={styles.popup__block}>
-                <button className={styles.popup__close} type="button" onClick={props.onClose}><CloseIcon type="primary" /></button>
+                <button className={styles.popup__close} type="button" ><CloseIcon type="primary" onClick={props.onClose} /></button>
                 { props.title && (<h5 className={styles.popup__title}>{props.title&&props.title}</h5>)}
                 {props.children}
         </div> 

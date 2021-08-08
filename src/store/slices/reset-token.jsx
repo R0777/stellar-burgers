@@ -4,6 +4,7 @@ import { getUserData } from './get-user';
 import { getCookie } from '../../utils/cookie';
 
 export const resetToken = createAsyncThunk('tokenReset/resetToken', async (refreshToken, { dispatch }) => {
+  console.log(refreshToken)
   return fetch('https://norma.nomoreparties.space/api/auth/token',
   {
     method: "POST",
@@ -15,6 +16,7 @@ export const resetToken = createAsyncThunk('tokenReset/resetToken', async (refre
     })
     
   }).then(res => {
+    console.log(res)
     if(!res.ok) throw Error(res.statusText)
       res.json()
       .then(res => {

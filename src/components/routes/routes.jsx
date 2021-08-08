@@ -1,5 +1,5 @@
 import React, {useEffect, useCallback} from "react";
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import Window from '../window/window';
 import Register from '../../pages/register/register';
 import Login from '../../pages/login/login';
@@ -14,24 +14,64 @@ import ProtectedRoute from '../protected-route/protected-route';
 import Main from '../main/main';
 import Profile from '../../pages/profile/profile';
 import Modal from "../modal/modal";
+import Order from '../order/order'
+import OrderSwitch from "../order-switch/order-switch";
 import { useSelector, useDispatch } from "react-redux";
-import { orderPopupToggle } from "../../store/slices/orderPopup";
-import { ingredientPopupToggle } from "../../store/slices/ingredientPopup";
+import { orderPopupToggle } from "../../store/slices/order-popup";
+import { ingredientPopupToggle } from "../../store/slices/ingredient-popup";
+import { ordersListPopupToggle } from "../../store/slices/order-list-popup"; 
+import { profileOrderPopupToggle } from "../../store/slices/order-list-popup";
+import { getData } from '../../store/slices/get-data-api'
+import { getCookie } from '../../utils/cookie';
+import { resetToken } from '../../store/slices/reset-token';
+import { getUserData } from '../../store/slices/get-user';
+import { setLogin } from '../../store/slices/login';
 
 
 const Routes = () => {
 
   const togglePopup = useSelector(state => state.order.togglePopup)
   const ingredientPopup = useSelector(state => state.ingredients.ingredientPopup)
+  const profileOrderPopup = useSelector(state => state.orderlistPop.profileOrderPopup)
+  const ordersListPopup = useSelector(state => state.orderlistPop.ordersListPopup)
   const loggedIn = useSelector(store => store.loginUser.login)
   const dispatch = useDispatch()
+
+  const jwt = getCookie('token');
+
+  const tokenCheck = () => {
+
+      if (!jwt) {
+        const refresh = getCookie('refreshToken')
+          if (!refresh) {
+            return
+          }
+      dispatch(resetToken(getCookie('refreshToken')))
+      }
+
+    dispatch(getUserData(getCookie('token')))
+    dispatch(setLogin(true))
+  }
+
+  useEffect(() => {
+    dispatch(getData())
+    tokenCheck()
+  }, [dispatch, jwt]);
+
+  const orderPopup = useSelector(state => state.orderlistPop.order)
+  const orderPage = useSelector(state => state.orderInfo.order)
+
+
+  const history = useHistory()
 
   const handleClick = useCallback((ev) => {
     if (ev.target !== ev.currentTarget) {
         return
     }
+    window.location.href = '/'
     dispatch(orderPopupToggle(false))
     dispatch(ingredientPopupToggle(false))
+
 },[dispatch])
 
 
@@ -45,15 +85,24 @@ useEffect(() => {
 
 
   const handleClose = () => {
+    window.location.href = '/'
     dispatch(orderPopupToggle(false))
     dispatch(ingredientPopupToggle(false))
+    dispatch(ordersListPopupToggle(false))
+    dispatch(profileOrderPopupToggle(false))
+  }
+
+  const handleEsc = (event) => {
+    if (event.key === 'Escape') {
+      history.push('/')
+    }
   }
 
   useEffect(() => {
-    const handleEscape = (event) => event.key === 'Escape' && handleClose();
-    document.addEventListener('keydown', handleEscape);
+    document.addEventListener("keydown", handleEsc, false);
 
-    return () => document.removeEventListener('keydown', handleEscape);
+    return () => { document.removeEventListener('keydown', handleEsc, false)
+  }
   }, []);
 
   return (
@@ -133,13 +182,14 @@ useEffect(() => {
 
     <Orders />
   </Route>
+
 {ingredientPopup &&
   <Route path="/ingredients/:id" exact>
-    (
+    
       <Modal handleClick={handleClick} onClose={handleClose} title={'Детали ингридиента'} isOpen={ingredientPopup}>
         <IngredientPopup />
       </Modal>
-      )
+      
   </Route>
 }
 
@@ -149,6 +199,45 @@ useEffect(() => {
         <IngredientPopup />
       } />
   </Route>
+
+
+  {ordersListPopup &&
+  <Route path="/feed/:id" exact>
+    
+      <Modal handleClick={handleClick} onClose={handleClose} title={orderPopup.name} isOpen={ordersListPopup}>
+        <Order order={orderPopup} />
+      </Modal>
+      
+  </Route>
+}
+
+  <Route path="/feed/:id">
+      <OrderSwitch
+      children={
+        <Order />
+      } />
+  </Route>
+
+
+  {profileOrderPopup &&
+  <Route path="/profile/orders/:id" exact>
+    
+      <Modal handleClick={handleClick} onClose={handleClose} title={orderPopup.name} isOpen={profileOrderPopup}>
+        <Order order={orderPopup}/>
+      </Modal>
+      
+  </Route>
+}
+
+  <Route path="/profile/orders/:id">
+      <OrderSwitch
+      children={
+        <Order />
+      } />
+  </Route>
+
+
+
 
   <Route>
     <NotFound404 />

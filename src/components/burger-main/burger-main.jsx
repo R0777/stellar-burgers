@@ -3,7 +3,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import styles from './burger-main.module.css';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { ingredientPopupToggle, setIngredient } from '../../store/slices/ingredientPopup';
+import { ingredientPopupToggle, setIngredient } from '../../store/slices/ingredient-popup';
 import { useDrag } from "react-dnd";
 import shortid from 'shortid';
 import { Link, useLocation } from 'react-router-dom';

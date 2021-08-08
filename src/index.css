@@ -33,3 +33,11 @@ section .input_size_default {
   font-family: 'Jetbrains', 'Arial', sans-serif;
   text-rendering: optimizeLegibility;
 }
+
+form .input_size_default {
+  width: 480px;
+}
+
+section .input_size_default {
+  width: 480px;
+}
