@@ -15,12 +15,17 @@ import Main from '../main/main';
 import Profile from '../../pages/profile/profile';
 import Modal from "../modal/modal";
 import Order from '../order/order'
+import OrderSwitch from "../order-switch/order-switch";
 import { useSelector, useDispatch } from "react-redux";
 import { orderPopupToggle } from "../../store/slices/order-popup";
 import { ingredientPopupToggle } from "../../store/slices/ingredient-popup";
 import { ordersListPopupToggle } from "../../store/slices/order-list-popup"; 
 import { profileOrderPopupToggle } from "../../store/slices/order-list-popup";
-
+import { getData } from '../../store/slices/get-data-api'
+import { getCookie } from '../../utils/cookie';
+import { resetToken } from '../../store/slices/reset-token';
+import { getUserData } from '../../store/slices/get-user';
+import { setLogin } from '../../store/slices/login';
 
 
 const Routes = () => {
@@ -32,10 +37,29 @@ const Routes = () => {
   const loggedIn = useSelector(store => store.loginUser.login)
   const dispatch = useDispatch()
 
+  const jwt = getCookie('token');
+
+  const tokenCheck = () => {
+
+      if (!jwt) {
+        const refresh = getCookie('refreshToken')
+          if (!refresh) {
+            return
+          }
+      dispatch(resetToken(getCookie('refreshToken')))
+      }
+
+    dispatch(getUserData(getCookie('token')))
+    dispatch(setLogin(true))
+  }
+
+  useEffect(() => {
+    dispatch(getData())
+    tokenCheck()
+  }, [dispatch, jwt]);
+
   const orderPopup = useSelector(state => state.orderlistPop.order)
   const orderPage = useSelector(state => state.orderInfo.order)
-
-  console.log(orderPage.name)
 
 
   const history = useHistory()
@@ -181,16 +205,16 @@ useEffect(() => {
   <Route path="/feed/:id" exact>
     
       <Modal handleClick={handleClick} onClose={handleClose} title={orderPopup.name} isOpen={ordersListPopup}>
-        <Order />
+        <Order order={orderPopup} />
       </Modal>
       
   </Route>
 }
 
   <Route path="/feed/:id">
-      <ModalSwitch title={orderPopup.name}
+      <OrderSwitch
       children={
-        <Order  />
+        <Order />
       } />
   </Route>
 
@@ -198,15 +222,15 @@ useEffect(() => {
   {profileOrderPopup &&
   <Route path="/profile/orders/:id" exact>
     
-      <Modal handleClick={handleClick} onClose={handleClose} title={orderPage.name} isOpen={profileOrderPopup}>
-        <Order />
+      <Modal handleClick={handleClick} onClose={handleClose} title={orderPopup.name} isOpen={profileOrderPopup}>
+        <Order order={orderPopup}/>
       </Modal>
       
   </Route>
 }
 
   <Route path="/profile/orders/:id">
-      <ModalSwitch title={orderPopup.name}
+      <OrderSwitch
       children={
         <Order />
       } />

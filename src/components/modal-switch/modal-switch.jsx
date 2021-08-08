@@ -12,13 +12,13 @@ const ModalSwitch = () => {
   const {id} = useParams();
 
       const data = useSelector(state => state.api.data)
-      const order = useSelector(state => state.orderInfo.order)
+      const orderPopup = useSelector(state => state.orderlistPop.order)
 
       const ingredient = data.find(item => item._id === id)
 
     return (
       <div className={styles.switch}> 
-        { location.pathname === `/ingredients/${id}` ? <IngredientPopup ingredient={ingredient} /> : <Order order={order} /> }
+        { location.pathname === `/ingredients/${id}` ? <IngredientPopup ingredient={ingredient} /> : <Order order={orderPopup} /> }
       </div>
     );
 }

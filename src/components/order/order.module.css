@@ -2,6 +2,15 @@
   width: 100%;
 }
 
+.order__page__title {
+  color: #F2F2F3;
+    font-family: 'Jetbrains-bold', 'Arial', sans-serif;
+    font-size: 36px;
+    line-height: 40px;
+    text-align: center;
+    width: 600px;
+}
+
 .order__list__title {
   font-family: 'Jetbrains-bold', 'Helvetica', sans-serif;
   font-size: 24px;

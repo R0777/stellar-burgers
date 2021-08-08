@@ -16,6 +16,7 @@ export const resetToken = createAsyncThunk('tokenReset/resetToken', async (refre
     })
     
   }).then(res => {
+    console.log(res)
     if(!res.ok) throw Error(res.statusText)
       res.json()
       .then(res => {
