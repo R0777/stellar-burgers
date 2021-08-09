@@ -202,7 +202,7 @@ useEffect(() => {
 
 
   {ordersListPopup &&
-  <Route path="/feed/:id" exact>
+  <Route path="/feed/:number" exact>
     
       <Modal handleClick={handleClick} onClose={handleClose} title={orderPopup.name} isOpen={ordersListPopup}>
         <Order order={orderPopup} />
@@ -211,7 +211,7 @@ useEffect(() => {
   </Route>
 }
 
-  <Route path="/feed/:id">
+  <Route path="/feed/:number">
       <OrderSwitch
       children={
         <Order />
@@ -220,7 +220,7 @@ useEffect(() => {
 
 
   {profileOrderPopup &&
-  <Route path="/profile/orders/:id" exact>
+  <Route path="/profile/orders/:number" exact>
     
       <Modal handleClick={handleClick} onClose={handleClose} title={orderPopup.name} isOpen={profileOrderPopup}>
         <Order order={orderPopup}/>
@@ -229,7 +229,7 @@ useEffect(() => {
   </Route>
 }
 
-  <Route path="/profile/orders/:id">
+  <Route path="/profile/orders/:number">
       <OrderSwitch
       children={
         <Order />
