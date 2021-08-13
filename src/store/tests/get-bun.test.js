@@ -1,17 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit'
+import bunReducer, { initialState, getBun, bunsArray } from '../slices/get-bun';
 
+describe('reducer, actions and selectors', () => {
+  it('should return the initial state on first run', () => {
 
-const getBred = createSlice({
-  name: 'bun',
-  initialState: {
-    buns: []
-  },
-  reducers: {
-    getBun(state, action) {
-      state.buns = action.payload
-    },
-  }
-})
+    const nextState = initialState;
+    const result = bunReducer(undefined, {});
+    expect(result).toEqual(nextState);
+  });
 
-export default getBred.reducer
-export const {getBun} = getBred.actions
+  it('should properly set the state when added buns', () => {
+
+    const payload = [{}, {}];
+    const reducer = bunReducer(initialState, getBun(payload));
+    const result = { ...initialState, buns: payload };
+    expect(reducer).toEqual(result);
+  });
+});
