@@ -1,4 +1,4 @@
-import bunReducer, { initialState, getBun, bunsArray } from '../slices/get-bun';
+import bunReducer, { initialState, getBun } from '../slices/get-bun';
 
 describe('reducer, actions and selectors', () => {
   it('should return the initial state on first run', () => {
@@ -11,8 +11,9 @@ describe('reducer, actions and selectors', () => {
   it('should properly set the state when added buns', () => {
 
     const payload = [{}, {}];
-    const reducer = bunReducer(initialState, getBun(payload));
-    const result = { ...initialState, buns: payload };
-    expect(reducer).toEqual(result);
+    const expected = { ...initialState, buns: payload };
+    const received = bunReducer(initialState, getBun(payload));
+
+    expect(received).toEqual(expected);
   });
 });

@@ -1,99 +1,35 @@
-import { createSlice } from '@reduxjs/toolkit'
-import shortid from 'shortid'
+import reducer, { initialState, setBun, version, setTopMiddle, deleteMiddle, setTotal, resetStore, elementCounter, sortConstructor, bredElement, middleElement, elementAmount, total, idBasket } from '../slices/constructor-element';
 
-const constructorElement = createSlice({
-  name: 'element',
-  initialState: {
-    bredElement: [],
-    middleElement: [],
-    elementAmount: 0,
-    total: 0,
-    idBasket: []
-  },
+describe('reducer, actions and selectors', () => {
+  it('should return the initial state on first run', () => {
 
-  reducers: {
+    const nextState = initialState;
+    const result = reducer(undefined, {});
+    expect(result).toEqual(nextState);
+  });
 
-    setBun(state, {payload}) {
+  it('should properly generte id and splice new element in bredElement array', () => {
+    const payload = { ver: version };
+    const received = reducer(initialState, setBun(payload));
+    const expected = { ...initialState, bredElement: [payload] }
 
-      payload.ver = shortid.generate();
-      state.bredElement.splice(0,1, payload)
-    },  
+    expect(received).toEqual(expected);
+  });
 
-    setTopMiddle(state, {payload}) {
+  it('should properly generte id and splice new element in middleElement array', () => {
+    const payload = {};
+    const received = reducer(initialState, setTopMiddle(payload));
+    const expected = { ...initialState, middleElement: [payload] }
 
-
-      if (state.middleElement.length === 0) {
-
-        state.middleElement.splice(0,0, payload)
-      }
-
-      else if (state.middleElement[0]._id !== undefined) {
-      state.middleElement.splice(0,0, payload)
-      }
-
-    },
-
-    deleteMiddle(state, {payload}) {
-      const newArray = state.middleElement.filter(item => item.ver !== payload);
-      state.middleElement = newArray
-    },
-      
-    setTotal(state,{payload}) {
-      
-      const total = payload.bun.concat(payload.data);
-      const totalPrice = total.map(el => el.price);
-      state.total = totalPrice.reduce((sum, current) => {
-      return sum + current;
-      },0)
-      state.idBasket = []
-      total.forEach(el => state.idBasket.push(el.id))
-    },
-
-    resetStore(state) {
-      state.bredElement = []
-      state.middleElement = []
-      state.total =  0
-      state.idBasket = []
-    },
-
-    elementCounter(state, {payload}) {
-      const fullArr = state.bredElement.concat(state.middleElement);
-      const amount =  fullArr.filter(item => item.name === payload);
-      state.elementAmount = amount.length
-    },
-
-    sortConstructor(state,action) {
-
-    if (state.middleElement[0].ver === null) {
-      state.middleElement[0].ver = shortid.generate()
-
-      }
-      else if (state.middleElement.length >= 1) {
-
-        const verIndex = state.middleElement.findIndex(item => item.ver === action.payload.item.ver)
-
-        const targetIndex = state.middleElement.findIndex(item => item.ver === action.payload.props.ver)
-        
-        const inArray = state.middleElement.find(item => item.ver === action.payload.item.ver)
-        
-        if (!inArray) {
-          
-          state.middleElement.splice(targetIndex+1,0, action.payload.item)
-        }
-        else {
-
-          state.middleElement.splice(verIndex,1)
-          state.middleElement.splice(targetIndex,0, action.payload.item)
-
-        }
-      }
-      else {
-          state.middleElement.splice(0,0, action.payload.item);
-      }
-    }
-  },
-})
+    expect(received).toEqual(expected);
+  });
 
 
-export default constructorElement.reducer
-export const {setBun, setTopMiddle, setTotal, deleteMiddle, sortConstructor, resetStore, elementCounter} = constructorElement.actions
+
+
+
+
+
+
+
+});

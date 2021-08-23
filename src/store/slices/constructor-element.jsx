@@ -1,22 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit'
 import shortid from 'shortid'
 
+export const initialState = {
+  bredElement: [],
+  middleElement: [],
+  elementAmount: 0,
+  total: 0,
+  idBasket: []
+}
+
+export var version = shortid.generate();
+
 const constructorElement = createSlice({
   name: 'element',
-  initialState: {
-    bredElement: [],
-    middleElement: [],
-    elementAmount: 0,
-    total: 0,
-    idBasket: []
-  },
+  initialState,
 
   reducers: {
 
-    setBun(state, {payload}) {
-
-      payload.ver = shortid.generate();
-      state.bredElement.splice(0,1, payload)
+    setBun(state, action) {
+      action.payload.ver = version;
+      state.bredElement.splice(0,1, action.payload)
     },  
 
     setTopMiddle(state, {payload}) {
@@ -93,6 +96,12 @@ const constructorElement = createSlice({
     }
   },
 })
+
+  export const bredElement = state => state.bredElement
+  export const middleElement = state => state.middleElement
+  export const elementAmount = state => state.elementAmount
+  export const total = state => state.total
+  export const idBasket = state => state.idBasket
 
 
 export default constructorElement.reducer
