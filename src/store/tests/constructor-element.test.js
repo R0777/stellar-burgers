@@ -24,6 +24,35 @@ describe('reducer, actions and selectors', () => {
     expect(received).toEqual(expected);
   });
 
+  it('should properly delete elem and return new array', () => {
+
+    const iniState = {
+      middleElement: [{ver:123}, {ver:1234}, {ver:12345}]
+    }
+
+    const payload = 123;
+    const received = reducer(iniState, deleteMiddle(payload));
+    const expected = { ...iniState, middleElement: [{ver:1234}, {ver:12345}] }
+
+    expect(received).toEqual(expected);
+  });
+
+  it('should properly sum elem price + add id to array', () => {
+
+    // const iniState = {
+    //   data: [{price:10}, {price:11}, {price:12}]
+    // }
+
+    const payload = {
+      data: [{price:10}, {price:11}, {price:12}],
+      bun: [{price: 13}]
+    };
+    const received = reducer(initialState, setTopMiddle(payload));
+    const expected = { ...initialState, middleElement: [payload] }
+
+    expect(received).toEqual(expected);
+  });
+
 
 
 
