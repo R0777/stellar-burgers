@@ -17,11 +17,14 @@ export const forgotPass = createAsyncThunk('passwordForgot/forgotPassword', asyn
     })
 })
 
+export const initialState = {
+  "forgotPageVisit": false,
+}
+
 const forgotPassword = createSlice({
   name: 'passwordForgot',
-  initialState: {
-    "forgotPageVisit": false,
-  },
+  initialState,
+  
   reducers: {
 
     setForgotPageVisit(state, action) {
