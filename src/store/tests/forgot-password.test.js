@@ -1,49 +1,28 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit' 
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import reducer, { initialState, forgotPass } from '../slices/forgot-password';
 
-export const forgotPass = createAsyncThunk('passwordForgot/forgotPassword', async (email, { dispatch }) => {
-  return fetch('https://norma.nomoreparties.space/api/password-reset',
-  {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      "email": email, 
-    })
-    
-  }).then(res => {
-    if(!res.ok) throw Error(res.statusText)
-      return res.json()
-    })
-})
+jest.mock('../slices/forgot-password');
 
-const forgotPassword = createSlice({
-  name: 'passwordForgot',
-  initialState: {
-    "forgotPageVisit": false,
-  },
-  reducers: {
+const mockStore = configureMockStore([thunk]);
 
-    setForgotPageVisit(state, action) {
-      state.forgotPageVisit = action.payload
-    }
+describe('thunk', () => {
 
-  },
+  it('should return the object', async () => {
 
-  extraReducers: {
-    [forgotPass.pending]: (state, action) => {
-      state.status = 'Загрузка'
-    },
-    [forgotPass.fulfilled]: (state, {payload}) => {
-      state.orderId = payload
-      state.status = 'Ok'
-    },
-    [forgotPass.rejected]: (state, action) => {
-      state.status = 'Error'
-      
-    },
-  }
-})
+    const requestPayload = {
+      email: 'test@test.com'
+    };
+    const responsePayload = {
+      success: true,
+      message: "Reset email sent"
+    };
+    const store = mockStore(initialState);
 
-export default forgotPassword.reducer
-export const { setForgotPageVisit } = forgotPassword.actions
+    forgotPass.mockResolvedValueOnce(responsePayload);
+
+    const response = await forgotPass(requestPayload);
+
+    expect(response).toEqual(responsePayload);
+  });
+});

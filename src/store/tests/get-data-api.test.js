@@ -1,32 +1,23 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import reducer, { initialState, getData } from '../slices/get-data-api';
 
-export const getData = createAsyncThunk('root/getData', async () => {
-  return fetch('https://norma.nomoreparties.space/api/ingredients').then(res => {
-    if(!res.ok) throw Error(res.statusText)
-    return res.json()
-  })
+jest.mock('../slices/get-data-api');
 
-})
+const mockStore = configureMockStore([thunk]);
 
-const dataSlice = createSlice({
-  name: 'api',
-  initialState: {
-    data: [],
-    status: null
-  },
-  extraReducers: {
-    [getData.pending]: (state, action) => {
-      state.status = 'Загрузка'
-    },
-    [getData.fulfilled]: (state, {payload}) => {
-      state.data = payload.data
-      state.status = 'Ok'
-    },
-    [getData.rejected]: (state, action) => {
-      state.status = 'Error'
-      
-    },
-  }
-})
+describe('thunk', () => {
 
-export default dataSlice.reducer
+  it('should return the Array with obj', async () => {
+
+    const responsePayload = [{}, {}, {}];
+
+    const store = mockStore(initialState);
+
+    getData.mockResolvedValueOnce(responsePayload);
+
+    const response = await getData();
+
+    expect(response).toEqual(responsePayload);
+  });
+});

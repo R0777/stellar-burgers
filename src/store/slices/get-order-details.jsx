@@ -17,11 +17,13 @@ export const getOrderDetails = createAsyncThunk('orderInfo/getOrderDetails', asy
   })
 })
 
+export const initialState = {
+  order: {}
+}
+
 const getOrder = createSlice({
   name: 'orderInfo',
-  initialState: {
-    order: {}
-  },
+  initialState,
   reducers: {
     setOrderInfo(state, {payload}) {
       state.order = {}

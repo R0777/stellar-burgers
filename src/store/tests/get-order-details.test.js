@@ -1,48 +1,25 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import reducer, { initialState, setOrderInfo } from '../slices/get-order-details';
 
-export const getOrderDetails = createAsyncThunk('orderInfo/getOrderDetails', async (orderNumber, { dispatch }) => {
-  return fetch(`https://norma.nomoreparties.space/api/orders/${orderNumber}`,
-  {
-    method: "GET",
-    headers: {
-      'Content-Type': 'application/json',
-    }
+jest.mock('../slices/get-order-details');
 
-  }).then(res => {
-    if(!res.ok) throw Error(res.statusText)
-      res.json()
-      .then(res => {
-      dispatch(setOrderInfo(res.orders[0]))
-      })
-  })
-})
+const mockStore = configureMockStore([thunk]);
 
-const getOrder = createSlice({
-  name: 'orderInfo',
-  initialState: {
-    order: {}
-  },
-  reducers: {
-    setOrderInfo(state, {payload}) {
-      state.order = {}
-      state.order = payload
-    },
-  },
+describe('thunk', () => {
 
-  extraReducers: {
-    [getOrderDetails.pending]: (state, action) => {
-      state.status = 'Загрузка'
-    },
-    [getOrderDetails.fulfilled]: (state, {payload}) => {
-      state.orderId = payload
-      state.status = 'Ok'
-    },
-    [getOrderDetails.rejected]: (state, action) => {
-      state.status = 'Error'
-      
-    },
-  }
-})
+  it('should set orderNumber to obj', async () => {
 
-export default getOrder.reducer
-export const { setOrderInfo } = getOrder.actions
+    const responsePayload = {
+      orders: [{ 1: 123, 2: 456, 3: 789 }, {}, {}]
+    };
+    const store = mockStore(initialState);
+
+    forgotPass.mockResolvedValueOnce(responsePayload);
+
+    const response = await forgotPass(requestPayload);
+
+    expect(response).toEqual(responsePayload);
+  });
+
+});
