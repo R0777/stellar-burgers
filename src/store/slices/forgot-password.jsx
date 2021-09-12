@@ -24,6 +24,10 @@ export const initialState = {
 const forgotPassword = createSlice({
   name: 'passwordForgot',
   initialState,
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 20bd6fb427c5c0b78cea4512f6daf680f5d67eab
   reducers: {
 
     setForgotPageVisit(state, action) {
