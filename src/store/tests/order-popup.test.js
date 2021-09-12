@@ -1,59 +1,28 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit' 
-import { resetStore } from './constructor-element'
-import { getCookie } from '../../utils/cookie'
+import reducer, { initialState, orderPopupToggle, setOrderNumer } from '../slices/order-popup';
 
-export const getOrderNumber = createAsyncThunk('order/getOrderNumber', async (idBasket, { dispatch }) => {
-  return fetch('https://norma.nomoreparties.space/api/orders',
-  {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + getCookie('token')
-    },
+describe('reducer, actions and selectors', () => {
+  it('should return the initial state on first run', () => {
 
-    body: JSON.stringify({
-      ingredients: idBasket
-    })
-    
-  }).then(res => {
-    if(!res.ok) throw Error(res.statusText)
-    res.json()
-    .then(res => dispatch(setOrderNumer(res.order.number)))
-    .then(res => dispatch(orderPopupToggle(true)))
-    .then(res => dispatch(resetStore()))
-    })
-})
+    const nextState = initialState;
+    const result = reducer(undefined, {});
+    expect(result).toEqual(nextState);
+  });
 
-const orderPopup = createSlice({
-  name: 'order',
-  initialState: {
-    togglePopup: false,
-    orderId: null
-  },
-  reducers: {
-    orderPopupToggle(state, action) {
-      state.togglePopup = action.payload
-    },
-    setOrderNumer(state, action) {
-      state.orderId = action.payload
-    },
+  it('should properly toggle state', () => {
 
+    const payload = true;
+    const expected = { ...initialState, togglePopup: payload };
+    const received = reducer(initialState, orderPopupToggle(payload));
 
-  },
-  extraReducers: {
-    [getOrderNumber.pending]: (state, action) => {
-      state.status = 'Загрузка'
-    },
-    [getOrderNumber.fulfilled]: (state, {payload}) => {
-      state.orderId = payload
-      state.status = 'Ok'
-    },
-    [getOrderNumber.rejected]: (state, action) => {
-      state.status = 'Error'
-      
-    },
-  }
-})
+    expect(received).toEqual(expected);
+  });
 
-export default orderPopup.reducer
-export const { orderPopupToggle, setOrderNumer } = orderPopup.actions
+  it('should properly set number', () => {
+
+    const payload = 1324;
+    const expected = { ...initialState, orderId: payload };
+    const received = reducer(initialState, setOrderNumer(payload));
+
+    expect(received).toEqual(expected);
+  });
+});

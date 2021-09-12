@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+export const initialState = {
+  ingredient: {},
+  ingredientPopup: false
+}
+
 const ingredientsSlice = createSlice({
   name: 'ingredients',
-  initialState: {
-    ingredient: {},
-    ingredientPopup: false
-  },
+  initialState,
   reducers: {
     ingredientPopupToggle(state, action) {
       state.ingredientPopup = action.payload

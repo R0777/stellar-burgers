@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import reducer, { initialState, setOrderInfo } from '../slices/get-order-details';
+import reducer, { initialState, setOrderInfo, getOrderDetails } from '../slices/get-order-details';
 
 jest.mock('../slices/get-order-details');
 
@@ -8,18 +8,29 @@ const mockStore = configureMockStore([thunk]);
 
 describe('thunk', () => {
 
-  it('should set orderNumber to obj', async () => {
+  it('should return obj', async () => {
 
     const responsePayload = {
-      orders: [{ 1: 123, 2: 456, 3: 789 }, {}, {}]
+      orders: [{ _id: 123, number: 456, ingredients: [] }, {}, {}]
     };
     const store = mockStore(initialState);
 
-    forgotPass.mockResolvedValueOnce(responsePayload);
+    getOrderDetails.mockResolvedValueOnce(responsePayload);
 
-    const response = await forgotPass(requestPayload);
+    const recived = await getOrderDetails();
 
-    expect(response).toEqual(responsePayload);
+    expect(responsePayload).toEqual(recived);
+  });
+
+  it('should set obj to store', () => {
+
+    const payload = {_id: 123, number: 456, ingredients: [] };
+
+    const expected = { ...initialState, order: payload };
+
+    const received = reducer(initialState, setOrderInfo(payload));
+
+    expect(expected).toEqual(received);
   });
 
 });

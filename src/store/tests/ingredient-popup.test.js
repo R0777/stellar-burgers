@@ -1,20 +1,28 @@
-import { createSlice } from '@reduxjs/toolkit'
+import reducer, { initialState, ingredientPopupToggle, setIngredient } from '../slices/ingredient-popup';
 
-const ingredientsSlice = createSlice({
-  name: 'ingredients',
-  initialState: {
-    ingredient: {},
-    ingredientPopup: false
-  },
-  reducers: {
-    ingredientPopupToggle(state, action) {
-      state.ingredientPopup = action.payload
-    },
-    setIngredient(state, {payload}) {
-      state.ingredient = payload
-    },
-  }
-}) 
+describe('reducer, actions and selectors', () => {
+  it('should return the initial state on first run', () => {
 
-export default ingredientsSlice.reducer
-export const {setIngredient, ingredientPopupToggle} = ingredientsSlice.actions
+    const nextState = initialState;
+    const result = reducer(undefined, {});
+    expect(result).toEqual(nextState);
+  });
+
+  it('should properly set the state', () => {
+
+    const payload = {_id: 123, name: 'food'};
+    const expected = { ...initialState, ingredient: payload };
+    const received = reducer(initialState, setIngredient(payload));
+
+    expect(received).toEqual(expected);
+  });
+
+  it('should properly change state', () => {
+
+    const payload = true;
+    const expected = { ...initialState, ingredientPopup: payload };
+    const received = reducer(initialState, ingredientPopupToggle(payload));
+
+    expect(received).toEqual(expected);
+  });
+});

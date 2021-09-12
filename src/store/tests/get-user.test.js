@@ -1,42 +1,25 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { setLoginUserData } from './login.test';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import reducer, { initialState, getUserData } from '../slices/get-user';
 
-export const getUserData = createAsyncThunk('resetUser/getUserData', async (token, { dispatch }) => {
-  return fetch('https://norma.nomoreparties.space/api/auth/user',
-    {
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      }
+jest.mock('../slices/get-user');
 
+const mockStore = configureMockStore([thunk]);
 
-    }).then(res => {
-      if (!res.ok) throw Error(res.statusText)
-      res.json()
-        .then(res => {
-          dispatch(setLoginUserData(res.user))
-        })
-    })
-})
+describe('thunk', () => {
 
-const userReset = createSlice({
-  name: 'resetUser',
-  initialState: {},
+  it('should return obj', async () => {
 
-  extraReducers: {
-    [getUserData.pending]: (state, action) => {
-      state.status = 'Загрузка'
-    },
-    [getUserData.fulfilled]: (state, { payload }) => {
-      state.orderId = payload
-      state.status = 'Ok'
-    },
-    [getUserData.rejected]: (state, action) => {
-      state.status = 'Error'
+    const payload = {
+      user: {email: "abs@abs.ru", name: "test"}
+    };
+    const store = mockStore(initialState);
 
-    },
-  }
-})
+    getUserData.mockResolvedValueOnce(payload);
 
-export default userReset.reducer
+    const recived = await getUserData();
+
+    expect(payload).toEqual(recived);
+  });
+
+});

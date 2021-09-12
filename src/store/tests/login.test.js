@@ -1,88 +1,86 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit' 
-import { getCookie, setCookie, deleteCookie } from '../../utils/cookie'
+// import configureMockStore from 'redux-mock-store';
+// import thunk from 'redux-thunk';
+import reducer, { initialState, setLoginUserData, setLoginAccessToken, setLoginRefreshToken, setLogin, userLogin } from '../slices/login';
+
+describe('reducer, actions and selectors', () => {
+  it('should return the initial state on first run', () => {
+
+    const nextState = initialState;
+    const result = reducer(undefined, {});
+    expect(result).toEqual(nextState);
+  });
+
+  it('should set login', () => {
+
+    const payload = true;
+
+    const expected = { ...initialState, login: payload };
+
+    const received = reducer(initialState, setLogin(payload));
+
+    expect(expected).toEqual(received);
+  });
+
+  it('should rewright refreshToken and put it in state', () => {
+
+    const payload = 87986546512;
+
+    const expected = { ...initialState, refreshToken: payload };
+
+    const received = reducer(initialState, setLoginRefreshToken(payload));
+
+    expect(expected).toEqual(received);
+  });
+
+  it('should rewright accessToken and put it in state', () => {
+
+    const payload = 'Bearer 87986546512';
+
+    const expected = { ...initialState, accessToken: '87986546512'};
+
+    const received = reducer(initialState, setLoginAccessToken(payload));
+
+    expect(expected).toEqual(received);
+  });
+
+  it('should set user data and put it in state', () => {
+
+    const payload = {email: "test@test.ru", name: "test"};
+
+    const expected = { ...initialState, userData: payload };
+
+    const received = reducer(initialState, setLoginUserData(payload));
+
+    expect(expected).toEqual(received);
+  });
+
+});
 
 
-export const userLogin = createAsyncThunk('loginUser/userLogin', async (user, { dispatch }) => {
-  return fetch('https://norma.nomoreparties.space/api/auth/login',
-  {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + getCookie('token')
-    },
-    body: JSON.stringify({
-      "email": user.email, 
-      "password": user.pass, 
-    })
-    
-  }).then(res => {
-    if(!res.ok) throw Error(res.statusText)
-    res.json()
-    .then(res => {
-      dispatch(setLoginRefreshToken(res.refreshToken))
-      dispatch(setLoginAccessToken(res.accessToken))
-      dispatch(setLoginUserData(res.user))
-      })
-      .then(res => dispatch(setLogin(true)))
-    })
-})
+// jest.mock('../slices/login');
 
-const loginUserDetails = createSlice({
-  name: 'loginUser',
-  initialState: {
-    "userData": {},
-    "accessToken": '',
-    "refreshToken": '',
-    "login": false
-  },
-  reducers: {
+// const mockStore = configureMockStore([thunk]);
 
-    setLoginUserData(state, action) {
-      state.userData = action.payload
-    },
+// describe('thunk', () => {
 
-    setLoginAccessToken(state, action) {
-      let authToken = action.payload;
-        if (authToken.indexOf('Bearer') === 0) {            
-        authToken = authToken.split('Bearer ')[1];
-        state.accessToken = authToken
-        setCookie('token', authToken, { expires: 1200 })
-        
-        }   
-    },
-    setLoginRefreshToken(state, action) {
-      state.refreshToken = action.payload
-      setCookie('refreshToken', action.payload)
-    },
+//   it('should return obj', async () => {
 
-    setLogin(state, action) {
-      state.login = action.payload
-    },
+//     const requestPayload = {
+//       email: 'test@test.com',
+//       password: 1234
+//     };
+//     const responsePayload = {
+//       user: {email: "test@test.ru", name: "test"}
+//     };
 
-    logoutState(state) {
-      state.userData = {}
-      state.accessToken = ''
-      state.refreshToken = ''
-      state.login = false
-      deleteCookie('token')
-      deleteCookie('refreshToken')
-    }
+//     const store = mockStore(initialState);
 
-  },
-  extraReducers: {
-    [userLogin.pending]: (state, action) => {
-      state.status = 'Загрузка'
-    },
-    [userLogin.fulfilled]: (state, {payload}) => {
-      state.orderId = payload
-      state.status = 'Ok'
-    },
-    [userLogin.rejected]: (state, action) => {
-      state.status = 'Error'
-      
-    },
-  }
-})
+//     userLogin.mockResolvedValueOnce(responsePayload);
 
-export default loginUserDetails.reducer
-export const { setLoginUserData, setLoginAccessToken, setLoginRefreshToken, setLogin, logoutState } = loginUserDetails.actions
+//     const recived = await userLogin(requestPayload);
+
+//     expect(responsePayload).toEqual(recived);
+//   });
+
+
+// });

@@ -1,41 +1,29 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit' 
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import reducer, { initialState, resetPass } from '../slices/reset-password';
 
-export const resetPass = createAsyncThunk('passwordReset/resetPassword', async (userData, { dispatch }) => {
-  return fetch('https://norma.nomoreparties.space/api/password-reset/reset',
-  {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      'password': userData.password, 
-      'token': userData.token
-    })
-    
-  }).then(res => {
-    if(!res.ok) throw Error(res.statusText)
-    return res.json()
-    })
-})
+jest.mock('../slices/reset-password');
 
-const resetPassword = createSlice({
-  name: 'passwordReset',
-  initialState: {},
+const mockStore = configureMockStore([thunk]);
 
-  extraReducers: {
-    [resetPass.pending]: (state, action) => {
-      state.status = 'Загрузка'
-    },
-    [resetPass.fulfilled]: (state, {payload}) => {
-      state.orderId = payload
-      state.status = 'Ok'
-    },
-    [resetPass.rejected]: (state, action) => {
-      state.status = 'Error'
-      
-    },
-  }
-})
+describe('thunk', () => {
 
-export default resetPassword.reducer
-export const { setForgotPageVisit } = resetPassword.actions
+  it('should return the object', async () => {
+
+    const requestPayload = {
+      password: 1234,
+      token: 456162
+    };
+    const responsePayload = {
+      success: true,
+      message: "Reset password"
+    };
+    const store = mockStore(initialState);
+
+    resetPass.mockResolvedValueOnce(responsePayload);
+
+    const response = await resetPass(requestPayload);
+
+    expect(response).toEqual(responsePayload);
+  });
+});

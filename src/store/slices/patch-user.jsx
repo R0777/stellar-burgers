@@ -25,9 +25,11 @@ export const patchUserData = createAsyncThunk('patchUser/patchUserData', async (
   })
 })
 
+export const initialState = {}
+
 const userPatch = createSlice({
   name: 'patchUser',
-  initialState: {},
+  initialState,
 
   extraReducers: {
     [patchUserData.pending]: (state, action) => {

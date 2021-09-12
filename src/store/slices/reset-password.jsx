@@ -18,9 +18,12 @@ export const resetPass = createAsyncThunk('passwordReset/resetPassword', async (
     })
 })
 
+export const initialState = {}
+
+
 const resetPassword = createSlice({
   name: 'passwordReset',
-  initialState: {},
+  initialState,
 
   extraReducers: {
     [resetPass.pending]: (state, action) => {

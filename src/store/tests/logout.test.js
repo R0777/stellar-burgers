@@ -1,42 +1,18 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { logoutState } from './login.test';
+import reducer, { initialState, logoutState } from '../slices/login';
 
-export const logout = createAsyncThunk('logoutState/logout', async (refreshToken, { dispatch }) => {
-  return fetch('https://norma.nomoreparties.space/api/auth/logout',
-    {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        'token': refreshToken
-      })
+describe('reducer, actions and selectors', () => {
+  it('should return the initial state on first run', () => {
 
-    }).then(res => {
-      if (!res.ok) throw Error(res.statusText)
-      res.json()
-        .then(res => dispatch(logoutState()))
-    })
-})
+    const nextState = initialState;
+    const result = reducer(undefined, {});
+    expect(result).toEqual(nextState);
+  });
 
-const userLogout = createSlice({
-  name: 'logoutState',
-  initialState: {},
+  it('should reset store', () => {
 
-  extraReducers: {
-    [logout.pending]: (state, action) => {
-      state.status = 'Загрузка'
-    },
-    [logout.fulfilled]: (state, { payload }) => {
-      state.orderId = payload
-      state.status = 'Ok'
-    },
-    [logout.rejected]: (state, action) => {
-      state.status = 'Error'
+    const expected = { ...initialState };
+    const received = reducer(initialState, logoutState());
 
-    },
-  }
-})
-
-export default userLogout.reducer
-//export const { setForgotPageVisit } = userLogout.actions
+    expect(received).toEqual(expected);
+  });
+});

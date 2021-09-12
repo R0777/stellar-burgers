@@ -1,73 +1,45 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { setCookie } from '../../utils/cookie'
-import { setLogin } from './login.test'
+import reducer, { initialState, setRegisterUserData, userRegister, setRegisterAccessToken, setRegisterRefreshToken } from '../slices/register';
 
-export const userRegister = createAsyncThunk('registerUser/userRegister', async (user, { dispatch }) => {
-  return fetch('https://norma.nomoreparties.space/api/auth/register',
-    {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        "email": user.email,
-        "password": user.pass,
-        "name": user.name
-      })
+describe('reducer, actions and selectors', () => {
+  it('should return the initial state on first run', () => {
 
-    }).then(res => {
-      if (!res.ok) throw Error(res.statusText)
-      res.json()
-        .then(res => {
-          dispatch(setRegisterRefreshToken(res.refreshToken))
-          dispatch(setRegisterAccessToken(res.accessToken))
-          dispatch(setRegisterUserData(res.user))
-        })
-        .then(res => dispatch(setLogin(true)))
+    const nextState = initialState;
+    const result = reducer(undefined, {});
+    expect(result).toEqual(nextState);
+  });
 
-    })
-})
 
-const userDetails = createSlice({
-  name: 'registerUser',
-  initialState: {
-    "userData": {},
-    "accessToken": '',
-    "refreshToken": ''
-  },
-  reducers: {
-    setRegisterUserData(state, action) {
-      state.userData = action.payload
-    },
-    setRegisterAccessToken(state, action) {
-      let authToken = action.payload;
-      if (authToken.indexOf('Bearer') === 0) {
-        authToken = authToken.split('Bearer ')[1];
-        state.accessToken = authToken
-        setCookie('token', authToken, { expires: 1200 })
+  it('should rewright refreshToken and put it in state', () => {
 
-      }
-    },
-    setRegisterRefreshToken(state, action) {
-      state.refreshToken = action.payload
-      setCookie('refreshToken', action.payload)
-    },
+    const payload = 87986546512;
 
-  },
-  extraReducers: {
-    [userRegister.pending]: (state, action) => {
-      state.status = 'Загрузка'
-    },
-    [userRegister.fulfilled]: (state, { payload }) => {
-      state.orderId = payload
-      state.status = 'Ok'
-    },
-    [userRegister.rejected]: (state, action) => {
-      state.status = 'Error'
+    const expected = { ...initialState, refreshToken: payload };
 
-    },
-  }
-})
+    const received = reducer(initialState, setRegisterRefreshToken(payload));
 
-export default userDetails.reducer
-export const { setRegisterUserData, setRegisterAccessToken, setRegisterRefreshToken } = userDetails.actions
+    expect(expected).toEqual(received);
+  });
+
+  it('should rewright accessToken and put it in state', () => {
+
+    const payload = 'Bearer 87986546512';
+
+    const expected = { ...initialState, accessToken: '87986546512'};
+
+    const received = reducer(initialState, setRegisterAccessToken(payload));
+
+    expect(expected).toEqual(received);
+  });
+
+  it('should set user data and put it in state', () => {
+
+    const payload = {email: "test@test.ru", name: "test"};
+
+    const expected = { ...initialState, userData: payload };
+
+    const received = reducer(initialState, setRegisterUserData(payload));
+
+    expect(expected).toEqual(received);
+  });
+
+});

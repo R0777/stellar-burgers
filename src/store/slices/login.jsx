@@ -27,14 +27,17 @@ export const userLogin = createAsyncThunk('loginUser/userLogin', async (user, { 
     })
 })
 
+export const initialState = {
+  "userData": {},
+  "accessToken": '',
+  "refreshToken": '',
+  "login": false
+}
+
+
 const loginUserDetails = createSlice({
   name: 'loginUser',
-  initialState: {
-    "userData": {},
-    "accessToken": '',
-    "refreshToken": '',
-    "login": false
-  },
+  initialState,
   reducers: {
 
     setLoginUserData(state, action) {

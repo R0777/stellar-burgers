@@ -1,17 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+export const initialState = {
+  orders: [],
+  order: {},
+  total: 0,
+  dailyTotal: 0,
+  connected: false,
+  error: false,
+  ordersListPopup: false,
+  profileOrderPopup: false
+}
+
 const orderlistSlice = createSlice({
   name: 'orderlistPop',
-  initialState: {
-    orders: [],
-    order: {},
-    total: 0,
-    dailyTotal: 0,
-    connected: false,
-    error: false,
-    ordersListPopup: false,
-    profileOrderPopup: false
-  },
+  initialState,
 
   reducers: {
 
@@ -42,7 +44,7 @@ const orderlistSlice = createSlice({
       state.error = false;
     },
     wsConnectionError: (state, action) => {
-      console.log(`Ошибка ${action.event.message}`)
+      console.log('Ошибка WebSocket')
       state.error = true;
     },
   }

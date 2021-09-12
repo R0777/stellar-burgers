@@ -25,9 +25,9 @@ const getOrder = createSlice({
   name: 'orderInfo',
   initialState,
   reducers: {
-    setOrderInfo(state, {payload}) {
-      state.order = {}
-      state.order = payload
+    setOrderInfo(state, action) {
+      //state.order = {}
+      state.order = action.payload
     },
   },
 

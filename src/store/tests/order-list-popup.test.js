@@ -1,52 +1,73 @@
-import { createSlice } from '@reduxjs/toolkit'
+import reducer, { initialState, wsConnectionOpened, wsGetMessage, wsConnectionClose, wsConnectionError, ordersListPopupToggle, profileOrderPopupToggle, setOrder } from '../slices/order-list-popup';
 
-const orderlistSlice = createSlice({
-  name: 'orderlistPop',
-  initialState: {
-    orders: [],
-    order: {},
-    total: 0,
-    dailyTotal: 0,
-    connected: false,
-    error: false,
-    ordersListPopup: false,
-    profileOrderPopup: false
-  },
+describe('reducer, actions and selectors', () => {
+  it('should return the initial state on first run', () => {
 
-  reducers: {
+    const nextState = initialState;
+    const result = reducer(undefined, {});
+    expect(result).toEqual(nextState);
+  });
 
-    ordersListPopupToggle(state, action) {
-      state.ordersListPopup = action.payload
-    },
+  it('should properly change state', () => {
 
-    profileOrderPopupToggle(state, action) {
-      state.profileOrderPopup = action.payload
-    },
-    setOrder(state, action) {
-      state.order = action.payload
-      
-    },
+    const payload = true;
+    const expected = { ...initialState, ordersListPopup: payload };
+    const received = reducer(initialState, ordersListPopupToggle(payload));
 
-    wsConnectionOpened: (state) => {
-      state.connected = true;
-      state.error = false;
-    },
-    wsGetMessage: (state, action) => {
-      const { orders, total, totalToday } = action.payload;
-      state.orders = orders;
-      state.total = total;
-      state.dailyTotal = totalToday;
-    },
-    wsConnectionClose: (state) => {
-      state.connected = false;
-      state.error = false;
-    },
-    wsConnectionError: (state, action) => {
-      console.log(`Ошибка ${action.event.message}`)
-      state.error = true;
-    },
-  }
-}) 
+    expect(received).toEqual(expected);
+  });
 
-export default orderlistSlice.reducer
-export const {wsConnectionOpened, wsGetMessage, wsConnectionClose, wsConnectionError, ordersListPopupToggle, profileOrderPopupToggle, setOrder} = orderlistSlice.actions
+  it('should properly change other state', () => {
+
+    const payload = true;
+    const expected = { ...initialState, profileOrderPopup: payload };
+    const received = reducer(initialState, profileOrderPopupToggle(payload));
+
+    expect(received).toEqual(expected);
+  });
+
+  it('should properly set order', () => {
+
+    const payload = {_id: 123, name: 'wtf'};
+    const expected = { ...initialState, order: payload };
+    const received = reducer(initialState, setOrder(payload));
+
+    expect(received).toEqual(expected);
+  });
+
+  it('should properly set state of ws connection', () => {
+
+    const payload = true;
+    const expected = { ...initialState, connected: payload, error: false };
+    const received = reducer(initialState, wsConnectionOpened(payload));
+
+    expect(received).toEqual(expected);
+  });
+
+  it('should set ws message', () => {
+
+    const payload = {orders: 123, total: 1234, totalToday: 25};
+    const expected = { ...initialState, orders: payload.orders, total: payload.total, dailyTotal: payload.totalToday};
+    const received = reducer(initialState, wsGetMessage(payload));
+
+    expect(received).toEqual(expected);
+  });
+
+  it('should properly close ws', () => {
+
+    const payload = false;
+    const expected = { ...initialState, connected: payload, error: false };
+    const received = reducer(initialState, wsConnectionClose(payload));
+
+    expect(received).toEqual(expected);
+  });
+
+  it('should properly set ws error', () => {
+
+    const payload = true;
+    const expected = { ...initialState, error: payload };
+    const received = reducer(initialState, wsConnectionError(payload));
+
+    expect(received).toEqual(expected);
+  });
+});
