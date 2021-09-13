@@ -22,15 +22,4 @@ describe('thunk', () => {
     expect(responsePayload).toEqual(recived);
   });
 
-  it('should set obj to store', () => {
-
-    const payload = {_id: 123, number: 456, ingredients: [] };
-
-    const expected = { ...initialState, order: payload };
-
-    const received = reducer(initialState, setOrderInfo(payload));
-
-    expect(received).toEqual(expected);
-  });
-
 });
