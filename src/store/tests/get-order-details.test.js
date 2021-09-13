@@ -30,7 +30,7 @@ describe('thunk', () => {
 
     const received = reducer(initialState, setOrderInfo(payload));
 
-    expect(expected).toEqual(received);
+    expect(received).toEqual(expected);
   });
 
 });
