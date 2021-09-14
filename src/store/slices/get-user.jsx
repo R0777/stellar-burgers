@@ -20,9 +20,11 @@ export const getUserData = createAsyncThunk('resetUser/getUserData', async (toke
   })
 })
 
+export const initialState = {}
+
 const userReset = createSlice({
   name: 'resetUser',
-  initialState: {},
+  initialState,
 
   extraReducers: {
     [getUserData.pending]: (state, action) => {

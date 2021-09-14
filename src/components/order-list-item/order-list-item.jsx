@@ -65,7 +65,7 @@ return (
 
       <li>
       <Link onClick={getOrder} className={styles.order__link} to={{
-              pathname: location.pathname === '/profile/order' ? `/profile/orders/${order.id}` : `/feed/${order.id}`,
+              pathname: location.pathname === '/profile/order' ? `/profile/orders/${order.number}` : `/feed/${order.number}`,
               state: {background: location},
       }}><div className={styles.order__item}>
           <div className={styles.order__iddate}>

@@ -8,12 +8,14 @@ export const getData = createAsyncThunk('root/getData', async () => {
 
 })
 
+export const initialState = {
+  data: [],
+  status: null
+}
+
 const dataSlice = createSlice({
   name: 'api',
-  initialState: {
-    data: [],
-    status: null
-  },
+  initialState,
   extraReducers: {
     [getData.pending]: (state, action) => {
       state.status = 'Загрузка'

@@ -24,12 +24,14 @@ export const getOrderNumber = createAsyncThunk('order/getOrderNumber', async (id
     })
 })
 
+export const initialState = {
+  togglePopup: false,
+  orderId: null
+}
+
 const orderPopup = createSlice({
   name: 'order',
-  initialState: {
-    togglePopup: false,
-    orderId: null
-  },
+  initialState,
   reducers: {
     orderPopupToggle(state, action) {
       state.togglePopup = action.payload

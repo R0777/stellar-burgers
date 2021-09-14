@@ -27,10 +27,11 @@ export const resetToken = createAsyncThunk('tokenReset/resetToken', async (refre
   })
 })
 
+export const initialState = {}
+
 const refreshToken = createSlice({
   name: 'tokenReset',
-  initialState: {},
-
+  initialState,
 
   extraReducers: {
     [resetToken.pending]: (state, action) => {

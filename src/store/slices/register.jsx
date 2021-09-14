@@ -28,13 +28,16 @@ export const userRegister = createAsyncThunk('registerUser/userRegister', async 
     })
 })
 
+export const initialState = {
+  "userData": {},
+  "accessToken": '',
+  "refreshToken": ''
+}
+
 const userDetails = createSlice({
   name: 'registerUser',
-  initialState: {
-    "userData": {},
-    "accessToken": '',
-    "refreshToken": ''
-  },
+  initialState,
+  
   reducers: {
     setRegisterUserData(state, action) {
       state.userData = action.payload
