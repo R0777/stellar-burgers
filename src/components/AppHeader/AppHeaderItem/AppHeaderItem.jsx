@@ -1,19 +1,14 @@
-import React, { FC } from "react";
+import React from "react";
 import s from "./AppHeaderItem.module.scss";
 import clsx from "clsx";
 import { Link, useRouteMatch } from "react-router-dom";
 
-interface IAppHeaderItem {
-  icon: JSX.Element;
-  text: string;
-  to: string;
-  className?: string;
-}
 
-const AppHeaderItem: FC<IAppHeaderItem> = ({ icon, text, to, className }) => {
+
+const AppHeaderItem = ({ icon, text, to, className }) => {
   const match = useRouteMatch({
     path: to,
-    exact: to === "", // true только для "/"
+    exact: to === "", 
   });
 
   return (

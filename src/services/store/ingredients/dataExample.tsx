@@ -1,5 +1,6 @@
+import { TIngredient } from "./ingredientsSlice";
 
-export const INGREDIENT_EXAMPLE = {
+export const INGREDIENT_EXAMPLE: TIngredient = {
   _id: "60d3b41abdacab0026a733c6",
   name: "Краторная булка N-200i",
   type: "bun",

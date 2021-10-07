@@ -2,7 +2,7 @@ import { formatRelative, parseISO } from "date-fns";
 import { ru } from "date-fns/locale";
 import { capitalizeFirstLetter } from "./capitalizeFirstLetter";
 
-export const formatDate = (date) => {
+export const formatDate = (date: string) => {
   const today = new Date();
 
   const comparisonDate = parseISO(date);
