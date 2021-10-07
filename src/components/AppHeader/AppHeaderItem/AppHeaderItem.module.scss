@@ -1,0 +1,19 @@
+.root {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+
+  color: #8585AD;
+  & > svg {
+    fill: #8585AD;
+  }
+
+  &.selected {
+    color: #fff;
+    & > svg {
+      fill: #fff;
+    }
+  }
+}
+

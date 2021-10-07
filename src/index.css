@@ -1,43 +1,48 @@
-@import url('./vendor/normalize.css');
-@import url('./vendor/fonts/fonts.css');
-@import url('./components/main/main.module.css');
-@import url('./components/app-header/app-header.module.css');
-@import url('./components/burger-constructor/burger-constructor.module.css');
-@import url('./components/burger-ingredients/burger-ingredients.module.css');
+html {
+  width:100vw;
+  overflow-x:hidden;
+}
 
-* {
+body {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  text-decoration: none;
+*::-webkit-scrollbar {
+  width: 12px;
+}
+*::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+*::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  border: 3px solid #2F2F37;
+  border-radius: 6px;
 }
 
-form .input_size_default {
-  width: 480px;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
-section .input_size_default {
-  width: 480px;
-}
-
-.page {
+.content-wrapper {
+  max-width: 1240px;
   width: 100%;
-  height: 100vh;
-  background: #131316;
-  margin: 0;
-  padding: 0;
-  min-width: 320px;
-  font-family: 'Jetbrains', 'Arial', sans-serif;
-  text-rendering: optimizeLegibility;
+  padding: 8px;
+
 }
 
-form .input_size_default {
-  width: 480px;
+.input_size_default {
+  box-sizing: border-box;
+  width: 480px !important;
+  margin-top: 24px;
 }
 
-section .input_size_default {
-  width: 480px;
+.text_color_link {
+  text-decoration: none;
+  color: #4C4CFF;
 }

@@ -1,52 +1,62 @@
-import React, {useEffect} from 'react';
-import { useLocation, Link } from 'react-router-dom';
-import { WS_CONNECTION_START, WS_CONNECTION_CLOSE } from '../../store/actions/wsActions';
-import { getCookie } from '../../utils/cookie';
-import { resetToken } from '../../store/slices/reset-token';
-import styles from './profile.module.css'
-import Account from '../account/account';
-import AccountOrders from '../../components/account-orders/account-orders';
-import { logout } from '../../store/slices/logout';
-import { useDispatch } from 'react-redux';
-
-
+import React from "react";
+import s from "./Profile.module.scss";
+import clsx from "clsx";
+import { Switch, Route, useHistory, useRouteMatch } from "react-router-dom";
+import { useDispatch } from "../../services/hooks";
+import { setUserData} from "../../services/store/auth/authSlice";
+import { authAPI } from "../../services/api/auth";
+import { deleteCookie } from "../../services/utils/cookie";
+import ProfileForm from "./ProfileForm/ProfileForm";
+import ProfileLink from "./ProfileLink/ProfileLink";
+import ProfileHistory from "./ProfileHistory/ProfileHistory";
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-  const dispatch = useDispatch()
-  const location = useLocation()
+  const { path } = useRouteMatch();
 
-  const PROFILE_ORDERS_URL = 'wss://norma.nomoreparties.space/orders'
+  const refreshToken = localStorage.getItem("refreshToken");
 
-  const jwt = getCookie('token')
+  const handleClickExit = async () => {
+    try {
+      await authAPI.logoutUser({ token: refreshToken });
 
-  useEffect(() => {
+      deleteCookie("token");
+      localStorage.removeItem("refreshToken");
+      dispatch(setUserData({}));
+      history.replace({ pathname: "/login" });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  return (
+    <div className={s.root}>
+      <div className={clsx(s.content, "mt-30")}>
+        <div style={{ minWidth: 320 }} className={"mr-15"}>
+          <ProfileLink text="Профиль" to="/profile" />
+          <ProfileLink text="История заказов" to="/profile/orders" />
 
-    if (jwt === undefined) {dispatch(resetToken(getCookie('refreshToken')))}
-    else dispatch(WS_CONNECTION_START(`${PROFILE_ORDERS_URL}?token=${getCookie('token')}`));
-    
-    return () => dispatch(WS_CONNECTION_CLOSE());
-  }, [dispatch, jwt])
-
-
-  const logoutHandler = () => {
-    dispatch(logout(getCookie('refreshToken')))
-  }
-
-  return(
-    <section className={styles.profile}>
-      <nav className={styles.profile__nav}>
-        <Link className={location.pathname === '/profile' ? styles.profile__link_white : styles.profile__link} to='/profile'>Профиль</Link>
-        <Link className={location.pathname === '/profile/order' ? styles.profile__link_white : styles.profile__link} to='/profile/order'>История заказов</Link>
-        <Link className={styles.profile__link} to='/' onClick={logoutHandler}>Выход</Link>
-        <p className={styles.profile__text}>В этом разделе вы можете изменить свои персональные данные?</p>
-      </nav>
-
-      {location.pathname === '/profile' ? <Account /> : <AccountOrders /> }
-
-    </section>
-  )
-}
-
-
+          <p
+            className={clsx(
+              "text text_type_main-medium text_color_inactive mt-6",
+              s.exit
+            )}
+            onClick={handleClickExit}
+          >
+            Выход
+          </p>
+        </div>
+        <Switch>
+          <Route exact path={path}>
+            <ProfileForm />
+          </Route>
+          <Route exact path={`${path}/orders`}>
+            <ProfileHistory />
+          </Route>
+        </Switch>
+      </div>
+    </div>
+  );
+};
 export default Profile;

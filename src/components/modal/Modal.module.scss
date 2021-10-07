@@ -1,0 +1,18 @@
+.modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #1C1C21;
+  border-radius: 40px;
+  max-width: 720px;
+  box-sizing: border-box;
+
+
+  & > svg {
+    position: absolute;
+    top: 60px;
+    right: 40px;
+    cursor: pointer;
+  }
+}
+

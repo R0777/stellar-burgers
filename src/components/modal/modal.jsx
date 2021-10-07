@@ -1,31 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ReactDom from 'react-dom'
-import styles from './modal.module.css'
-import ModalOverlay from '../modal-overlay/modal-overlay';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import React from "react";
+import s from "./Modal.module.scss";
+import ModalOverlay from "./ModalOverlay/ModalOverlay";
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import clsx from "clsx";
 
-const Modal = (props) => {
-
-  const modalRoot = document.getElementById("modals");
-
-    return ReactDom.createPortal(
-      <ModalOverlay handleClick={props.handleClick} isOpen={props.isOpen}>
-        <div className={styles.popup__block}>
-                <button className={styles.popup__close} type="button" ><CloseIcon type="primary" onClick={props.onClose} /></button>
-                { props.title && (<h5 className={styles.popup__title}>{props.title&&props.title}</h5>)}
-                {props.children}
-        </div> 
-        </ModalOverlay>, modalRoot
-    )
-}
-
-Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  title: PropTypes.string,
-  handleClick: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  children:PropTypes.element.isRequired
-}
-
+const Modal = ({ title, child, onClose }) => {
+  return (
+    <ModalOverlay onClose={onClose}>
+      <div className={clsx(s.modal, "pt-30 pb-30 pl-25 pr-25")}>
+        <CloseIcon type="primary" onClick={onClose} />
+        <h3 className="text text_type_main-large">{title}</h3>
+        {child}
+      </div>
+    </ModalOverlay>
+  );
+};
 export default Modal;
