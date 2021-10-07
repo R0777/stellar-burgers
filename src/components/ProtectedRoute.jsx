@@ -20,6 +20,7 @@ const ProtectedRoute = ({ child, ...rest }) => {
     init();
   }, []);
 
+  
   if (!isUserLoaded) {
     return null;
   }

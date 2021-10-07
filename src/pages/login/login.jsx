@@ -26,7 +26,6 @@ const Login = () => {
         inputRef.current.focus();
       }
     }, 0);
-  
   };
 
   const onChangeInput = (ev) => {
