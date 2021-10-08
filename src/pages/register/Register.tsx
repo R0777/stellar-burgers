@@ -1,16 +1,18 @@
-import React from "react";
+import React, {ChangeEvent, FC} from "react";
 import {Link, Redirect, useHistory} from "react-router-dom";
 import s from "./Register.module.scss";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {registerUser} from "../../services/store/auth/authSlice";
 import {useDispatch} from "../../services/hooks";
 
-const Register = () => {
+interface IRegister {}
+
+const Register : FC < IRegister > = () => {
     const history = useHistory();
     const [form,
         setForm] = React.useState({name: "", email: "", password: ""});
     const dispatch = useDispatch();
-    const inputRef = React.useRef(null);
+    const inputRef = React.useRef < HTMLInputElement > (null);
     const refreshToken = localStorage.getItem("refreshToken");
 
     const onIconClick = () => {
@@ -24,11 +26,11 @@ const Register = () => {
         alert("Icon Click Callback");
     };
 
-    const onChangeInput = (ev) => {
+    const onChangeInput = (e : ChangeEvent < HTMLInputElement >) => {
         setForm((prevState) => {
             return {
                 ...prevState,
-                [ev.target.name]: ev.target.value
+                [e.target.name]: e.target.value
             };
         });
     };

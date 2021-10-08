@@ -1,15 +1,21 @@
-import React from "react";
+import React, { FC } from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import s from "./FeedOrderCard.module.scss";
 import clsx from "clsx";
+import { TWSOrder } from "../../../services/store/order/orderSlice";
 
 import { findIngredient } from "../../../services/utils/findIngredient";
 import { formatDate } from "../../../services/utils/formatDate";
 import { enumStatusOrder } from "../FeedOrder/FeedOrder";
 import { useSelector } from "../../../services/hooks";
 
+interface IFeedOrderCard {
+  order: TWSOrder;
+  onClick(order: TWSOrder): void;
+  status?: boolean;
+}
 
-const FeedOrderCard = ({ order, onClick }) => {
+const FeedOrderCard: FC<IFeedOrderCard> = ({ order, onClick }) => {
   const hiddenCount = order.ingredients.length - 5;
 
   const { ingredients } = useSelector((state) => state.ingredients);
@@ -41,7 +47,7 @@ const FeedOrderCard = ({ order, onClick }) => {
             order.status === "done" && s.text_color_bold
           )}
         >
-          {enumStatusOrder[order?.status]}
+          {enumStatusOrder[order?.status as keyof object]}
         </p>
       )}
       <div className={s.line}>

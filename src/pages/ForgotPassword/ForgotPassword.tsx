@@ -1,15 +1,19 @@
-import React from "react";
+import React, { FC, FormEvent } from "react";
 import s from "./ForgotPassword.module.scss";
-import { Button,  Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  Button,
+  Input,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import { authAPI } from "../../services/api/auth";
 
+interface IForgotPassword {}
 
-const ForgotPassword = () => {
+const ForgotPassword: FC<IForgotPassword> = (props) => {
   const history = useHistory();
   const location = useLocation();
   const [value, setValue] = React.useState("");
-  const inputRef = React.useRef(null);
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const refreshToken = localStorage.getItem("refreshToken");
 
@@ -22,7 +26,7 @@ const ForgotPassword = () => {
     alert("Icon Click Callback");
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     try {
       await authAPI.forgotPassword({ email: value });
@@ -32,7 +36,7 @@ const ForgotPassword = () => {
           from: location,
         },
       });
-    } catch (err) {
+    } catch (err: any) {
       console.log(err.message);
     }
   };

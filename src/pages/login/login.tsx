@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { ChangeEvent, FormEvent, useRef } from "react";
 import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import {
   Button,
@@ -8,17 +8,23 @@ import s from "./Login.module.scss";
 import { useDispatch } from "../../services/hooks";
 import { loginUser } from "../../services/store/auth/authSlice";
 
+export interface ILocationState {
+  from: {
+    pathname: string;
+  };
+}
+
 const Login = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { state } = useLocation();
+  const { state } = useLocation<ILocationState>();
   const [form, setForm] = React.useState({
     email: "",
     password: "",
   });
   const refreshToken = localStorage.getItem("refreshToken");
 
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const onIconClick = () => {
     setTimeout(() => {
@@ -26,16 +32,16 @@ const Login = () => {
         inputRef.current.focus();
       }
     }, 0);
-  
+    alert("Icon Click Callback");
   };
 
-  const onChangeInput = (ev) => {
+  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setForm((prevState) => {
-      return { ...prevState, [ev.target.name]: ev.target.value };
+      return { ...prevState, [e.target.name]: e.target.value };
     });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     await dispatch(loginUser(form));
     history.replace({
@@ -91,7 +97,7 @@ const Login = () => {
 
       <div className={"mt-10"}>
         <p className="text text_type_main-default text_color_inactive">
-          Новый пользователь?{" "}
+          Вы — новый пользователь?{" "}
           <Link to={"/register"} className={"text_color_link"}>
             Зарегистрироваться
           </Link>

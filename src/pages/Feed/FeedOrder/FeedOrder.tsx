@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import s from "./FeedOrder.module.scss";
 import clsx from "clsx";
@@ -15,19 +15,23 @@ import { getCookie } from "../../../services/utils/cookie";
 import { USER_ORDERS_URL } from "../../Profile/ProfileHistory/ProfileHistory";
 import { useDispatch, useSelector } from "../../../services/hooks";
 
-export const enumStatusOrder = {
-  created: "Создан",
-  pending: "Готовится",
-  done: "Выполнен",
+export enum enumStatusOrder {
+  created = "Создан",
+  pending = "Готовится",
+  done = "Выполнен",
 }
 
-const unique = (arr) => {
+const unique = (arr: string[]) => {
   return Array.from(new Set(arr));
 };
 
-const FeedOrder = ({ profile }) => {
+interface IFeedOrder {
+  profile?: boolean;
+}
+
+const FeedOrder: FC<IFeedOrder> = ({ profile }) => {
   const dispatch = useDispatch();
-  const { orderId } = useParams();
+  const { orderId } = useParams<{ orderId: string }>();
   const { orders } = useSelector((state) => state.order);
   const { ingredients } = useSelector((state) => state.ingredients);
 
@@ -35,7 +39,7 @@ const FeedOrder = ({ profile }) => {
 
   useEffect(() => {
     if (!order?.number) {
-      console.log(`noEffect`);
+      console.log(`checkEffect`);
       if (profile) {
         const accessToken = getCookie("token")?.split(" ")[1];
         dispatch(wsConnectionStart(USER_ORDERS_URL + `?token=${accessToken}`));
@@ -78,7 +82,7 @@ const FeedOrder = ({ profile }) => {
             order.status === "done" && s.text_color_bold
           )}
         >
-          {enumStatusOrder[order?.status]}
+          {enumStatusOrder[order?.status as keyof object]}
         </p>
 
         <p className="text text_type_main-medium mb-6">Состав:</p>

@@ -3,7 +3,7 @@ import s from "./Feed.module.scss";
 import clsx from "clsx";
 import FeedOrderCard from "./FeedOrderCard/FeedOrderCard";
 import { useHistory, useLocation } from "react-router-dom";
-import { cleanOrders, wsConnectionClose, wsConnectionStart } from "../../services/store/order/orderSlice";
+import { cleanOrders, TWSOrder, wsConnectionClose, wsConnectionStart } from "../../services/store/order/orderSlice";
 
 import { useDispatch, useSelector } from "../../services/hooks";
 
@@ -24,7 +24,7 @@ const Feed = () => {
     };
   }, [dispatch]);
 
-  const handleClick = (order) => {
+  const handleClick = (order:TWSOrder) => {
     history.push({
       pathname: "/feed/" + order.number,
       state: { background: location },
