@@ -1,11 +1,8 @@
 import React, {useEffect} from "react";
-
 import {Route, Switch, useHistory, useLocation} from "react-router-dom";
 import history from "history";
-
 import s from "./App.module.scss";
 import AppHeader from "../AppHeader/AppHeader";
-
 import Main from "../../pages/Main/Main";
 import Login from "../../pages/Login/Login";
 import Register from "../../pages/Register/Register";
