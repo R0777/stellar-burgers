@@ -20,7 +20,6 @@ const ProfileHistory = () => {
 
   const { orders } = useSelector((state) => state.order);
 
-  console.log(`ordersProfileHistory`, orders);
   useEffect(() => {
     const accessToken = getCookie("token")?.split(" ")[1];
     dispatch(wsConnectionStart(USER_ORDERS_URL + `?token=${accessToken}`));

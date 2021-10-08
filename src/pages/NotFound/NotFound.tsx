@@ -1,9 +1,9 @@
-import React from "react";
+import React, {FC} from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import s from "./NotFound.module.scss";
 
-const NotFound = () => {
+const NotFound:FC = () => {
   return (
     <div className={s.wrapper}>
       <div className={s.container}>

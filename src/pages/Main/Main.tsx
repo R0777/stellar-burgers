@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC} from "react";
 import clsx from "clsx";
 import s from "./Main.module.scss";
 import { DndProvider } from "react-dnd";
@@ -7,7 +7,7 @@ import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredie
 import BurgerConstructor from "../../components/BurgerConstructor/BurgerContstuctor";
 
 
-const Main = () => {
+const Main:FC = () => {
   return (
     <section className={clsx(s.main, "content-wrapper")}>
       <h1 className={clsx(s.text, "m-2 text_type_main-large")}>
