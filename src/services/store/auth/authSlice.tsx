@@ -2,8 +2,36 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { authAPI } from "../../api/auth";
 import { setCookie } from "../../utils/cookie";
 
+export type TUserData = {
+  email: string;
+  name: string;
+};
+type TLoginUserResponse = {
+  success: boolean;
+  accessToken: string;
+  refreshToken: string;
+  user: TUserData;
+  message?: string;
+};
 
-export const loginUser = createAsyncThunk(
+type TPatchUserResponse = {
+  success: boolean;
+  user: TUserData;
+};
+
+export type TLoginUserParams = {
+  email: string;
+  password: string;
+};
+
+export type TRegisterUserParams = {
+  email: string;
+  password: string;
+  name: string;
+};
+
+
+export const loginUser = createAsyncThunk<TLoginUserResponse, TLoginUserParams>(
   "auth/loginUser",
   async (form) => {
     try {
@@ -11,27 +39,33 @@ export const loginUser = createAsyncThunk(
       setCookie("token", data.accessToken, { expires: 1200 });
       localStorage.setItem("refreshToken", data.refreshToken);
       return data;
-    } catch (err) {
+    } catch (err:any) {
       console.log(`err.message`, err.message);
     }
   }
 );
 
-export const registerUser = createAsyncThunk("auth/registerUser", async (form) => {
+export const registerUser = createAsyncThunk<
+  TLoginUserResponse,
+  TRegisterUserParams
+>("auth/registerUser", async (form) => {
   try {
     const data = await authAPI.registerUser(form);
     setCookie("token", data.accessToken, { expires: 1200 });
     localStorage.setItem("refreshToken", data.refreshToken);
     return data;
-  } catch (err) {
+  } catch (err:any) {
     console.log(`err.message`, err.message);
   }
 });
 
-export const patchUser = createAsyncThunk("auth/patchUser", async (form) => {
+export const patchUser = createAsyncThunk<
+  TPatchUserResponse,
+  TRegisterUserParams
+>("auth/patchUser", async (form) => {
   try {
     return await authAPI.patchAuthUser(form);
-  } catch (err) {
+  } catch (err: any | undefined) {
     console.log(`err.message`, err.message);
   }
 });
@@ -39,12 +73,12 @@ export const getUser = createAsyncThunk("auth/getUser", async () => {
   try {
     const res = await authAPI.getAuthUser();
     return res;
-  } catch (err) {
+  } catch (err: any | undefined) {
     console.log(`err.message`, err.message);
   }
 });
 
-export const initialState = { userData: {} };
+export const initialState = { userData: {} as TUserData };
 
 const authSlice = createSlice({
   name: "auth",

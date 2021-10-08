@@ -1,26 +1,62 @@
 import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { constructorAPI } from "../../api/constructor";
+import { TIngredient } from "../ingredients/ingredientsSlice";
 
+export type TOrderMade = {
+  name: string;
+  order: TOrder;
+  success: boolean;
+};
+
+export type TOrder = {
+  createdAt: string;
+  ingredients: TIngredient[];
+  name: string;
+  number: number;
+  owner: { name: string; email: string; createdAt: string; updatedAt: string };
+  price: number;
+  status: string;
+  updatedAt: string;
+};
+
+export type TWSOrder = {
+  _id: string;
+  createdAt: string;
+  ingredients: string[];
+  name: string;
+  number: number;
+  status: string;
+  updatedAt: string;
+};
+
+export interface IOrderState {
+  orderMade: TOrderMade;
+  orders: TWSOrder[];
+  total: number;
+  totalToday: number;
+  wsConnected: boolean;
+  wsError: null | string;
+}
 
 export const postOrder = createAsyncThunk(
   "order/postOrder",
-  async (idArray) => {
+  async (idArray: string[]) => {
     try {
       return await constructorAPI.postOrder({ ingredients: idArray });
-    } catch (err) {
-      console.log(`### err.message`, err.message);
+    } catch (err: any | undefined) {
+      console.log(`err.message`, err.message);
     }
   }
 );
 
-export const wsConnectionStart = createAction(
+export const wsConnectionStart = createAction<string>(
   "order/wsConnectionStart"
 );
 export const wsConnectionClose = createAction("order/wsConnectionClose");
 
 export const initialState = {
-  orderMade: {},
-  orders: [],
+  orderMade: {} as TOrderMade,
+  orders: [] as TWSOrder[],
   total: 0,
   totalToday: 0,
   wsConnected: false,
@@ -29,13 +65,13 @@ export const initialState = {
 
 export const orderSlice = createSlice({
   name: "order",
-  initialState: initialState,
+  initialState: initialState as IOrderState,
   reducers: {
     cleanOrderMade: (state) => {
-      state.orderMade = {};
+      state.orderMade = {} as TOrderMade;
     },
     cleanOrders: (state) => {
-      state.orders = [];
+      state.orders = [] as TWSOrder[];
     },
     wsConnectionOpened: (state) => {
       state.wsConnected = true;

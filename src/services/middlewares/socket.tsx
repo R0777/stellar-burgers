@@ -6,13 +6,13 @@ import {
   wsGotError,
   wsGotMessage,
 } from "../store/order/orderSlice";
-
+import { AnyAction, MiddlewareAPI } from "redux";
 
 export const socketMiddleware = () => {
-  return ({ dispatch }) => {
-    let socket = null;
+  return ({ dispatch }: MiddlewareAPI) => {
+    let socket: WebSocket | null = null;
 
-    return (next) => (action) => {
+    return (next: (a: AnyAction) => void) => (action: AnyAction) => {
       const { type, payload } = action;
 
       if (type === wsConnectionStart.toString())

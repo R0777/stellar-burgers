@@ -1,9 +1,10 @@
 import { EnumEndpoints } from "./enumEndpoints";
 import { BASE_URL } from "./index";
+import { TLoginUserParams, TRegisterUserParams } from "../store/auth/authSlice";
 import { getCookie } from "../utils/cookie";
 
 export const authAPI = {
-  async forgotPassword(form) {
+  async forgotPassword(form: { email: string }) {
     return await fetch(BASE_URL + EnumEndpoints.forgotResetPassword, {
       method: "POST",
       mode: "cors",
@@ -26,7 +27,7 @@ export const authAPI = {
         return res;
       });
   },
-  async resetPassword(form) {
+  async resetPassword(form: { password: string; token: string }) {
     return await fetch(BASE_URL + EnumEndpoints.resetPassword, {
       method: "POST",
       mode: "cors",
@@ -49,7 +50,7 @@ export const authAPI = {
         return res;
       });
   },
-  async registerUser(form) {
+  async registerUser(form: TRegisterUserParams) {
     return await fetch(BASE_URL + EnumEndpoints.registerUser, {
       method: "POST",
       mode: "cors",
@@ -72,7 +73,7 @@ export const authAPI = {
         return res;
       });
   },
-  async loginUser(form) {
+  async loginUser(form: TLoginUserParams) {
     return await fetch(BASE_URL + EnumEndpoints.loginUser, {
       method: "POST",
       mode: "cors",
@@ -96,7 +97,7 @@ export const authAPI = {
       });
   },
 
-  async logoutUser(form) {
+  async logoutUser(form: { token: string }) {
     return await fetch(BASE_URL + EnumEndpoints.logoutUser, {
       method: "POST",
       mode: "cors",
@@ -110,8 +111,8 @@ export const authAPI = {
       body: JSON.stringify(form),
     });
   },
-
-  async updateToken(form) {
+  
+  async updateToken(form: { token: string }) {
     return await fetch(BASE_URL + EnumEndpoints.updateToken, {
       method: "POST",
       mode: "cors",
@@ -143,7 +144,7 @@ export const authAPI = {
       credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
-        Authorization: getCookie("token"),
+        Authorization: getCookie("token") as string,
       },
       redirect: "follow",
       referrerPolicy: "no-referrer",
@@ -159,7 +160,7 @@ export const authAPI = {
         return res;
       });
   },
-  async patchAuthUser(form) {
+  async patchAuthUser(form: TLoginUserParams) {
     return await fetch(BASE_URL + EnumEndpoints.user, {
       method: "PATCH",
       mode: "cors",
@@ -167,7 +168,7 @@ export const authAPI = {
       credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
-        Authorization: getCookie("token"),
+        Authorization: getCookie("token") as string,
       },
       redirect: "follow",
       referrerPolicy: "no-referrer",
