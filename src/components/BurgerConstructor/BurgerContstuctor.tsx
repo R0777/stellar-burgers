@@ -144,7 +144,7 @@ const BurgerConstructor = () => {
           </div>
         </div>
       ) : (
-        <p className={clsx(s.text, "m-2 text_type_main-large")}>
+        <p className={clsx(s.image, "m-2 text_type_main-large")}>
           <img src={buns} alt="Булочки" />
         </p>
       )}
