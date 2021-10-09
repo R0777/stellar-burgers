@@ -128,11 +128,11 @@ const App : FC = () => {
                     "/feed/:orderId"
                 } > <Modal onClose={handleCloseOrderFeed}>
                     <FeedOrder/>
-                </Modal> < /Route>
+                </Modal> </Route>
             <Route exact path={"/profile / orders /: orderId "}>
- < Modal onClose = {
+  <Modal onClose = {
                     handleCloseProfileOrder
-                } > <FeedOrder/> < /Modal>
+                }> <FeedOrder/> </Modal>
             </Route > </>)}
 
                 {orderMade
