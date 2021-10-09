@@ -28,7 +28,6 @@ export const setCookie = (name: string, value: string, props?: any): void => {
       updatedCookie += "=" + propValue;
     }
   }
-  console.log(`### updatedCookie`, updatedCookie);
   document.cookie = updatedCookie;
 };
 

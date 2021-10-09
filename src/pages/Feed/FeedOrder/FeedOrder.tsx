@@ -39,7 +39,7 @@ const FeedOrder: FC<IFeedOrder> = ({ profile }) => {
 
   useEffect(() => {
     if (!order?.number) {
-      console.log(`checkEffect`);
+
       if (profile) {
         const accessToken = getCookie("token")?.split(" ")[1];
         dispatch(wsConnectionStart(USER_ORDERS_URL + `?token=${accessToken}`));

@@ -2,7 +2,6 @@ import React, {FC} from "react";
 import s from "./AppHeaderItem.module.scss";
 import clsx from "clsx";
 import {Link, useRouteMatch} from "react-router-dom";
-import {TWSOrder} from "../../../services/store/order/orderSlice";
 
 interface IAppHeaderItem {
     icon : JSX.Element;
