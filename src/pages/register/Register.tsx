@@ -97,7 +97,7 @@ const Register : FC < IRegister > = () => {
             </form>
             <div className={"mt-10"}>
                 <p className="text text_type_main-default text_color_inactive">
-                    Уже зарегистрированы?{" "}
+                    Зарегистрированы?{" "}
                     <Link to={"/login"} className={"text_color_link"}>
                         Войти
                     </Link>

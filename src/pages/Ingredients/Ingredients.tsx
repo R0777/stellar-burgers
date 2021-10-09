@@ -7,9 +7,9 @@ import { useSelector } from "../../services/hooks";
 
 const Ingredients = () => {
   const { ingredients } = useSelector((state) => state.ingredients);
-  const { ingredientId } = useParams();
+  const { ingredientId } = useParams<{ ingredientId?: string }>();
 
-  const ingredient = findIngredient(ingredients, ingredientId);
+  const ingredient = findIngredient(ingredients, ingredientId!);
 
   return (
     <div className={s.ingredient}>
@@ -24,7 +24,7 @@ const Ingredients = () => {
         style={{ textAlign: "center" }}
         className="text text_type_main-default mt-8"
       >
-        Котлеты
+        Котлеты для бургеров.
       </p>
     </div>
   );

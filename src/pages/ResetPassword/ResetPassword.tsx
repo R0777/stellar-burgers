@@ -1,17 +1,18 @@
-import React, {useState} from "react";
+import React, {FormEvent, useState, FC} from "react";
 import s from "./ResetPassword.module.scss";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Redirect, useHistory, useLocation} from "react-router-dom";
 import {authAPI} from "../../services/api/auth";
+import {ILocationState} from "../Login/Login";
 
-const ResetPassword = () => {
+const ResetPassword: FC = () => {
     const history = useHistory();
-    const {state} = useLocation();
+    const {state} = useLocation < ILocationState > ();
     const [password,
         setPassword] = useState("");
     const [code,
         setCode] = useState("");
-    const inputRef = React.useRef(null);
+    const inputRef = React.useRef < HTMLInputElement > (null);
     const refreshToken = localStorage.getItem("refreshToken");
 
     const onIconClick = () => {
@@ -25,13 +26,13 @@ const ResetPassword = () => {
         alert("Icon Click Callback");
     };
 
-    const handleSubmit = async(event) => {
+    const handleSubmit = async(event : FormEvent) => {
         event.preventDefault();
         try {
             await authAPI.resetPassword({password, token: code});
             history.replace({pathname: "/login"});
         } catch (err) {
-            console.log(`err`, err);
+            console.log(`### err`, err);
         }
     };
 
@@ -88,7 +89,7 @@ const ResetPassword = () => {
             </form>
             <div className={"mt-10"}>
                 <p className="text text_type_main-default text_color_inactive">
-                    Вспомнили пароль?{" "}
+                    Вспомнить пароль{" "}
                     <Link to={"/login"} className={"text_color_link"}>
                         Войти
                     </Link>
