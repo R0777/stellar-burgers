@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, FC} from "react";
 import {Route, Switch, useHistory, useLocation} from "react-router-dom";
 import history from "history";
 import s from "./App.module.scss";
@@ -37,7 +37,7 @@ interface ILocation {
     background?: history.Location;
 }
 
-function App() {
+const App : FC = () => {
     const dispatch = useDispatch();
     const location = useLocation < ILocation > ();
     const history = useHistory();
