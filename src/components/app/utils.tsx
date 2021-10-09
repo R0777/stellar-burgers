@@ -1,5 +1,10 @@
+import { SelectedIngredientsType } from "./App";
+import { TIngredient } from "../../services/store/ingredients/ingredientsSlice";
 
-export const addEl = (state, ingredient) => {
+export const addEl = (
+  state: SelectedIngredientsType,
+  ingredient: TIngredient
+) => {
   if (ingredient.type === "bun") {
     const newState = { ...state, bun: ingredient };
     return newState;
@@ -10,7 +15,9 @@ export const addEl = (state, ingredient) => {
 };
 
 export const deleteEl = (
-  state, index) => {
+  state: SelectedIngredientsType,
+  index: number | undefined
+) => {
   if (typeof index !== "undefined") {
     let newOther = [...state.other];
     newOther.splice(index, 1);
