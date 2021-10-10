@@ -31,7 +31,6 @@ const BurgerConstructorDragElement : FC < IBurgerConstructorDragElement > = ({in
                 return;
             }
 
-            console.log(`item`, item);
             const dragIndex = item.index;
             const hoverIndex = index;
 
