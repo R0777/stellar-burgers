@@ -41,11 +41,7 @@ export interface IOrderState {
 export const postOrder = createAsyncThunk(
   "order/postOrder",
   async (idArray: string[]) => {
-    try {
       return await constructorAPI.postOrder({ ingredients: idArray });
-    } catch (err: any | undefined) {
-      console.log(`err.message`, err.message);
-    }
   }
 );
 
@@ -95,6 +91,11 @@ export const orderSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(postOrder.fulfilled, (state, action) => {
       state.orderMade = action.payload;
+    })
+    builder.addCase(postOrder.rejected, (state, action) => {
+      if (action.payload) {
+        console.log(`err.message`, action.payload);
+      }
     });
   },
 });

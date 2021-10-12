@@ -34,14 +34,10 @@ export type TRegisterUserParams = {
 export const loginUser = createAsyncThunk<TLoginUserResponse, TLoginUserParams>(
   "auth/loginUser",
   async (form) => {
-    try {
       const data = await authAPI.loginUser(form);
       setCookie("token", data.accessToken, { expires: 1200 });
       localStorage.setItem("refreshToken", data.refreshToken);
       return data;
-    } catch (err:any) {
-      console.log(`err.message`, err.message);
-    }
   }
 );
 
@@ -49,33 +45,22 @@ export const registerUser = createAsyncThunk<
   TLoginUserResponse,
   TRegisterUserParams
 >("auth/registerUser", async (form) => {
-  try {
+
     const data = await authAPI.registerUser(form);
     setCookie("token", data.accessToken, { expires: 1200 });
     localStorage.setItem("refreshToken", data.refreshToken);
     return data;
-  } catch (err:any) {
-    console.log(`err.message`, err.message);
-  }
 });
 
 export const patchUser = createAsyncThunk<
   TPatchUserResponse,
   TRegisterUserParams
 >("auth/patchUser", async (form) => {
-  try {
     return await authAPI.patchAuthUser(form);
-  } catch (err: any | undefined) {
-    console.log(`err.message`, err.message);
-  }
 });
 export const getUser = createAsyncThunk("auth/getUser", async () => {
-  try {
     const res = await authAPI.getAuthUser();
     return res;
-  } catch (err: any | undefined) {
-    console.log(`err.message`, err.message);
-  }
 });
 
 export const initialState = { userData: {} as TUserData };
@@ -93,18 +78,38 @@ const authSlice = createSlice({
       if (action.payload) {
         state.userData = action.payload.user;
       }
+    })
+    builder.addCase(loginUser.rejected, (state, action) => {
+      if (action.payload) {
+      console.log(`err.message`, action.payload);
+      }
     });
     builder.addCase(registerUser.fulfilled, (state, action) => {
       if (action.payload) {
         state.userData = action.payload.user;
       }
+    })
+    builder.addCase(registerUser.rejected, (state, action) => {
+      if (action.payload) {
+      console.log(`err.message`, action.payload);
+      }
     });
     builder.addCase(patchUser.fulfilled, (state, action) => {
       state.userData = action.payload.user;
+    })
+    builder.addCase(patchUser.rejected, (state, action) => {
+      if (action.payload) {
+      console.log(`err.message`, action.payload);
+      }
     });
     builder.addCase(getUser.fulfilled, (state, action) => {
       if (action.payload) {
         state.userData = action.payload.user;
+      }
+    })
+    builder.addCase(getUser.rejected, (state, action) => {
+      if (action.payload) {
+      console.log(`err.message`, action.payload);
       }
     });
   },

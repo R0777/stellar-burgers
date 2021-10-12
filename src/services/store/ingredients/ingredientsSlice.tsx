@@ -20,11 +20,7 @@ export type TIngredient = {
 };
 
 export const fetchIngredients = createAsyncThunk("ingredients/fetchIngredients", async() => {
-    try {
         return await constructorAPI.getIngredients();
-    } catch (err : any | undefined) {
-        console.log(`### err.message`, err.message);
-    }
 });
 
 export const initialState = {
@@ -74,6 +70,11 @@ export const ingredientsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchIngredients.fulfilled, (state, action) => {
             state.ingredients = formatDataIngredients(action.payload);
+        })
+        builder.addCase(fetchIngredients.rejected, (state, action) => {
+            if (action.payload) {
+            console.log(`err.message`, action.payload);
+            }
         });
     }
 });
