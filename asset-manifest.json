@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/static/css/main.87dcbb50.chunk.css",
-    "main.js": "/static/js/main.58103b8f.chunk.js",
-    "main.js.map": "/static/js/main.58103b8f.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.9d2eb6c7.js",
-    "runtime-main.js.map": "/static/js/runtime-main.9d2eb6c7.js.map",
-    "static/css/2.9c443df0.chunk.css": "/static/css/2.9c443df0.chunk.css",
-    "static/js/2.e0a9eb02.chunk.js": "/static/js/2.e0a9eb02.chunk.js",
-    "static/js/2.e0a9eb02.chunk.js.map": "/static/js/2.e0a9eb02.chunk.js.map",
-    "static/js/3.21988cdd.chunk.js": "/static/js/3.21988cdd.chunk.js",
-    "static/js/3.21988cdd.chunk.js.map": "/static/js/3.21988cdd.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/2.9c443df0.chunk.css.map": "/static/css/2.9c443df0.chunk.css.map",
-    "static/css/main.87dcbb50.chunk.css.map": "/static/css/main.87dcbb50.chunk.css.map",
-    "static/js/2.e0a9eb02.chunk.js.LICENSE.txt": "/static/js/2.e0a9eb02.chunk.js.LICENSE.txt",
-    "static/media/NotFound.module.scss": "/static/media/404.364fef9d.jpg",
-    "static/media/fonts.css": "/static/media/iceland.77ad7fc2.woff"
+    "main.css": "../static/css/main.a6b8687e.chunk.css",
+    "main.js": "../static/js/main.58103b8f.chunk.js",
+    "main.js.map": "../static/js/main.58103b8f.chunk.js.map",
+    "runtime-main.js": "../static/js/runtime-main.a2a4c0b6.js",
+    "runtime-main.js.map": "../static/js/runtime-main.a2a4c0b6.js.map",
+    "static/css/2.d50fe690.chunk.css": "../static/css/2.d50fe690.chunk.css",
+    "static/js/2.e0a9eb02.chunk.js": "../static/js/2.e0a9eb02.chunk.js",
+    "static/js/2.e0a9eb02.chunk.js.map": "../static/js/2.e0a9eb02.chunk.js.map",
+    "static/js/3.21988cdd.chunk.js": "../static/js/3.21988cdd.chunk.js",
+    "static/js/3.21988cdd.chunk.js.map": "../static/js/3.21988cdd.chunk.js.map",
+    "index.html": "../index.html",
+    "static/css/2.d50fe690.chunk.css.map": "../static/css/2.d50fe690.chunk.css.map",
+    "static/css/main.a6b8687e.chunk.css.map": "../static/css/main.a6b8687e.chunk.css.map",
+    "static/js/2.e0a9eb02.chunk.js.LICENSE.txt": "../static/js/2.e0a9eb02.chunk.js.LICENSE.txt",
+    "static/media/NotFound.module.scss": "../static/media/404.364fef9d.jpg",
+    "static/media/fonts.css": "../static/media/iceland.77ad7fc2.woff"
   },
   "entrypoints": [
-    "static/js/runtime-main.9d2eb6c7.js",
-    "static/css/2.9c443df0.chunk.css",
+    "static/js/runtime-main.a2a4c0b6.js",
+    "static/css/2.d50fe690.chunk.css",
     "static/js/2.e0a9eb02.chunk.js",
-    "static/css/main.87dcbb50.chunk.css",
+    "static/css/main.a6b8687e.chunk.css",
     "static/js/main.58103b8f.chunk.js"
   ]
 }
