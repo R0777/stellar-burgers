@@ -31,9 +31,7 @@
     "deploy": "gh-pages -d build",
     "cypress:open": "./node_modules/.bin/cypress open"
   },
-
   "homepage": "./",
-  
   "eslintConfig": {
     "extends": [
       "react-app",
